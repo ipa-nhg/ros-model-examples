@@ -1,0 +1,9 @@
+PackageSet{package{
+    Package trajectory_msgs{ spec { 
+      TopicSpec JointTrajectory{ message { Header header string[] joint_names JointTrajectoryPoint[] points }},
+      TopicSpec JointTrajectoryPoint{ message { float64[] positions float64[] velocities float64[] accelerations float64[] effort duration time_from_start }},
+      TopicSpec MultiDOFJointTrajectory{ message { Header header string[] joint_names MultiDOFJointTrajectoryPoint[] points }},
+      TopicSpec MultiDOFJointTrajectoryPoint{ message { "geometry_msgs.Transform"[] transforms "geometry_msgs.Twist"[] velocities "geometry_msgs.Twist"[] accelerations duration time_from_start }}
+    }}
+  }
+}
