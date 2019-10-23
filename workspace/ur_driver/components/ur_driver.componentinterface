@@ -1,0 +1,16 @@
+ComponentInterface { name ur_driver
+	RosPublishers{
+		RosPublisher "joint_states" { RefPublisher "ur_modern_driver.ur_driver.ur_driver.joint_states"},
+		RosPublisher "wrench" { RefPublisher "ur_modern_driver.ur_driver.ur_driver.wrench"},
+		RosPublisher "tool_velocity" { RefPublisher "ur_modern_driver.ur_driver.ur_driver.tool_velocity"},
+		RosPublisher "ur_driver/io_states" { RefPublisher "ur_modern_driver.ur_driver.ur_driver.ur_driver/io_states"}
+	}
+	RosSubscribers{
+		RosSubscriber "ur_driver/joint_speed" { RefSubscriber "ur_modern_driver.ur_driver.ur_driver.ur_driver/joint_speed"},
+		RosSubscriber "ur_driver/URScript" { RefSubscriber "ur_modern_driver.ur_driver.ur_driver.ur_driver/URScript"}
+	}
+	RosSrvServers{
+		RosServiceServer "ur_driver/set_io" { RefServer "ur_modern_driver.ur_driver.ur_driver.ur_driver/set_io"},
+		RosServiceServer "ur_driver/set_payload" { RefServer "ur_modern_driver.ur_driver.ur_driver.ur_driver/set_payload"}
+	}
+}
