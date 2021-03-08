@@ -1,5 +1,5 @@
-PackageSet{package{
-    Package nav_msgs{spec{
+PackageSet {
+    Package nav_msgs{ Specs {
       TopicSpec GetMapAction{},
       TopicSpec GetMapActionFeedback{},
       TopicSpec GetMapActionGoal{},
@@ -16,5 +16,4 @@ PackageSet{package{
       ServiceSpec GetPlan{},
       ServiceSpec SetMap{}
     }}
-  }
 }

@@ -1,10 +1,10 @@
-PackageSet { package {
-	CatkinPackage diagnostic_aggregator { artifact {
-		Artifact aggregator_node { node Node { name aggregator_node 
-				publisher { 
+PackageSet {
+	CatkinPackage diagnostic_aggregator {
+		Artifact aggregator_node { Node { name aggregator_node 
+				Publishers { 
 				Publisher { name diagnostics_toplevel_state message "diagnostic_msgs.DiagnosticStatus" 
 				}}
-				subscriber { 
+				Subscribers { 
 				Subscriber { name diagnostics message "diagnostic_msgs.DiagnosticArray" }
 				}}}}
-}}}
+}

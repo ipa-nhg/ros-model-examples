@@ -1,5 +1,5 @@
-PackageSet{package{
-    Package robotino_msgs{spec{
+PackageSet {
+    Package robotino_msgs{ Specs {
       TopicSpec AnalogReadings{},
       TopicSpec BHAReadings{},
       TopicSpec DigitalReadings{},
@@ -23,5 +23,4 @@ PackageSet{package{
       ServiceSpec SetEncoderPosition{},
       ServiceSpec SetGripperState{}
     }}
-  }
 }

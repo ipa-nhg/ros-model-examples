@@ -1,43 +1,43 @@
-PackageSet { package { 
-  CatkinPackage cob4_3 { artifact {
+PackageSet { 
+  CatkinPackage cob4_3 {
     Artifact /battery_monitor {
-      node Node { name /battery_monitor
+      Node { name /battery_monitor
 
-        subscriber {
+        Subscribers {
           Subscriber { name '/power_state' message 'cob_msgs.PowerState'}}}},
     Artifact /docker_control/move_base_linear {
-      node Node { name /docker_control/move_base_linear
+      Node { name /docker_control/move_base_linear
 
-        serviceserver {
+        ServiceServers {
           ServiceServer { name '/docker_control/move_base_linear/set_global_frame' service 'cob_srvs.SetString'}}
-        publisher {
+        Publishers {
           Publisher { name '/base/twist_mux/command_navigation' message 'geometry_msgs.Twist'}}
-        subscriber {
+        Subscribers {
           Subscriber { name '/base/odometry_controller/odometry' message 'nav_msgs.Odometry'},
           Subscriber { name '/docker_control/move_base_linear_simple/goal' message 'geometry_msgs.PoseStamped'}}
-        actionserver {
+        ActionServers {
           ActionServer { name '/docker_control/move_base_linear/' action 'move_base_msgs.MoveBase'}}
-        actionclient {
+        ActionClients {
           ActionClient { name '/docker_control/move_base_linear/' action 'move_base_msgs.MoveBase'}}}},
     Artifact /fake_diagnostics_juansabeli_12636_2778896812811434902 {
-      node Node { name /fake_diagnostics_juansabeli_12636_2778896812811434902
+      Node { name /fake_diagnostics_juansabeli_12636_2778896812811434902
 
-        publisher {
+        Publishers {
           Publisher { name '/diagnostics' message 'diagnostic_msgs.DiagnosticArray'}}}},
     Artifact /docking_laser_filter {
-      node Node { name /docking_laser_filter
+      Node { name /docking_laser_filter
 
-        publisher {
+        Publishers {
           Publisher { name '/station_detector/scan' message 'sensor_msgs.LaserScan'}}
-        subscriber {
+        Subscribers {
           Subscriber { name '/scan_unified' message 'sensor_msgs.LaserScan'}}}},
     Artifact /bms {
-      node Node { name /bms
+      Node { name /bms
 
-        serviceserver {
+        ServiceServers {
           ServiceServer { name '/bms/set_relative_remaining_capacity' service 'cob_srvs.SetFloat'},
           ServiceServer { name '/bms/set_current' service 'cob_srvs.SetFloat'}}
-        publisher {
+        Publishers {
           Publisher { name '/bms/temperature' message 'std_msgs.Float64'},
           Publisher { name '/bms/current' message 'std_msgs.Float64'},
           Publisher { name '/bms/full_charge_capacity' message 'std_msgs.Float64'},
@@ -45,18 +45,18 @@ PackageSet { package {
           Publisher { name '/diagnostics' message 'diagnostic_msgs.DiagnosticArray'},
           Publisher { name '/bms/voltage' message 'std_msgs.Float64'}}}},
     Artifact /scan_unifier_juansabeli_12636_1913099024846273872 {
-      node Node { name /scan_unifier_juansabeli_12636_1913099024846273872
+      Node { name /scan_unifier_juansabeli_12636_1913099024846273872
 
-        publisher {
+        Publishers {
           Publisher { name '/scan_unified' message 'sensor_msgs.LaserScan'}}
-        subscriber {
+        Subscribers {
           Subscriber { name '/base_laser_right/scan' message 'sensor_msgs.LaserScan'},
           Subscriber { name '/base_laser_left/scan' message 'sensor_msgs.LaserScan'},
           Subscriber { name '/base_laser_front/scan' message 'sensor_msgs.LaserScan'}}}},
     Artifact /gazebo {
-      node Node { name /gazebo
+      Node { name /gazebo
 
-        serviceserver {
+        ServiceServers {
           ServiceServer { name '/gazebo/get_link_properties' service 'gazebo_msgs.GetLinkProperties'},
           ServiceServer { name '/base/controller_manager/unload_controller' service 'controller_manager_msgs.UnloadController'},
           ServiceServer { name '/gazebo/set_link_state' service 'gazebo_msgs.SetLinkState'},
@@ -96,7 +96,7 @@ PackageSet { package {
           ServiceServer { name '/base/odometry_controller/reset_odometry' service 'std_srvs.Trigger'},
           ServiceServer { name '/gazebo/get_model_properties' service 'gazebo_msgs.GetModelProperties'},
           ServiceServer { name '/gazebo/get_joint_properties' service 'gazebo_msgs.GetJointProperties'}}
-        publisher {
+        Publishers {
           Publisher { name '/base/twist_controller/default/steer_ctrl/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
           Publisher { name '/base_pose_ground_truth' message 'nav_msgs.Odometry'},
           Publisher { name '/base_laser_right/scan_raw' message 'sensor_msgs.LaserScan'},
@@ -117,36 +117,36 @@ PackageSet { package {
           Publisher { name '/base/odometry_controller/odometry' message 'nav_msgs.Odometry'},
           Publisher { name '/base/twist_controller/fl_caster_rotation_joint/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
           Publisher { name '/gazebo/parameter_updates' message 'dynamic_reconfigure.Config'}}
-        subscriber {
+        Subscribers {
           Subscriber { name '/gazebo/set_model_state' message 'gazebo_msgs.ModelState'},
           Subscriber { name '/base/twist_controller/command' message 'geometry_msgs.Twist'},
           Subscriber { name '/gazebo/set_link_state' message 'gazebo_msgs.LinkState'}}}},
     Artifact /robot_state_publisher {
-      node Node { name /robot_state_publisher
+      Node { name /robot_state_publisher
 
-        subscriber {
+        Subscribers {
           Subscriber { name '/joint_states' message 'sensor_msgs.JointState'}}}},
     Artifact /scan_unifier_filter {
-      node Node { name /scan_unifier_filter
+      Node { name /scan_unifier_filter
 
-        publisher {
+        Publishers {
           Publisher { name '/scan_unified_filtered' message 'sensor_msgs.LaserScan'}}
-        subscriber {
+        Subscribers {
           Subscriber { name '/scan_unified' message 'sensor_msgs.LaserScan'}}}},
     Artifact /emergency_stop_monitor {
-      node Node { name /emergency_stop_monitor
+      Node { name /emergency_stop_monitor
 
-        subscriber {
+        Subscribers {
           Subscriber { name '/diagnostics_agg' message 'diagnostic_msgs.DiagnosticArray'},
           Subscriber { name '/diagnostics_toplevel_state' message 'diagnostic_msgs.DiagnosticStatus'},
           Subscriber { name '/joint_states' message 'sensor_msgs.JointState'}}}},
     Artifact /base/twist_mux {
-      node Node { name /base/twist_mux
+      Node { name /base/twist_mux
 
-        publisher {
+        Publishers {
           Publisher { name '/base/velocity_smoother/command' message 'geometry_msgs.Twist'},
           Publisher { name '/diagnostics' message 'diagnostic_msgs.DiagnosticArray'}}
-        subscriber {
+        Subscribers {
           Subscriber { name '/base/twist_mux/command_navigation' message 'geometry_msgs.Twist'},
           Subscriber { name '/base/twist_mux/command_teleop_android' message 'geometry_msgs.Twist'},
           Subscriber { name '/base/twist_mux/locks/pause_all' message 'std_msgs.Bool'},
@@ -158,96 +158,96 @@ PackageSet { package {
           Subscriber { name '/base/twist_mux/locks/pause_navigation' message 'std_msgs.Bool'},
           Subscriber { name '/base/twist_mux/command_teleop_joy' message 'geometry_msgs.Twist'}}}},
     Artifact /dashboard_aggregator {
-      node Node { name /dashboard_aggregator
+      Node { name /dashboard_aggregator
 
-        publisher {
+        Publishers {
           Publisher { name '/dashboard_agg' message 'cob_msgs.DashboardState'}}
-        subscriber {
+        Subscribers {
           Subscriber { name '/power_state' message 'cob_msgs.PowerState'},
           Subscriber { name '/emergency_stop_state' message 'cob_msgs.EmergencyStopState'},
           Subscriber { name '/diagnostics_toplevel_state' message 'diagnostic_msgs.DiagnosticStatus'}}}},
     Artifact /teleop/teleop_node_juansabeli_12636_6647217214801012474 {
-      node Node { name /teleop/teleop_node_juansabeli_12636_6647217214801012474
+      Node { name /teleop/teleop_node_juansabeli_12636_6647217214801012474
 
-        publisher {
+        Publishers {
           Publisher { name '/base/collision_velocity_filter/command' message 'geometry_msgs.Twist'},
           Publisher { name '/base/twist_mux/command_teleop_joy' message 'geometry_msgs.Twist'}}
-        subscriber {
+        Subscribers {
           Subscriber { name '/joy' message 'sensor_msgs.Joy'}}}},
     Artifact /joint_state_publisher {
-      node Node { name /joint_state_publisher
+      Node { name /joint_state_publisher
 
-        publisher {
+        Publishers {
           Publisher { name '/joint_states' message 'sensor_msgs.JointState'}}
-        subscriber {
+        Subscribers {
           Subscriber { name '/base/joint_states' message 'sensor_msgs.JointState'}}}},
     Artifact /base/velocity_smoother {
-      node Node { name /base/velocity_smoother
+      Node { name /base/velocity_smoother
 
-        serviceserver {
+        ServiceServers {
           ServiceServer { name '/base/velocity_smoother/set_parameters' service 'dynamic_reconfigure.Reconfigure'}}
-        publisher {
+        Publishers {
           Publisher { name '/base/twist_controller/command' message 'geometry_msgs.Twist'},
           Publisher { name '/base/velocity_smoother/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
           Publisher { name '/base/velocity_smoother/parameter_updates' message 'dynamic_reconfigure.Config'}}
-        subscriber {
+        Subscribers {
           Subscriber { name '/base/twist_controller/command' message 'geometry_msgs.Twist'},
           Subscriber { name '/base/odometry_controller/odometry' message 'nav_msgs.Odometry'},
           Subscriber { name '/base/velocity_smoother/command' message 'geometry_msgs.Twist'}}}},
     Artifact /gazebo_gui {
-      node Node { name /gazebo_gui
+      Node { name /gazebo_gui
 
-        serviceserver {
+        ServiceServers {
           ServiceServer { name '/gazebo_gui/set_parameters' service 'dynamic_reconfigure.Reconfigure'}}
-        publisher {
+        Publishers {
           Publisher { name '/gazebo_gui/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
           Publisher { name '/gazebo_gui/parameter_updates' message 'dynamic_reconfigure.Config'}}}},
     Artifact /light_base {
-      node Node { name /light_base
+      Node { name /light_base
 
-        serviceserver {
+        ServiceServers {
           ServiceServer { name '/light_base/stop_mode' service 'cob_light.StopLightMode'},
           ServiceServer { name '/light_base/set_light' service 'cob_light.SetLightMode'}}
-        publisher {
+        Publishers {
           Publisher { name '/light_base/debugMulti' message 'cob_light.ColorRGBAArray'},
           Publisher { name '/light_base/debug' message 'std_msgs.ColorRGBA'},
           Publisher { name '/diagnostics' message 'diagnostic_msgs.DiagnosticArray'},
           Publisher { name '/light_base/marker' message 'visualization_msgs.Marker'}}
-        subscriber {
+        Subscribers {
           Subscriber { name '/light_base/command' message 'cob_light.ColorRGBAArray'}}}},
     Artifact /bms/power_state_aggregator {
-      node Node { name /bms/power_state_aggregator
+      Node { name /bms/power_state_aggregator
 
-        publisher {
+        Publishers {
           Publisher { name '/power_state' message 'cob_msgs.PowerState'}}
-        subscriber {
+        Subscribers {
           Subscriber { name '/bms/full_charge_capacity' message 'std_msgs.Float64'},
           Subscriber { name '/bms/voltage' message 'std_msgs.Float64'},
           Subscriber { name '/bms/temperature' message 'std_msgs.Float64'},
           Subscriber { name '/bms/current' message 'std_msgs.Float64'},
           Subscriber { name '/bms/remaining_capacity' message 'std_msgs.Float64'}}}},
     Artifact /base_laser_front/scan_filter {
-      node Node { name /base_laser_front/scan_filter
+      Node { name /base_laser_front/scan_filter
 
-        publisher {
+        Publishers {
           Publisher { name '/base_laser_front/scan' message 'sensor_msgs.LaserScan'}}
-        subscriber {
+        Subscribers {
           Subscriber { name '/base_laser_front/scan_raw' message 'sensor_msgs.LaserScan'}}}},
     Artifact /base_laser_left/scan_filter {
-      node Node { name /base_laser_left/scan_filter
+      Node { name /base_laser_left/scan_filter
 
-        publisher {
+        Publishers {
           Publisher { name '/base_laser_left/scan' message 'sensor_msgs.LaserScan'}}
-        subscriber {
+        Subscribers {
           Subscriber { name '/base_laser_left/scan_raw' message 'sensor_msgs.LaserScan'}}}},
     Artifact /collision_velocity_filter {
-      node Node { name /collision_velocity_filter
+      Node { name /collision_velocity_filter
 
-        serviceserver {
+        ServiceServers {
           ServiceServer { name '/collision_velocity_filter/set_parameters' service 'dynamic_reconfigure.Reconfigure'},
           ServiceServer { name '/collision_velocity_filter/anti_collision_costmap/obstacle_layer_0/set_parameters' service 'dynamic_reconfigure.Reconfigure'},
           ServiceServer { name '/collision_velocity_filter/anti_collision_costmap/set_parameters' service 'dynamic_reconfigure.Reconfigure'}}
-        publisher {
+        Publishers {
           Publisher { name '/collision_velocity_filter/anti_collision_costmap/obstacle_layer_0/parameter_updates' message 'dynamic_reconfigure.Config'},
           Publisher { name '/collision_velocity_filter/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
           Publisher { name '/collision_velocity_filter/anti_collision_costmap/parameter_updates' message 'dynamic_reconfigure.Config'},
@@ -260,52 +260,52 @@ PackageSet { package {
           Publisher { name '/collision_velocity_filter/anti_collision_costmap/costmap' message 'nav_msgs.OccupancyGrid'},
           Publisher { name '/collision_velocity_filter/velocity_limited_marker' message 'visualization_msgs.Marker'},
           Publisher { name '/collision_velocity_filter/parameter_updates' message 'dynamic_reconfigure.Config'}}
-        subscriber {
+        Subscribers {
           Subscriber { name '/collision_velocity_filter/anti_collision_costmap/footprint' message 'geometry_msgs.PolygonStamped'},
           Subscriber { name '/base/collision_velocity_filter/command' message 'geometry_msgs.Twist'},
           Subscriber { name '/scan_unified_filtered' message 'sensor_msgs.LaserScan'}}}},
     Artifact /fake_collission_monitor {
-      node Node { name /fake_collission_monitor
+      Node { name /fake_collission_monitor
 
-        publisher {
+        Publishers {
           Publisher { name '/safety_controller/state_is_valid' message 'std_msgs.Bool'}}}},
     Artifact /base/twist_marker {
-      node Node { name /base/twist_marker
+      Node { name /base/twist_marker
 
-        publisher {
+        Publishers {
           Publisher { name '/base/twist_mux/marker' message 'visualization_msgs.Marker'}}
-        subscriber {
+        Subscribers {
           Subscriber { name '/base/velocity_smoother/command' message 'geometry_msgs.Twist'}}}},
     Artifact /diagnostic_aggregator {
-      node Node { name /diagnostic_aggregator
+      Node { name /diagnostic_aggregator
 
-        serviceserver {
+        ServiceServers {
           ServiceServer { name '/diagnostics_agg/add_diagnostics' service 'diagnostic_msgs.AddDiagnostics'}}
-        publisher {
+        Publishers {
           Publisher { name '/diagnostics_agg' message 'diagnostic_msgs.DiagnosticArray'},
           Publisher { name '/diagnostics_toplevel_state' message 'diagnostic_msgs.DiagnosticStatus'}}
-        subscriber {
+        Subscribers {
           Subscriber { name '/diagnostics' message 'diagnostic_msgs.DiagnosticArray'}}}},
     Artifact /base_laser_right/scan_filter {
-      node Node { name /base_laser_right/scan_filter
+      Node { name /base_laser_right/scan_filter
 
-        publisher {
+        Publishers {
           Publisher { name '/base_laser_right/scan' message 'sensor_msgs.LaserScan'}}
-        subscriber {
+        Subscribers {
           Subscriber { name '/base_laser_right/scan_raw' message 'sensor_msgs.LaserScan'}}}},
     Artifact /base/fake_driver {
-      node Node { name /base/fake_driver
+      Node { name /base/fake_driver
 
-        serviceserver {
+        ServiceServers {
           ServiceServer { name '/base/driver/init' service 'std_srvs.Trigger'},
           ServiceServer { name '/base/driver/shutdown' service 'std_srvs.Trigger'},
           ServiceServer { name '/base/driver/halt' service 'std_srvs.Trigger'},
           ServiceServer { name '/base/driver/recover' service 'std_srvs.Trigger'}}
-        publisher {
+        Publishers {
           Publisher { name '/diagnostics' message 'diagnostic_msgs.DiagnosticArray'}}}},
     Artifact /script_server {
-      node Node { name /script_server
+      Node { name /script_server
 
-        serviceserver {
+        ServiceServers {
           ServiceServer { name '/script_server/compose_trajectory' service 'cob_script_server.ComposeTrajectory'}}}}
-}}}}
+}}

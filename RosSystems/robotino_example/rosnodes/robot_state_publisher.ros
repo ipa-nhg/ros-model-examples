@@ -1,5 +1,5 @@
-PackageSet { package {
-	CatkinPackage robot_state_publisher{ artifact {
+PackageSet {
+	CatkinPackage robot_state_publisher{
 		Artifact  robot_state_publisher_node {
-			node Node { name robot_state_publisher publisher { Publisher { name tf message "tf2_msgs.TFMessage" } } subscriber { Subscriber { name joint_states message "sensor_msgs.JointState" } } }
-		}}}}}
+			Node { name robot_state_publisher Publishers { Publisher { name tf message "tf2_msgs.TFMessage" } } Subscribers { Subscriber { name joint_states message "sensor_msgs.JointState" } } }
+		}}}

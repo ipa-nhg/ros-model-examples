@@ -78,8 +78,8 @@
       <target xmi:type="ros:Node" href="rosnodes/joy.ros#//@package.0/@artifact.0/@node"/>
       <semanticElements xmi:type="ros:Node" href="rosnodes/joy.ros#//@package.0/@artifact.0/@node"/>
       <ownedBorderedNodes xmi:type="diagram:DNode" uid="_mArCUBgAEeqnldYXm10Q0Q" name="joy" tooltipText="Topic" width="2" height="2" resizeKind="NSEW">
-        <target xmi:type="ros:Publisher" href="rosnodes/joy.ros#//@package.0/@artifact.0/@node/@publisher.0"/>
-        <semanticElements xmi:type="ros:Publisher" href="rosnodes/joy.ros#//@package.0/@artifact.0/@node/@publisher.0"/>
+        <target xmi:type="ros:Publisher" href="rosnodes/joy.ros#//@package.0/@artifact.0/@node/@Publishers.0"/>
+        <semanticElements xmi:type="ros:Publisher" href="rosnodes/joy.ros#//@package.0/@artifact.0/@node/@Publishers.0"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
         <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
         <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
@@ -90,8 +90,8 @@
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/de.fraunhofer.ipa.ros.sirius/description/ros.odesign#//@ownedViewpoints[name='component']/@ownedRepresentations[name='Artifact%20diagram']/@defaultLayer/@containerMappings[name='Node']/@borderedNodeMappings[name='RosPublisher']"/>
       </ownedBorderedNodes>
       <ownedBorderedNodes xmi:type="diagram:DNode" uid="_mArpYRgAEeqnldYXm10Q0Q" name="diagnostics" tooltipText="Topic" width="2" height="2" resizeKind="NSEW">
-        <target xmi:type="ros:Publisher" href="rosnodes/joy.ros#//@package.0/@artifact.0/@node/@publisher.1"/>
-        <semanticElements xmi:type="ros:Publisher" href="rosnodes/joy.ros#//@package.0/@artifact.0/@node/@publisher.1"/>
+        <target xmi:type="ros:Publisher" href="rosnodes/joy.ros#//@package.0/@artifact.0/@node/@Publishers.1"/>
+        <semanticElements xmi:type="ros:Publisher" href="rosnodes/joy.ros#//@package.0/@artifact.0/@node/@Publishers.1"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
         <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
         <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
@@ -102,8 +102,8 @@
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/de.fraunhofer.ipa.ros.sirius/description/ros.odesign#//@ownedViewpoints[name='component']/@ownedRepresentations[name='Artifact%20diagram']/@defaultLayer/@containerMappings[name='Node']/@borderedNodeMappings[name='RosPublisher']"/>
       </ownedBorderedNodes>
       <ownedBorderedNodes xmi:type="diagram:DNode" uid="_mAsQcRgAEeqnldYXm10Q0Q" name="joy/set_feedback" tooltipText="Topic" width="2" height="2" resizeKind="NSEW">
-        <target xmi:type="ros:Subscriber" href="rosnodes/joy.ros#//@package.0/@artifact.0/@node/@subscriber.0"/>
-        <semanticElements xmi:type="ros:Subscriber" href="rosnodes/joy.ros#//@package.0/@artifact.0/@node/@subscriber.0"/>
+        <target xmi:type="ros:Subscriber" href="rosnodes/joy.ros#//@package.0/@artifact.0/@node/@Subscribers.0"/>
+        <semanticElements xmi:type="ros:Subscriber" href="rosnodes/joy.ros#//@package.0/@artifact.0/@node/@Subscribers.0"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
         <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
         <arrangeConstraints>KEEP_RATIO</arrangeConstraints>

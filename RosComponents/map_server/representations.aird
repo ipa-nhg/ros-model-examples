@@ -78,8 +78,8 @@
       <target xmi:type="ros:Node" href="rosnodes/map_server.ros#//@package.0/@artifact.0/@node"/>
       <semanticElements xmi:type="ros:Node" href="rosnodes/map_server.ros#//@package.0/@artifact.0/@node"/>
       <ownedBorderedNodes xmi:type="diagram:DNode" uid="_f2skMPPhEembV9EXF-GbHg" name="map_metadata" tooltipText="Topic" width="2" height="2" resizeKind="NSEW">
-        <target xmi:type="ros:Publisher" href="rosnodes/map_server.ros#//@package.0/@artifact.0/@node/@publisher.0"/>
-        <semanticElements xmi:type="ros:Publisher" href="rosnodes/map_server.ros#//@package.0/@artifact.0/@node/@publisher.0"/>
+        <target xmi:type="ros:Publisher" href="rosnodes/map_server.ros#//@package.0/@artifact.0/@node/@Publishers.0"/>
+        <semanticElements xmi:type="ros:Publisher" href="rosnodes/map_server.ros#//@package.0/@artifact.0/@node/@Publishers.0"/>
         <ownedStyle xmi:type="diagram:Square" uid="_f2tLQPPhEembV9EXF-GbHg" labelSize="10" showIcon="false" width="2" height="2" color="0,0,0">
           <labelFormat>bold</labelFormat>
           <description xmi:type="style:SquareDescription" href="platform:/plugin/de.fraunhofer.ipa.ros.sirius/description/ros.odesign#//@ownedViewpoints[name='component']/@ownedRepresentations[name='Artifact%20diagram']/@defaultLayer/@containerMappings[name='Node']/@borderedNodeMappings[name='RosPublisher']/@style"/>
@@ -87,8 +87,8 @@
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/de.fraunhofer.ipa.ros.sirius/description/ros.odesign#//@ownedViewpoints[name='component']/@ownedRepresentations[name='Artifact%20diagram']/@defaultLayer/@containerMappings[name='Node']/@borderedNodeMappings[name='RosPublisher']"/>
       </ownedBorderedNodes>
       <ownedBorderedNodes xmi:type="diagram:DNode" uid="_xSwycPPhEembV9EXF-GbHg" name="map" tooltipText="Topic" width="2" height="2" resizeKind="NSEW">
-        <target xmi:type="ros:Publisher" href="rosnodes/map_server.ros#//@package.0/@artifact.0/@node/@publisher.1"/>
-        <semanticElements xmi:type="ros:Publisher" href="rosnodes/map_server.ros#//@package.0/@artifact.0/@node/@publisher.1"/>
+        <target xmi:type="ros:Publisher" href="rosnodes/map_server.ros#//@package.0/@artifact.0/@node/@Publishers.1"/>
+        <semanticElements xmi:type="ros:Publisher" href="rosnodes/map_server.ros#//@package.0/@artifact.0/@node/@Publishers.1"/>
         <ownedStyle xmi:type="diagram:Square" uid="_xSwycfPhEembV9EXF-GbHg" labelSize="10" showIcon="false" width="2" height="2" color="0,0,0">
           <labelFormat>bold</labelFormat>
           <description xmi:type="style:SquareDescription" href="platform:/plugin/de.fraunhofer.ipa.ros.sirius/description/ros.odesign#//@ownedViewpoints[name='component']/@ownedRepresentations[name='Artifact%20diagram']/@defaultLayer/@containerMappings[name='Node']/@borderedNodeMappings[name='RosPublisher']/@style"/>
@@ -96,8 +96,8 @@
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/de.fraunhofer.ipa.ros.sirius/description/ros.odesign#//@ownedViewpoints[name='component']/@ownedRepresentations[name='Artifact%20diagram']/@defaultLayer/@containerMappings[name='Node']/@borderedNodeMappings[name='RosPublisher']"/>
       </ownedBorderedNodes>
       <ownedBorderedNodes xmi:type="diagram:DNode" uid="_8475cPPjEembV9EXF-GbHg" name="static_map" tooltipText="Topic" width="2" height="2" resizeKind="NSEW">
-        <target xmi:type="ros:ServiceServer" href="rosnodes/map_server.ros#//@package.0/@artifact.0/@node/@serviceserver.0"/>
-        <semanticElements xmi:type="ros:ServiceServer" href="rosnodes/map_server.ros#//@package.0/@artifact.0/@node/@serviceserver.0"/>
+        <target xmi:type="ros:ServiceServer" href="rosnodes/map_server.ros#//@package.0/@artifact.0/@node/@ServiceServers.0"/>
+        <semanticElements xmi:type="ros:ServiceServer" href="rosnodes/map_server.ros#//@package.0/@artifact.0/@node/@ServiceServers.0"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
         <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
         <arrangeConstraints>KEEP_RATIO</arrangeConstraints>

@@ -1,5 +1,5 @@
-PackageSet{package{
-    Package tf2_msgs{spec{
+PackageSet {
+    Package tf2_msgs{ Specs {
       TopicSpec LookupTransformAction{},
       TopicSpec LookupTransformActionFeedback{},
       TopicSpec LookupTransformActionGoal{},
@@ -11,5 +11,4 @@ PackageSet{package{
       TopicSpec TFMessage{},
       ServiceSpec FrameGraph{}
     }}
-  }
 }
