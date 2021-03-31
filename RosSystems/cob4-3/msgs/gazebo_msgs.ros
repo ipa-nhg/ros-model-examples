@@ -1,5 +1,5 @@
-PackageSet{package{
-    Package gazebo_msgs{spec{
+PackageSet {
+    Package gazebo_msgs{ Specs {
       TopicSpec ContactState{},
       TopicSpec ContactsState{},
       TopicSpec LinkState{},
@@ -33,5 +33,4 @@ PackageSet{package{
       ServiceSpec SetPhysicsProperties{},
       ServiceSpec SpawnModel{}
     }}
-  }
 }

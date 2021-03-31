@@ -1,5 +1,5 @@
-PackageSet{package{
-    Package cob_sound{spec{
+PackageSet {
+    Package cob_sound{ Specs {
       TopicSpec PlayAction{},
       TopicSpec PlayActionFeedback{},
       TopicSpec PlayActionGoal{},
@@ -15,5 +15,4 @@ PackageSet{package{
       TopicSpec SayGoal{},
       TopicSpec SayResult{}
     }}
-  }
 }

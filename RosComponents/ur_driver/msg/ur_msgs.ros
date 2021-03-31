@@ -1,5 +1,5 @@
-PackageSet{package{
-    Package ur_msgs{ spec { 
+PackageSet {
+    Package ur_msgs{ Specs { 
       TopicSpec Analog{ message { uint8 VOLTAGE=0 uint8 CURRENT=1 uint8 pin uint8 domain float32 state }},
       TopicSpec Digital{ message { uint8 pin bool state }},
       TopicSpec IOStates{ message { Digital[] digital_in_states Digital[] digital_out_states Digital[] flag_states Analog[] analog_in_states Analog[] analog_out_states }},
@@ -11,5 +11,4 @@ PackageSet{package{
       ServiceSpec SetPayload{ request { float32 payload } response { bool success } },
       ServiceSpec SetSpeedSliderFraction{ request { float64 speed_slider_fraction } response { bool success } }
     }}
-  }
 }

@@ -1,5 +1,5 @@
-PackageSet{package{
-    Package cob_light{ spec { 
+PackageSet{
+    Package cob_light{ Specs { 
       TopicSpec ColorRGBAArray{ message { "std_msgs.ColorRGBA"[] colors }},
       TopicSpec LightMode{ message { uint8 mode float32 frequency float32 timeout int32 pulses int8 priority "std_msgs.ColorRGBA"[] colors "cob_light.Sequence"[] sequences }},
       TopicSpec Sequence{ message { "std_msgs.ColorRGBA" color float32 hold_time float32 cross_time }},
@@ -14,5 +14,4 @@ PackageSet{package{
       TopicSpec LightModes{ message { uint8 NONE uint8 STATIC uint8 FLASH uint8 BREATH uint8 BREATH_COLOR uint8 FADE_COLOR uint8 SEQ uint8 CIRCLE_COLORS uint8 SWEEP uint8 DIST_APPROX uint8 GLOW uint8 XMAS }},
       ServiceSpec StopLightMode{ request { uint64 track_id } response { uint8 active_mode uint8 active_priority uint64 track_id } }
     }}
-  }
 }
