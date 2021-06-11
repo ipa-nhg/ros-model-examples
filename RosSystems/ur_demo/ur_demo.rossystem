@@ -1,0 +1,229 @@
+RosSystem { Name 'ur_demo' 
+	RosComponents (
+    ComponentInterface { name controller_stopper
+    	FromRosNode "controller_stopper.controller_stopper_node.controller_stopper_node" 
+    	RosSubscribers {
+    		RosSubscriber "ur_hardware_interface/robot_program_running" { RefSubscriber "controller_stopper.controller_stopper_node.controller_stopper_node.robot_running"}}
+    	RosParameters { 
+    		RosParameter consistent_controllers { ns controller_stopper RefParameter "controller_stopper.controller_stopper_node.controller_stopper_node.consistent_controllers" value {'joint_state_controller', 'speed_scaling_state_controller', 'force_torque_sensor_controller', 'robot_status_controller'}}  }
+    	} ,
+    ComponentInterface { name ur_robot_state_helper NameSpace ur_hardware_interface
+    	FromRosNode "ur_robot_driver.robot_state_helper.ur_robot_state_helper"
+    	RosSubscribers { 
+    		RosSubscriber "ur_hardware_interface/safety_mode" { ns ur_hardware_interface RefSubscriber "ur_robot_driver.robot_state_helper.ur_robot_state_helper.safety_mode" } , 
+    	    RosSubscriber "ur_hardware_interface/robot_mode" { ns ur_hardware_interface RefSubscriber "ur_robot_driver.robot_state_helper.ur_robot_state_helper.robot_mode" }} 
+    	RosActionServers { RosActionServer "ur_hardware_interface/set_mode" { ns ur_hardware_interface RefServer "ur_robot_driver.robot_state_helper.ur_robot_state_helper.set_mode" }}
+        } ,
+    ComponentInterface { name ros_control_controller_spawner 
+    	FromRosNode "controller_manager.spawner.ros_control_controller_spawner"
+    	RosActionServers { RosActionServer "ur_hardware_interface/set_mode" { ns ur_hardware_interface RefServer "ur_robot_driver.robot_state_helper.ur_robot_state_helper.set_mode" }}
+        RosParameters{ 
+			RosParameter "/hardware_control_loop/loop_hz" { RefParameter "controller_manager.spawner.ros_control_controller_spawner./hardware_control_loop/loop_hz" value 500},
+			RosParameter "/ur_hardware_interface/joints" { RefParameter "controller_manager.spawner.ros_control_controller_spawner./ur_hardware_interface/joints" value {'shoulder_pan_joint', 'shoulder_lift_joint', 'elbow_joint', 'wrist_1_joint', 'wrist_2_joint', 'wrist_3_joint'}},
+			RosParameter "/joint_state_controller/type" { RefParameter "controller_manager.spawner.ros_control_controller_spawner./joint_state_controller/type" value 'joint_state_controller/JointStateController'},
+			RosParameter "/joint_state_controller/publish_rate" { RefParameter "controller_manager.spawner.ros_control_controller_spawner./joint_state_controller/publish_rate" value 500},
+			RosParameter "/force_torque_sensor_controller/type" { RefParameter "controller_manager.spawner.ros_control_controller_spawner./force_torque_sensor_controller/type" value 'force_torque_sensor_controller/ForceTorqueSensorController'},
+			RosParameter "/force_torque_sensor_controller/publish_rate" { RefParameter "controller_manager.spawner.ros_control_controller_spawner./force_torque_sensor_controller/publish_rate" value 500},
+			RosParameter "/speed_scaling_state_controller/type" { RefParameter "controller_manager.spawner.ros_control_controller_spawner./speed_scaling_state_controller/type" value 'ur_controllers/SpeedScalingStateController'},
+			RosParameter "/speed_scaling_state_controller/publish_rate" { RefParameter "controller_manager.spawner.ros_control_controller_spawner./speed_scaling_state_controller/publish_rate" value 500},
+			RosParameter "/joint_group_vel_controller/type" { RefParameter "controller_manager.spawner.ros_control_controller_spawner./joint_group_vel_controller/type" value 'velocity_controllers/JointGroupVelocityController'},
+			RosParameter "/robot_status_controller/type" { RefParameter "controller_manager.spawner.ros_control_controller_spawner./robot_status_controller/type" value 'industrial_robot_status_controller/IndustrialRobotStatusController'},
+			RosParameter "/robot_status_controller/publish_rate" { RefParameter "controller_manager.spawner.ros_control_controller_spawner./robot_status_controller/publish_rate" value 10},
+			RosParameter "/robot_status_controller/handle_name" { RefParameter "controller_manager.spawner.ros_control_controller_spawner./robot_status_controller/handle_name" value 'industrial_robot_status_handle'}
+			,RosParameter "scaled_pos_joint_traj_controller" { RefParameter "controller_manager.spawner.ros_control_controller_spawner.scaled_pos_joint_traj_controller"
+			value { 
+			{ joints { value {'shoulder_pan_joint','shoulder_lift_joint','elbow_joint','wrist_1_joint','wrist_2_joint','wrist_3_joint'}}},// }} //, 
+			{'type' { value 'position_controllers/ScaledJointTrajectoryController'}},
+			{constraints { value { 
+				{goal_time {value 0.6}},
+				{stopped_velocity_tolerance {value 0.05}},
+				{shoulder_pan_joint { value { {trajectory {value 0.2}},{'goal' {value 0.1 }}}}},
+				{shoulder_lift_joint {value { {trajectory {value 0.2}}, {'goal' {value 0.1 }}}}},
+				{elbow_joint  { value { {trajectory {value 0.2}}, {'goal' {value 0.1}}}}},
+				{wrist_1_joint { value { {trajectory {value 0.2}}, {'goal' {value 0.1}}}}},
+				{wrist_2_joint { value { {trajectory {value 0.2}}, {'goal' {value 0.1}}}}},
+				{wrist_3_joint { value { {trajectory {value 0.2}}, {'goal' {value 0.1}}}}}}}},
+			{stop_trajectory_duration { value 0.5 }}, 
+			{state_publish_rate { value 500.0 }}, 
+			{action_monitor_rate { value 20}}}}
+			,RosParameter "pos_joint_traj_controller" { RefParameter "controller_manager.spawner.ros_control_controller_spawner.pos_joint_traj_controller"
+			value { 
+			{'type' { value 'position_controllers/JointTrajectoryController'}},
+			{joints { value {'shoulder_pan_joint','shoulder_lift_joint','elbow_joint','wrist_1_joint','wrist_2_joint','wrist_3_joint'}}},
+			{constraints { value {
+				{goal_time {value 0.6}}, 
+				{stopped_velocity_tolerance {value 0.05}},
+				{shoulder_pan_joint { value { {trajectory {value 0.2}},{'goal' {value 0.1 }}}}},
+				{shoulder_lift_joint {value { {trajectory {value 0.2}}, {'goal' {value 0.1 }}}}},
+				{elbow_joint  { value { {trajectory {value 0.2}}, {'goal' {value 0.1}}}}},
+				{wrist_1_joint { value { {trajectory {value 0.2}}, {'goal' {value 0.1}}}}},
+				{wrist_2_joint { value { {trajectory {value 0.2}}, {'goal' {value 0.1}}}}},
+				{wrist_3_joint { value { {trajectory {value 0.2}}, {'goal' {value 0.1}}}}}}}},
+			{stop_trajectory_duration { value 0.5 }},
+			{state_publish_rate { value 500.0 }}, 
+			{action_monitor_rate { value 20}}}},
+			RosParameter "scaled_vel_joint_traj_controller" { RefParameter "controller_manager.spawner.ros_control_controller_spawner.scaled_vel_joint_traj_controller"
+			value {
+			{'type' { value 'position_controllers/JointTrajectoryController'}},
+			{joints { value {'shoulder_pan_joint','shoulder_lift_joint','elbow_joint','wrist_1_joint','wrist_2_joint','wrist_3_joint'}}},
+			{constraints { value { 
+				{goal_time {value 0.6}}, 
+				{stopped_velocity_tolerance {value 0.05}},
+				{shoulder_pan_joint { value { {trajectory {value 0.1}},{'goal' {value 0.1}}}},
+				{shoulder_lift_joint {value { {trajectory {value 0.1}}, {'goal' {value 0.1}}}}},
+				{elbow_joint  { value { {trajectory {value 0.1}}, {'goal' {value 0.1}}}}},
+				{wrist_1_joint { value { {trajectory {value 0.1}}, {'goal' {value 0.1}}}}},
+				{wrist_2_joint { value { {trajectory {value 0.1}}, {'goal' {value 0.1}}}}},
+				{wrist_3_joint { value { {trajectory {value 0.1}}, {'goal' {value 0.1}}}}}}}}},
+			{gains { value {
+				{shoulder_pan_joint { value { {p {value 5.0}}, {i {value 0.05}}, {d {value 0.1}}, {i_clamp {value 1}}}}},
+				{shoulder_lift_joint { value { {p {value 5.0}}, {i {value 0.05}}, {d {value 0.1}}, {i_clamp {value 1}}}}},
+				{elbow_joint  { value { {p {value 5.0}}, {i {value 0.05}}, {d {value 0.1}}, {i_clamp {value 1}}}}},
+				{wrist_1_joint { value { {p {value 5.0}}, {i {value 0.05}}, {d {value 0.1}}, {i_clamp {value 1}}}}},
+				{wrist_2_joint { value { {p {value 5.0}}, {i {value 0.05}}, {d {value 0.1}}, {i_clamp {value 1}}}}},
+				{wrist_3_joint { value { {p {value 5.0}}, {i {value 0.05}}, {d {value 0.1}}, {i_clamp {value 1}}}}}}}},
+			{velocity_ff { value {
+				{shoulder_pan_joint { value { 1.0 }}},
+				{shoulder_lift_joint { value { 1.0 }}},
+				{elbow_joint { value { 1.0 }}},
+				{wrist_1_joint { value { 1.0 }}},
+				{wrist_2_joint { value { 1.0 }}},
+				{wrist_3_joint { value { 1.0 }}}}}},
+			{stop_trajectory_duration { value 0.5 }}, 
+			{state_publish_rate { value 500.0 }},
+			{action_monitor_rate { value 20}}}}, 
+			RosParameter "vel_joint_traj_controller" { RefParameter "controller_manager.spawner.ros_control_controller_spawner.vel_joint_traj_controller"
+			value { 
+			{'type' { value 'velocity_controllers/JointTrajectoryController'}},
+			{joints { value {'shoulder_pan_joint','shoulder_lift_joint','elbow_joint','wrist_1_joint','wrist_2_joint','wrist_3_joint'}}},
+			{constraints { value {
+				{goal_time {value 0.6}},
+				{stopped_velocity_tolerance {value 0.05}},
+				{shoulder_pan_joint { value { {trajectory {value 0.1}},{'goal' {value 0.1}}}},
+				{shoulder_lift_joint {value { {trajectory {value 0.1}}, {'goal' {value 0.1}}}}},
+				{elbow_joint  { value { {trajectory {value 0.1}}, {'goal' {value 0.1}}}}},
+				{wrist_1_joint { value { {trajectory {value 0.1}}, {'goal' {value 0.1}}}}},
+				{wrist_2_joint { value { {trajectory {value 0.1}}, {'goal' {value 0.1}}}}},
+				{wrist_3_joint { value { {trajectory {value 0.1}}, {'goal' {value 0.1}}}}}}}}},
+			{gains { value {
+				{shoulder_pan_joint { value { {p {value 5.0}}, {i {value 0.05}}, {d {value 0.1}}, {i_clamp {value 1}}}}},
+				{shoulder_lift_joint { value { {p {value 5.0}}, {i {value 0.05}}, {d {value 0.1}}, {i_clamp {value 1}}}}},
+				{elbow_joint  { value { {p {value 5.0}}, {i {value 0.05}}, {d {value 0.1}}, {i_clamp {value 1}}}}},
+				{wrist_1_joint { value { {p {value 5.0}}, {i {value 0.05}}, {d {value 0.1}}, {i_clamp {value 1}}}}},
+				{wrist_2_joint { value { {p {value 5.0}}, {i {value 0.05}}, {d {value 0.1}}, {i_clamp {value 1}}}}},
+				{wrist_3_joint { value { {p {value 5.0}}, {i {value 0.05}}, {d {value 0.1}}, {i_clamp {value 1}}}}}}}},
+			{velocity_ff { value {
+				{shoulder_pan_joint { value { 1.0 }}},
+				{shoulder_lift_joint { value { 1.0 }}},
+				{elbow_joint { value { 1.0 }}}, 
+				{wrist_1_joint { value { 1.0 }}},
+				{wrist_2_joint { value { 1.0 }}}, 
+				{wrist_3_joint { value { 1.0 }}}}}}, 
+			{stop_trajectory_duration { value 0.5 }},
+			{state_publish_rate { value 500 }},
+			{action_monitor_rate { value 20}}}}
+	  }},
+      ComponentInterface { name robot_state_publisher 
+     	FromRosNode "robot_state_publisher.robot_state_publisher.robot_state_publisher"
+    	RosSubscribers {
+    	      RosSubscriber joint_states { RefSubscriber "robot_state_publisher.robot_state_publisher.robot_state_publisher.joint_states" }}
+    	} , 
+     ComponentInterface { name ur_hardware_interface
+     	FromRosNode "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface" 
+     	RosPublishers { 
+     		RosPublisher "ur_hardware_interface/safety_mode" { RefPublisher "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/safety_mode" } , 
+     		RosPublisher "pos_joint_traj_controller/state" { RefPublisher "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.pos_joint_traj_controller/state" } , 
+     		RosPublisher "ur_hardware_interface/tool_data" { RefPublisher "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/tool_data" } , 
+     		RosPublisher "scaled_pos_joint_traj_controller/state" { RefPublisher "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.scaled_pos_joint_traj_controller/state" } , 
+     		RosPublisher "ur_hardware_interface/robot_program_running" { RefPublisher "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/robot_program_running" } , 
+     		RosPublisher speed_scaling_factor { RefPublisher "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.speed_scaling_factor" } , 
+     		RosPublisher "ur_hardware_interface/io_states" { RefPublisher "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/io_states" } , 
+     		RosPublisher "ur_hardware_interface/robot_mode" { RefPublisher "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/robot_mode" } , 
+     		RosPublisher joint_states { RefPublisher "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.joint_states" } , 
+     		RosPublisher wrench { RefPublisher "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.wrench" }} 
+     	RosSubscribers { 
+     		RosSubscriber "ur_hardware_interface/script_command" { RefSubscriber "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/script_command" } , 
+     		RosSubscriber "joint_group_vel_controller/command" { RefSubscriber "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.joint_group_vel_controller/command" } , 
+     		RosSubscriber "scaled_pos_joint_traj_controller/command" { RefSubscriber "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.scaled_pos_joint_traj_controller/command" } , 
+     		RosSubscriber "pos_joint_traj_controller/command" { RefSubscriber "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.pos_joint_traj_controller/command" }}
+     	RosSrvServers { 
+     		RosServiceServer "ur_hardware_interface/dashboard/close_safety_popup" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/close_safety_popup" } , 
+     		RosServiceServer "controller_manager/unload_controller" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.controller_manager/unload_controller" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/clear_operational_mode" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/clear_operational_mode" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/restart_safety" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/restart_safety" } , 
+     		RosServiceServer "ur_hardware_interface/hand_back_control" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/hand_back_control" } , 
+     		RosServiceServer "ur_hardware_interface/set_payload" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/set_payload" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/load_installation" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/load_installation" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/load_program" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/load_program" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/shutdown" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/shutdown" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/program_running" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/program_running" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/power_off" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/power_off" } , 
+     		RosServiceServer "ur_hardware_interface/set_io" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/set_io" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/program_saved" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/program_saved" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/connect" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/connect" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/get_safety_mode" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/get_safety_mode" } , 
+     		RosServiceServer "controller_manager/switch_controller" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.controller_manager/switch_controller" } , 
+     		RosServiceServer "controller_manager/list_controller_types" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.controller_manager/list_controller_types" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/add_to_log" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/add_to_log" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/popup" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/popup" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/play" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/play" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/close_popup" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/close_popup" } , 
+     		RosServiceServer "controller_manager/reload_controller_libraries" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.controller_manager/reload_controller_libraries" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/raw_request" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/raw_request" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/pause" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/pause" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/power_on" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/power_on" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/unlock_protective_stop" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/unlock_protective_stop" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/brake_release" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/brake_release" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/program_state" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/program_state" } , 
+     		RosServiceServer "scaled_pos_joint_traj_controller/query_state" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.scaled_pos_joint_traj_controller/query_state" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/get_robot_mode" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/get_robot_mode" } , 
+     		RosServiceServer "controller_manager/load_controller" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.controller_manager/load_controller" } , 
+     		RosServiceServer "pos_joint_traj_controller/query_state" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.pos_joint_traj_controller/query_state" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/quit" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/quit" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/stop" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/stop" } , 
+     		RosServiceServer "ur_hardware_interface/set_speed_slider" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/set_speed_slider" } , 
+     		RosServiceServer "ur_hardware_interface/zero_ftsensor" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/zero_ftsensor" } , 
+     		RosServiceServer "ur_hardware_interface/dashboard/get_loaded_program" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.ur_hardware_interface/dashboard/get_loaded_program" } , 
+     		RosServiceServer "controller_manager/list_controllers" { RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.controller_manager/list_controllers" } } 
+     	RosActionServers { 
+     		RosActionServer "pos_joint_traj_controller/follow_joint_trajectory" { ns "" RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.pos_joint_traj_controller/follow_joint_trajectory" } , 
+     		RosActionServer "scaled_pos_joint_traj_controller/follow_joint_trajectory" { ns "" RefServer "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.scaled_pos_joint_traj_controller/follow_joint_trajectory" } } 
+     	RosParameters {
+		    RosParameter script_sender_port { RefParameter "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.script_sender_port" value 50002} , 
+		    RosParameter use_tool_communication { RefParameter "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.use_tool_communication" value false} , 
+		    RosParameter tf_prefix { RefParameter "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.tf_prefix" value ""} , 
+		    RosParameter input_recipe_file { RefParameter "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.input_recipe_file" value ""} , 
+		    RosParameter script_file { RefParameter "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.script_file" value ""} , 
+		    RosParameter robot_ip { RefParameter "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.robot_ip" value '192.168.56.101'} , 
+		    RosParameter tool_tx_idle_chars { RefParameter "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.tool_tx_idle_chars" value 3.5} , 
+		    RosParameter tool_stop_bits { RefParameter "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.tool_stop_bits" value 1} , 
+		    RosParameter output_recipe_file { RefParameter "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.output_recipe_file" value ""} , 
+		    RosParameter tool_rx_idle_chars { RefParameter "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.tool_rx_idle_chars" value 1.5} , 
+		    RosParameter tool_voltage { RefParameter "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.tool_voltage" value 0} , 
+		    RosParameter tool_baud_rate { RefParameter "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.tool_baud_rate" value 115200} , 
+		    RosParameter tool_parity { RefParameter "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.tool_parity" value 0} , 
+		    RosParameter reverse_port { RefParameter "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.reverse_port" value 50001} , 
+		    RosParameter headless_mode { RefParameter "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.headless_mode" value false}, 
+		    RosParameter kinematics { RefParameter "ur_robot_driver.ur_robot_driver_node.ur_hardware_interface.kinematics" 
+		    	value {
+		    		{ shoulder { value { 
+		    		{ x {value 0.0 } },{ y { value 0.0 } },{ z { value 0.1625 } },{ roll { value -0.0 } },{ pitch { value 0.0 } },{ yaw { value -0.0 } }}}},
+		    		{ upper_arm { value {
+		    		{ x {value 0.0 } },{ y { value 0.0 } },{ z { value 0.0 } },{ roll { value 1.570796327 } },{ pitch { value 0.0 } },{ yaw { value -0.0 } }}}},
+		    		{ forearm { value {
+		    		{ x {value -0.425 } },{ y { value 0.0 } },{ z { value 0.0 } },{ roll { value -0.0 } },{ pitch { value 0.0 } },{ yaw { value -0.0 } }}}},
+		    		{ wrist_1 { value {
+		    		{ x {value -0.3922 } },{ y { value 0.0 } },{ z { value 0.1333 } },{ roll { value -0.0 } },{ pitch { value 0.0 } },{ yaw { value -0.0 } }}}},
+		    		{ wrist_2 { value {
+		    		{ x {value 0.0} },{ y { value -0.0997 } },{ z { value -2.044881182297852e-11 } },{ roll { value 1.570796327 } },{ pitch { value 0.0 } },{ yaw { value -0.0 } }}}},
+		  	    	{ wrist_3 { value { 
+		    		{ x {value 0.0} },{ y { value 0.09959999999999999 } },{ z { value -2.042830148012698e-11 } },{ roll { value 1.570796326589793 } },{ pitch { value 3.141592653589793 } },{ yaw { value 3.141592653589793} }}}},
+		    		{ hash { value calib_12788084448423163542 }} 
+		    	} 
+		    }}}
+  )
+ TopicConnections { TopicConnection "ur_hardware_interface/safety_mode" { From ( "ur_hardware_interface.ur_hardware_interface/safety_mode" ) To ( "ur_robot_state_helper.ur_hardware_interface/safety_mode" ) } , TopicConnection "ur_hardware_interface/robot_program_running" { From ( "ur_hardware_interface.ur_hardware_interface/robot_program_running" ) To ( "controller_stopper.ur_hardware_interface/robot_program_running" ) } , TopicConnection "ur_hardware_interface/robot_mode" { From ( "ur_hardware_interface.ur_hardware_interface/robot_mode" ) To ( "ur_robot_state_helper.ur_hardware_interface/robot_mode" ) } , TopicConnection joint_states { From ( "ur_hardware_interface.joint_states" ) To ( "robot_state_publisher.joint_states" ) } } Parameters {
+		Parameter { name "robot_description" type String value "...."}}
+}
+
+    	
