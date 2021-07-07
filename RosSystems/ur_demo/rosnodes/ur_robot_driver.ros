@@ -1,7 +1,12 @@
 PackageSet {
+	CatkinPackage ur_msgs {
+		FromGitRepo "https://github.com/ros-industrial/universal_robot"
+	},
 	CatkinPackage ur_robot_driver{
+		FromGitRepo "https://github.com/UniversalRobots/Universal_Robots_ROS_Driver"
+		Dependencies { ur_msgs }
 		Artifact  ur_robot_driver_node {
-		 Node { name ur_hardware_interface 
+		 Node { name ur_hardware_interface
 	        ServiceServers {
 	          ServiceServer { name 'ur_hardware_interface/dashboard/close_safety_popup' service 'std_srvs.Trigger'},
 	          ServiceServer { name 'controller_manager/unload_controller' service 'controller_manager_msgs.UnloadController'},
