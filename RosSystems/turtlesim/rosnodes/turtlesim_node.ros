@@ -1,0 +1,22 @@
+PackageSet {
+  CatkinPackage turtlesim {
+    Artifact turtlesim_node {
+      Node { name turtlesim_node
+        ServiceServers {
+          ServiceServer { name 'teleport_absolute' service 'turtlesim.TeleportAbsolute'},
+          ServiceServer { name 'spawn' service 'turtlesim.Spawn'},
+          ServiceServer { name 'set_pen' service 'turtlesim.SetPen'},
+          ServiceServer { name 'reset' service 'std_srvs.Empty'},
+          ServiceServer { name 'kill' service 'turtlesim.Kill'},
+          ServiceServer { name 'teleport_relative' service 'turtlesim.TeleportRelative'},
+          ServiceServer { name 'clear' service 'std_srvs.Empty'}}
+        Publishers {
+          Publisher { name 'color_sensor' message "turtlesim.Color"},
+          Publisher { name 'pose' message "turtlesim.Pose"}}
+        Subscribers {
+          Subscriber { name 'cmd_vel' message 'geometry_msgs.Twist'}}
+        Parameters {
+          Parameter { name 'background_r' type Integer default 69},
+          Parameter { name 'background_g' type Integer default 86},
+          Parameter { name 'background_b' type Integer default 255}}}
+}}}
