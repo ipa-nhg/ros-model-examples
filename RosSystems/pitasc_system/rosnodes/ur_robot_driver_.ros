@@ -1,0 +1,10 @@
+PackageSet {
+	CatkinPackage ur_robot_driver{
+	Artifact robot_state_helper {
+		Node { name ur_robot_state_helper 
+        Subscribers {
+          Subscriber { name 'safety_mode' message 'ur_dashboard_msgs.SafetyMode'},
+          Subscriber { name 'robot_mode' message 'ur_dashboard_msgs.RobotMode'}}
+        ActionServers {
+          ActionServer { name 'set_mode' action 'ur_dashboard_msgs.SetMode'}}}
+}}}

@@ -1,0 +1,6 @@
+PackageSet{
+    Package robotiq_ft_sensor{ Specs { 
+      TopicSpec ft_sensor{ message { float32 Fx float32 Fy float32 Fz float32 Mx float32 My float32 Mz }},
+      ServiceSpec sensor_accessor{ request { uint8 COMMAND_GET_SERIAL_NUMBER=1 uint8 COMMAND_GET_FIRMWARE_VERSION=2 uint8 COMMAND_GET_PRODUCTION_YEAR=4 uint8 COMMAND_SET_ZERO=8 uint8 command_id string command } response { bool success string res } }
+    }}
+  }

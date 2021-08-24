@@ -1,0 +1,13 @@
+PackageSet {
+  CatkinPackage optoforce_etherdaq_driver {
+    Artifact etherdaq_node {
+      Node { name etherdaq_node
+        ServiceServers {
+          ServiceServer { name 'tare' service 'std_srvs.Empty'}}
+        Publishers {
+          Publisher { name 'ethdaq_data' message 'geometry_msgs.WrenchStamped'},
+          Publisher { name 'ethdaq_data' message 'geometry_msgs.Wrench'},
+          Publisher { name '/diagnostics' message 'diagnostic_msgs.DiagnosticArray'}}
+        Subscribers {
+          Subscriber { name 'ethdaq_zero' message 'std_msgs.Bool'}}}
+}}}

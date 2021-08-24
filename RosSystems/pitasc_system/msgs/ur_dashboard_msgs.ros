@@ -1,0 +1,18 @@
+PackageSet{ 
+    Package ur_dashboard_msgs{ Specs { 
+      TopicSpec ProgramState{ message { string STOPPED=STOPPED string PLAYING=PLAYING string PAUSED=PAUSED string state }},
+      TopicSpec RobotMode{ message { int8 NO_CONTROLLER=-1 int8 DISCONNECTED=0 int8 CONFIRM_SAFETY=1 int8 BOOTING=2 int8 POWER_OFF=3 int8 POWER_ON=4 int8 IDLE=5 int8 BACKDRIVE=6 int8 RUNNING=7 int8 UPDATING_FIRMWARE=8 int8 mode }},
+      TopicSpec SafetyMode{ message { uint8 NORMAL=1 uint8 REDUCED=2 uint8 PROTECTIVE_STOP=3 uint8 RECOVERY=4 uint8 SAFEGUARD_STOP=5 uint8 SYSTEM_EMERGENCY_STOP=6 uint8 ROBOT_EMERGENCY_STOP=7 uint8 VIOLATION=8 uint8 FAULT=9 uint8 VALIDATE_JOINT_ID=10 uint8 UNDEFINED_SAFETY_MODE=11 uint8 AUTOMATIC_MODE_SAFEGUARD_STOP=12 uint8 SYSTEM_THREE_POSITION_ENABLING_STOP=13 uint8 mode }},
+      ServiceSpec AddToLog{ request { string message } response { string answer bool success } },
+      ServiceSpec GetLoadedProgram{ request {  } response { string answer string program_name bool success } },
+      ServiceSpec GetProgramState{ request {  } response { ProgramState state string program_name string answer bool success } },
+      ServiceSpec GetRobotMode{ request {  } response { RobotMode robot_mode string answer bool success } },
+      ServiceSpec GetSafetyMode{ request {  } response { SafetyMode safety_mode string answer bool success } },
+      ServiceSpec IsProgramRunning{ request {  } response { string answer bool program_running bool success } },
+      ServiceSpec IsProgramSaved{ request {  } response { string answer string program_name bool program_saved bool success } },
+      ServiceSpec Load{ request { string filename } response { string answer bool success } },
+      ServiceSpec Popup{ request { string message } response { string answer bool success } },
+      ServiceSpec RawRequest{ request { string query } response { string answer } },
+      ActionSpec SetMode {}
+    }}
+  }
