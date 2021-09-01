@@ -1,0 +1,811 @@
+RosSystem { Name 'jackinator'
+    RosComponents (
+
+        ComponentInterface { name '/ekf_localization'
+
+            RosPublishers {
+                RosPublisher '/odometry/filtered' {RefPublisher 'jackinator_pkg./ekf_localization./ekf_localization./odometry/filtered'},
+                RosPublisher '/diagnostics' {RefPublisher 'jackinator_pkg./ekf_localization./ekf_localization./diagnostics'}}
+            RosSubscribers {
+                RosSubscriber '/imu/data' {RefSubscriber 'jackinator_pkg./ekf_localization./ekf_localization./imu/data'},
+                RosSubscriber '/set_pose' {RefSubscriber 'jackinator_pkg./ekf_localization./ekf_localization./set_pose'},
+                RosSubscriber '/jackal_velocity_controller/odom' {RefSubscriber 'jackinator_pkg./ekf_localization./ekf_localization./jackal_velocity_controller/odom'}}
+            RosSrvServers {
+                RosServiceServer '/ekf_localization/toggle' {RefServer 'jackinator_pkg./ekf_localization./ekf_localization./ekf_localization/toggle'},
+                RosServiceServer '/ekf_localization/enable' {RefServer 'jackinator_pkg./ekf_localization./ekf_localization./ekf_localization/enable'},
+                RosServiceServer '/set_pose' {RefServer 'jackinator_pkg./ekf_localization./ekf_localization./set_pose'}}
+            RosParameters {
+                RosParameter '/ekf_localization/imu0_differential' {RefParameter 'jackinator_pkg./ekf_localization./ekf_localization./ekf_localization/imu0_differential' value false},
+                RosParameter '/ekf_localization/world_frame' {RefParameter 'jackinator_pkg./ekf_localization./ekf_localization./ekf_localization/world_frame' value odom},
+                RosParameter '/ekf_localization/odom_frame' {RefParameter 'jackinator_pkg./ekf_localization./ekf_localization./ekf_localization/odom_frame' value odom},
+                RosParameter '/ekf_localization/odom0' {RefParameter 'jackinator_pkg./ekf_localization./ekf_localization./ekf_localization/odom0' value '/jackal_velocity_controller/odom'},
+                RosParameter '/ekf_localization/imu0' {RefParameter 'jackinator_pkg./ekf_localization./ekf_localization./ekf_localization/imu0' value '/imu/data'},
+                RosParameter '/ekf_localization/odom0_config' {RefParameter 'jackinator_pkg./ekf_localization./ekf_localization./ekf_localization/odom0_config' value {false, false, false, false, false, false, true, true, true, false, false, true, false, false, false}},
+                RosParameter '/ekf_localization/odom0_differential' {RefParameter 'jackinator_pkg./ekf_localization./ekf_localization./ekf_localization/odom0_differential' value false},
+                RosParameter '/ekf_localization/base_link_frame' {RefParameter 'jackinator_pkg./ekf_localization./ekf_localization./ekf_localization/base_link_frame' value base_link},
+                RosParameter '/ekf_localization/imu0_config' {RefParameter 'jackinator_pkg./ekf_localization./ekf_localization./ekf_localization/imu0_config' value {false, false, false, true, true, true, false, false, false, true, true, true, false, false, false}},
+                RosParameter '/ekf_localization/frequency' {RefParameter 'jackinator_pkg./ekf_localization./ekf_localization./ekf_localization/frequency' value 50}}
+        },
+
+        ComponentInterface { name '/velodyne_puck_link_nodelet_manager_transform'
+            RosPublishers {
+                RosPublisher '/velodyne_puck_link_nodelet_manager/bond' {RefPublisher 'jackinator_pkg./velodyne_puck_link_nodelet_manager_transform./velodyne_puck_link_nodelet_manager_transform./velodyne_puck_link_nodelet_manager/bond'}}
+            RosSubscribers {
+                RosSubscriber '/velodyne_puck_link_nodelet_manager/bond' {RefSubscriber 'jackinator_pkg./velodyne_puck_link_nodelet_manager_transform./velodyne_puck_link_nodelet_manager_transform./velodyne_puck_link_nodelet_manager/bond'}}
+        },
+
+        ComponentInterface { name '/velodyne_puck_link_nodelet_manager'
+
+            RosPublishers {
+                RosPublisher '/velodyne_puck_link_nodelet_manager_laserscan/parameter_descriptions' {RefPublisher 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_laserscan/parameter_descriptions'},
+                RosPublisher '/velodyne_puck_link_nodelet_manager_laserscan/parameter_updates' {RefPublisher 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_laserscan/parameter_updates'},
+                RosPublisher '/scan' {RefPublisher 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./scan'},
+                RosPublisher '/velodyne_puck_link_nodelet_manager_driver/parameter_descriptions' {RefPublisher 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_driver/parameter_descriptions'},
+                RosPublisher '/velodyne_puck_link_nodelet_manager/bond' {RefPublisher 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager/bond'},
+                RosPublisher '/diagnostics' {RefPublisher 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./diagnostics'},
+                RosPublisher '/velodyne_puck_link_nodelet_manager_driver/parameter_updates' {RefPublisher 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_driver/parameter_updates'},
+                RosPublisher '/velodyne_puck_link_nodelet_manager_transform/parameter_updates' {RefPublisher 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_transform/parameter_updates'},
+                RosPublisher '/velodyne_points' {RefPublisher 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_points'},
+                RosPublisher '/velodyne_puck_link_nodelet_manager_transform/parameter_descriptions' {RefPublisher 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_transform/parameter_descriptions'},
+                RosPublisher '/velodyne_packets' {RefPublisher 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_packets'}}
+            RosSubscribers {
+                RosSubscriber '/velodyne_packets' {RefSubscriber 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_packets'},
+                RosSubscriber '/velodyne_puck_link_nodelet_manager/bond' {RefSubscriber 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager/bond'}}
+            RosSrvServers {
+                RosServiceServer '/velodyne_puck_link_nodelet_manager_driver/set_parameters' {RefServer 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_driver/set_parameters'},
+                RosServiceServer '/velodyne_puck_link_nodelet_manager/unload_nodelet' {RefServer 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager/unload_nodelet'},
+                RosServiceServer '/velodyne_puck_link_nodelet_manager_transform/set_parameters' {RefServer 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_transform/set_parameters'},
+                RosServiceServer '/velodyne_puck_link_nodelet_manager/list' {RefServer 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager/list'},
+                RosServiceServer '/velodyne_puck_link_nodelet_manager_laserscan/set_parameters' {RefServer 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_laserscan/set_parameters'},
+                RosServiceServer '/velodyne_puck_link_nodelet_manager/load_nodelet' {RefServer 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager/load_nodelet'}}
+            RosParameters {
+                RosParameter '/velodyne_puck_link_nodelet_manager_laserscan/resolution' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_laserscan/resolution' value 0.007},
+                RosParameter '/velodyne_puck_link_nodelet_manager_transform/max_range' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_transform/max_range' value 130.0},
+                RosParameter '/velodyne_puck_link_nodelet_manager_driver/enabled' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_driver/enabled' value true},
+                RosParameter '/velodyne_puck_link_nodelet_manager_laserscan/ring' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_laserscan/ring' value -1},
+                RosParameter '/velodyne_puck_link_nodelet_manager_driver/cut_angle' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_driver/cut_angle' value -0.01},
+                RosParameter '/velodyne_puck_link_nodelet_manager_driver/read_fast' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_driver/read_fast' value false},
+                RosParameter '/velodyne_puck_link_nodelet_manager_driver/time_offset' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_driver/time_offset' value 0.0},
+                RosParameter '/velodyne_puck_link_nodelet_manager_driver/read_once' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_driver/read_once' value false},
+                RosParameter '/velodyne_puck_link_nodelet_manager_driver/timestamp_first_packet' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_driver/timestamp_first_packet' value false},
+                RosParameter '/velodyne_puck_link_nodelet_manager_transform/calibration' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_transform/calibration' value '/home/administrator/catkin_ws/src/velodyne/velodyne_pointcloud/params/VLP16db.yaml'},
+                RosParameter '/velodyne_puck_link_nodelet_manager_driver/pcap_time' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_driver/pcap_time' value false},
+                RosParameter '/velodyne_puck_link_nodelet_manager_driver/frame_id' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_driver/frame_id' value velodyne_puck_link},
+                RosParameter '/velodyne_puck_link_nodelet_manager_transform/view_direction' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_transform/view_direction' value 0.0},
+                RosParameter '/velodyne_puck_link_nodelet_manager_driver/gps_time' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_driver/gps_time' value false},
+                RosParameter '/velodyne_puck_link_nodelet_manager_transform/model' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_transform/model' value VLP16},
+                RosParameter '/velodyne_puck_link_nodelet_manager_driver/device_ip' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_driver/device_ip' value '192.168.131.201'},
+                RosParameter '/velodyne_puck_link_nodelet_manager_transform/view_width' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_transform/view_width' value 6.28318530718},
+                RosParameter '/velodyne_puck_link_nodelet_manager_driver/rpm' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_driver/rpm' value 600.0},
+                RosParameter '/velodyne_puck_link_nodelet_manager_driver/repeat_delay' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_driver/repeat_delay' value 0.0},
+                RosParameter '/velodyne_puck_link_nodelet_manager_driver/model' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_driver/model' value VLP16},
+                RosParameter '/velodyne_puck_link_nodelet_manager_driver/port' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_driver/port' value 2368},
+                RosParameter '/velodyne_puck_link_nodelet_manager_transform/min_range' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_transform/min_range' value 0.2},
+                RosParameter '/velodyne_puck_link_nodelet_manager_transform/organize_cloud' {RefParameter 'jackinator_pkg./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager./velodyne_puck_link_nodelet_manager_transform/organize_cloud' value false}}},
+
+        ComponentInterface { name '/bluetooth_teleop/teleop_twist_joy'
+            RosPublishers {
+                RosPublisher '/bluetooth_teleop/cmd_vel' {RefPublisher 'jackinator_pkg./bluetooth_teleop/teleop_twist_joy./bluetooth_teleop/teleop_twist_joy./bluetooth_teleop/cmd_vel'}}
+            RosSubscribers {
+                RosSubscriber '/bluetooth_teleop/joy' {RefSubscriber 'jackinator_pkg./bluetooth_teleop/teleop_twist_joy./bluetooth_teleop/teleop_twist_joy./bluetooth_teleop/joy'}}
+            RosParameters {
+                RosParameter '/bluetooth_teleop/teleop_twist_joy/scale_linear' {RefParameter 'jackinator_pkg./bluetooth_teleop/teleop_twist_joy./bluetooth_teleop/teleop_twist_joy./bluetooth_teleop/teleop_twist_joy/scale_linear' value 0.4},
+                RosParameter '/bluetooth_teleop/teleop_twist_joy/scale_linear_turbo' {RefParameter 'jackinator_pkg./bluetooth_teleop/teleop_twist_joy./bluetooth_teleop/teleop_twist_joy./bluetooth_teleop/teleop_twist_joy/scale_linear_turbo' value 1.0},
+                RosParameter '/bluetooth_teleop/teleop_twist_joy/axis_angular' {RefParameter 'jackinator_pkg./bluetooth_teleop/teleop_twist_joy./bluetooth_teleop/teleop_twist_joy./bluetooth_teleop/teleop_twist_joy/axis_angular' value 0},
+                RosParameter '/bluetooth_teleop/teleop_twist_joy/axis_linear' {RefParameter 'jackinator_pkg./bluetooth_teleop/teleop_twist_joy./bluetooth_teleop/teleop_twist_joy./bluetooth_teleop/teleop_twist_joy/axis_linear' value 1},
+                RosParameter '/bluetooth_teleop/teleop_twist_joy/enable_button' {RefParameter 'jackinator_pkg./bluetooth_teleop/teleop_twist_joy./bluetooth_teleop/teleop_twist_joy./bluetooth_teleop/teleop_twist_joy/enable_button' value 4},
+                RosParameter '/bluetooth_teleop/teleop_twist_joy/scale_angular' {RefParameter 'jackinator_pkg./bluetooth_teleop/teleop_twist_joy./bluetooth_teleop/teleop_twist_joy./bluetooth_teleop/teleop_twist_joy/scale_angular' value 1.4},
+                RosParameter '/bluetooth_teleop/teleop_twist_joy/enable_turbo_button' {RefParameter 'jackinator_pkg./bluetooth_teleop/teleop_twist_joy./bluetooth_teleop/teleop_twist_joy./bluetooth_teleop/teleop_twist_joy/enable_turbo_button' value 5}}
+        },
+
+        ComponentInterface { name '/gps/gnss_monitor'
+            RosPublishers {
+                RosPublisher '/diagnostics' {RefPublisher 'jackinator_pkg./gps/gnss_monitor./gps/gnss_monitor./diagnostics'}}
+            RosSubscribers {
+                RosSubscriber '/gps/error_statistics' {RefSubscriber 'jackinator_pkg./gps/gnss_monitor./gps/gnss_monitor./gps/error_statistics'},
+                RosSubscriber '/gps/fix' {RefSubscriber 'jackinator_pkg./gps/gnss_monitor./gps/gnss_monitor./gps/fix'},
+                RosSubscriber '/gps/orientation' {RefSubscriber 'jackinator_pkg./gps/gnss_monitor./gps/gnss_monitor./gps/orientation'},
+                RosSubscriber '/gps/heading' {RefSubscriber 'jackinator_pkg./gps/gnss_monitor./gps/gnss_monitor./gps/heading'}}
+        },
+
+        ComponentInterface { name '/twist_marker_server'
+            RosPublishers {
+                RosPublisher '/twist_marker_server/update_full' {RefPublisher 'jackinator_pkg./twist_marker_server./twist_marker_server./twist_marker_server/update_full'},
+                RosPublisher '/twist_marker_server/update' {RefPublisher 'jackinator_pkg./twist_marker_server./twist_marker_server./twist_marker_server/update'},
+                RosPublisher '/twist_marker_server/cmd_vel' {RefPublisher 'jackinator_pkg./twist_marker_server./twist_marker_server./twist_marker_server/cmd_vel'}}
+            RosSubscribers {
+                RosSubscriber '/twist_marker_server/feedback' {RefSubscriber 'jackinator_pkg./twist_marker_server./twist_marker_server./twist_marker_server/feedback'}}
+        },
+
+        ComponentInterface { name '/rslidar_sdk_node'
+            RosPublishers {
+                RosPublisher '/rslidar_points' {RefPublisher 'jackinator_pkg./rslidar_sdk_node./rslidar_sdk_node./rslidar_points'}}
+        },
+
+        ComponentInterface { name '/velodyne_puck_link_nodelet_manager_laserscan'
+            RosPublishers {
+                RosPublisher '/velodyne_puck_link_nodelet_manager/bond' {RefPublisher 'jackinator_pkg./velodyne_puck_link_nodelet_manager_laserscan./velodyne_puck_link_nodelet_manager_laserscan./velodyne_puck_link_nodelet_manager/bond'}}
+            RosSubscribers {
+                RosSubscriber '/velodyne_puck_link_nodelet_manager/bond' {RefSubscriber 'jackinator_pkg./velodyne_puck_link_nodelet_manager_laserscan./velodyne_puck_link_nodelet_manager_laserscan./velodyne_puck_link_nodelet_manager/bond'}}
+        },
+
+        ComponentInterface { name '/bluetooth_teleop/joy_node'
+            RosPublishers {
+                RosPublisher '/bluetooth_teleop/joy' {RefPublisher 'jackinator_pkg./bluetooth_teleop/joy_node./bluetooth_teleop/joy_node./bluetooth_teleop/joy'},
+                RosPublisher '/diagnostics' {RefPublisher 'jackinator_pkg./bluetooth_teleop/joy_node./bluetooth_teleop/joy_node./diagnostics'}}
+            RosSubscribers {
+                RosSubscriber '/bluetooth_teleop/joy/set_feedback' {RefSubscriber 'jackinator_pkg./bluetooth_teleop/joy_node./bluetooth_teleop/joy_node./bluetooth_teleop/joy/set_feedback'}}
+            RosParameters {
+                RosParameter '/bluetooth_teleop/joy_node/autorepeat_rate' {RefParameter 'jackinator_pkg./bluetooth_teleop/joy_node./bluetooth_teleop/joy_node./bluetooth_teleop/joy_node/autorepeat_rate' value 20},
+                RosParameter '/bluetooth_teleop/joy_node/deadzone' {RefParameter 'jackinator_pkg./bluetooth_teleop/joy_node./bluetooth_teleop/joy_node./bluetooth_teleop/joy_node/deadzone' value 0.1},
+                RosParameter '/bluetooth_teleop/joy_node/dev' {RefParameter 'jackinator_pkg./bluetooth_teleop/joy_node./bluetooth_teleop/joy_node./bluetooth_teleop/joy_node/dev' value '/dev/input/js0'}}
+        },
+
+        ComponentInterface { name '/gps/trimble_tcp_driver'
+            RosPublishers {
+                RosPublisher '/gps/info' {RefPublisher 'jackinator_pkg./gps/trimble_tcp_driver./gps/trimble_tcp_driver./gps/info'},
+                RosPublisher '/gps/heading' {RefPublisher 'jackinator_pkg./gps/trimble_tcp_driver./gps/trimble_tcp_driver./gps/heading'},
+                RosPublisher '/gps/heading_only' {RefPublisher 'jackinator_pkg./gps/trimble_tcp_driver./gps/trimble_tcp_driver./gps/heading_only'},
+                RosPublisher '/gps/error_statistics' {RefPublisher 'jackinator_pkg./gps/trimble_tcp_driver./gps/trimble_tcp_driver./gps/error_statistics'},
+                RosPublisher '/gps/orientation' {RefPublisher 'jackinator_pkg./gps/trimble_tcp_driver./gps/trimble_tcp_driver./gps/orientation'},
+                RosPublisher '/gps/time_reference' {RefPublisher 'jackinator_pkg./gps/trimble_tcp_driver./gps/trimble_tcp_driver./gps/time_reference'},
+                RosPublisher '/gps/vel' {RefPublisher 'jackinator_pkg./gps/trimble_tcp_driver./gps/trimble_tcp_driver./gps/vel'},
+                RosPublisher '/gps/fix' {RefPublisher 'jackinator_pkg./gps/trimble_tcp_driver./gps/trimble_tcp_driver./gps/fix'}}
+            RosParameters {
+                RosParameter '/gps/trimble_tcp_driver/port' {RefParameter 'jackinator_pkg./gps/trimble_tcp_driver./gps/trimble_tcp_driver./gps/trimble_tcp_driver/port' value 5017},
+                RosParameter '/gps/trimble_tcp_driver/frame_id' {RefParameter 'jackinator_pkg./gps/trimble_tcp_driver./gps/trimble_tcp_driver./gps/trimble_tcp_driver/frame_id' value gps_trimble_position_link},
+                RosParameter '/gps/trimble_tcp_driver/ip' {RefParameter 'jackinator_pkg./gps/trimble_tcp_driver./gps/trimble_tcp_driver./gps/trimble_tcp_driver/ip' value '192.168.131.120'},
+                RosParameter '/gps/trimble_tcp_driver/message_length' {RefParameter 'jackinator_pkg./gps/trimble_tcp_driver./gps/trimble_tcp_driver./gps/trimble_tcp_driver/message_length' value 512}}
+        },
+
+        ComponentInterface { name '/robot_state_publisher'
+            RosSubscribers {
+                RosSubscriber '/joint_states' {RefSubscriber 'jackinator_pkg./robot_state_publisher./robot_state_publisher./joint_states'}}
+        },
+
+        ComponentInterface { name '/rosserial_message_info'
+            RosSrvServers {
+                RosServiceServer '/service_info' {RefServer 'jackinator_pkg./rosserial_message_info./rosserial_message_info./service_info'},
+                RosServiceServer '/message_info' {RefServer 'jackinator_pkg./rosserial_message_info./rosserial_message_info./message_info'}}
+        },
+
+        ComponentInterface { name '/navsat/nmea_topic_driver'
+            RosPublishers {
+                RosPublisher '/navsat/orientation' {RefPublisher 'jackinator_pkg./navsat/nmea_topic_driver./navsat/nmea_topic_driver./navsat/orientation'},
+                RosPublisher '/navsat/error_statistics' {RefPublisher 'jackinator_pkg./navsat/nmea_topic_driver./navsat/nmea_topic_driver./navsat/error_statistics'},
+                RosPublisher '/navsat/info' {RefPublisher 'jackinator_pkg./navsat/nmea_topic_driver./navsat/nmea_topic_driver./navsat/info'},
+                RosPublisher '/navsat/heading' {RefPublisher 'jackinator_pkg./navsat/nmea_topic_driver./navsat/nmea_topic_driver./navsat/heading'},
+                RosPublisher '/navsat/vel' {RefPublisher 'jackinator_pkg./navsat/nmea_topic_driver./navsat/nmea_topic_driver./navsat/vel'},
+                RosPublisher '/navsat/fix' {RefPublisher 'jackinator_pkg./navsat/nmea_topic_driver./navsat/nmea_topic_driver./navsat/fix'},
+                RosPublisher '/navsat/heading_only' {RefPublisher 'jackinator_pkg./navsat/nmea_topic_driver./navsat/nmea_topic_driver./navsat/heading_only'},
+                RosPublisher '/navsat/time_reference' {RefPublisher 'jackinator_pkg./navsat/nmea_topic_driver./navsat/nmea_topic_driver./navsat/time_reference'}}
+            RosSubscribers {
+                RosSubscriber '/navsat/nmea_sentence' {RefSubscriber 'jackinator_pkg./navsat/nmea_topic_driver./navsat/nmea_topic_driver./navsat/nmea_sentence'}}
+        },
+
+        ComponentInterface { name '/twist_mux'
+            RosPublishers {
+                RosPublisher '/diagnostics' {RefPublisher 'jackinator_pkg./twist_mux./twist_mux./diagnostics'},
+                RosPublisher '/jackal_velocity_controller/cmd_vel' {RefPublisher 'jackinator_pkg./twist_mux./twist_mux./jackal_velocity_controller/cmd_vel'}}
+            RosSubscribers {
+                RosSubscriber '/bluetooth_teleop/cmd_vel' {RefSubscriber 'jackinator_pkg./twist_mux./twist_mux./bluetooth_teleop/cmd_vel'},
+                RosSubscriber '/joy_teleop/cmd_vel' {RefSubscriber 'jackinator_pkg./twist_mux./twist_mux./joy_teleop/cmd_vel'},
+                RosSubscriber '/cmd_vel' {RefSubscriber 'jackinator_pkg./twist_mux./twist_mux./cmd_vel'},
+                RosSubscriber '/twist_marker_server/cmd_vel' {RefSubscriber 'jackinator_pkg./twist_mux./twist_mux./twist_marker_server/cmd_vel'},
+                RosSubscriber '/e_stop' {RefSubscriber 'jackinator_pkg./twist_mux./twist_mux./e_stop'}}
+            /**RosParameters {
+                RosParameter '/twist_mux/locks' {RefParameter 'jackinator_pkg./twist_mux./twist_mux./twist_mux/locks' value {
+                	{'topic' { value 'e_stop'}}, 
+                	{ 'priority' { value 255 }},
+                	{'name' { value 'e_stop'}},
+                	{ 'timeout' { value 0.0}}}},
+                RosParameter '/twist_mux/topics' {RefParameter 'jackinator_pkg./twist_mux./twist_mux./twist_mux/topics' value {
+					{{'topic' { value 'joy_teleop/cmd_vel'}},{ 'priority'  { value 10}},{ 'name'  { value 'joy'}},{ 'timeout'  { value 0.5}}},
+					{{'topic'  { value 'bluetooth_teleop/cmd_vel'}},{ 'priority'  { value 9}},{ 'name'  { value 'bt_joy'}},{ 'timeout'  { value 0.5}}}, 
+					{{'topic'  { value 'twist_marker_server/cmd_vel'}},{ 'priority'  { value 8}},{ 'name'  { value 'interactive_marker'}},{ 'timeout'  { value 0.5}}}, 
+					{{'topic'  { value 'cmd_vel'}},{ 'priority'  { value 1}},{ 'name'  { value 'external'}},{ 'timeout'  { value 0.5}}}}}}*/
+        },
+        ComponentInterface { name '/jackal_node'
+            RosPublishers {
+                RosPublisher '/imu/data_raw' {RefPublisher 'jackinator_pkg./jackal_node./jackal_node./imu/data_raw'},
+                RosPublisher '/feedback' {RefPublisher 'jackinator_pkg./jackal_node./jackal_node./feedback'},
+                RosPublisher '/status' {RefPublisher 'jackinator_pkg./jackal_node./jackal_node./status'},
+                RosPublisher '/navsat/nmea_sentence' {RefPublisher 'jackinator_pkg./jackal_node./jackal_node./navsat/nmea_sentence'},
+                RosPublisher '/jackal_velocity_controller/parameter_descriptions' {RefPublisher 'jackinator_pkg./jackal_node./jackal_node./jackal_velocity_controller/parameter_descriptions'},
+                RosPublisher '/imu/mag' {RefPublisher 'jackinator_pkg./jackal_node./jackal_node./imu/mag'},
+                RosPublisher '/cmd_drive' {RefPublisher 'jackinator_pkg./jackal_node./jackal_node./cmd_drive'},
+                RosPublisher '/jackal_velocity_controller/parameter_updates' {RefPublisher 'jackinator_pkg./jackal_node./jackal_node./jackal_velocity_controller/parameter_updates'},
+                RosPublisher '/jackal_velocity_controller/odom' {RefPublisher 'jackinator_pkg./jackal_node./jackal_node./jackal_velocity_controller/odom'},
+                RosPublisher '/wifi_connected' {RefPublisher 'jackinator_pkg./jackal_node./jackal_node./wifi_connected'},
+                RosPublisher '/diagnostics' {RefPublisher 'jackinator_pkg./jackal_node./jackal_node./diagnostics'},
+                RosPublisher '/joint_states' {RefPublisher 'jackinator_pkg./jackal_node./jackal_node./joint_states'}}
+            RosSubscribers {
+                RosSubscriber '/feedback' {RefSubscriber 'jackinator_pkg./jackal_node./jackal_node./feedback'},
+                RosSubscriber '/status' {RefSubscriber 'jackinator_pkg./jackal_node./jackal_node./status'},
+                RosSubscriber '/cmd_drive' {RefSubscriber 'jackinator_pkg./jackal_node./jackal_node./cmd_drive'},
+                RosSubscriber '/imu/data_raw' {RefSubscriber 'jackinator_pkg./jackal_node./jackal_node./imu/data_raw'},
+                RosSubscriber '/navsat/nmea_sentence' {RefSubscriber 'jackinator_pkg./jackal_node./jackal_node./navsat/nmea_sentence'},
+                RosSubscriber '/wifi_connected' {RefSubscriber 'jackinator_pkg./jackal_node./jackal_node./wifi_connected'},
+                RosSubscriber '/jackal_velocity_controller/cmd_vel' {RefSubscriber 'jackinator_pkg./jackal_node./jackal_node./jackal_velocity_controller/cmd_vel'}}
+            RosSrvServers {
+                RosServiceServer '/controller_manager/reload_controller_libraries' {RefServer 'jackinator_pkg./jackal_node./jackal_node./controller_manager/reload_controller_libraries'},
+                RosServiceServer '/controller_manager/load_controller' {RefServer 'jackinator_pkg./jackal_node./jackal_node./controller_manager/load_controller'},
+                RosServiceServer '/controller_manager/switch_controller' {RefServer 'jackinator_pkg./jackal_node./jackal_node./controller_manager/switch_controller'},
+                RosServiceServer '/jackal_velocity_controller/set_parameters' {RefServer 'jackinator_pkg./jackal_node./jackal_node./jackal_velocity_controller/set_parameters'},
+                RosServiceServer '/controller_manager/list_controllers' {RefServer 'jackinator_pkg./jackal_node./jackal_node./controller_manager/list_controllers'},
+                RosServiceServer '/controller_manager/list_controller_types' {RefServer 'jackinator_pkg./jackal_node./jackal_node./controller_manager/list_controller_types'},
+                RosServiceServer '/controller_manager/unload_controller' {RefServer 'jackinator_pkg./jackal_node./jackal_node./controller_manager/unload_controller'}}
+            RosParameters {
+                RosParameter '/jackal_node/require/subscribers' {RefParameter 'jackinator_pkg./jackal_node./jackal_node./jackal_node/require/subscribers' value {'cmd_drive', 'wifi_connected'}},
+                RosParameter '/jackal_node/require/publishers' {RefParameter 'jackinator_pkg./jackal_node./jackal_node./jackal_node/require/publishers' value {'status', 'feedback', 'imu/data_raw', 'navsat/nmea_sentence'}},
+                RosParameter '/jackal_node/wireless_interface' {RefParameter 'jackinator_pkg./jackal_node./jackal_node./jackal_node/wireless_interface' value wlp2s0}}
+        },
+
+        ComponentInterface { name '/imu_filter'
+            RosPublishers {
+                RosPublisher '/imu/data' {RefPublisher 'jackinator_pkg./imu_filter./imu_filter./imu/data'},
+                RosPublisher '/imu_filter/parameter_descriptions' {RefPublisher 'jackinator_pkg./imu_filter./imu_filter./imu_filter/parameter_descriptions'},
+                RosPublisher '/imu_filter/parameter_updates' {RefPublisher 'jackinator_pkg./imu_filter./imu_filter./imu_filter/parameter_updates'}}
+            RosSubscribers {
+                RosSubscriber '/imu/data_raw' {RefSubscriber 'jackinator_pkg./imu_filter./imu_filter./imu/data_raw'}}
+            RosSrvServers {
+                RosServiceServer '/imu_filter/set_parameters' {RefServer 'jackinator_pkg./imu_filter./imu_filter./imu_filter/set_parameters'}}
+            RosParameters {
+                RosParameter '/imu_filter/publish_tf' {RefParameter 'jackinator_pkg./imu_filter./imu_filter./imu_filter/publish_tf' value false},
+                RosParameter '/imu_filter/gain' {RefParameter 'jackinator_pkg./imu_filter./imu_filter./imu_filter/gain' value 0.1},
+                RosParameter '/imu_filter/use_mag' {RefParameter 'jackinator_pkg./imu_filter./imu_filter./imu_filter/use_mag' value false},
+                RosParameter '/imu_filter/zeta' {RefParameter 'jackinator_pkg./imu_filter./imu_filter./imu_filter/zeta' value 0.001},
+                RosParameter '/imu_filter/use_magnetic_field_msg' {RefParameter 'jackinator_pkg./imu_filter./imu_filter./imu_filter/use_magnetic_field_msg' value false},
+                RosParameter '/imu_filter/mag_bias_x' {RefParameter 'jackinator_pkg./imu_filter./imu_filter./imu_filter/mag_bias_x' value 0.0},
+                RosParameter '/imu_filter/mag_bias_y' {RefParameter 'jackinator_pkg./imu_filter./imu_filter./imu_filter/mag_bias_y' value 0.0},
+                RosParameter '/imu_filter/mag_bias_z' {RefParameter 'jackinator_pkg./imu_filter./imu_filter./imu_filter/mag_bias_z' value 0.0},
+                RosParameter '/imu_filter/orientation_stddev' {RefParameter 'jackinator_pkg./imu_filter./imu_filter./imu_filter/orientation_stddev' value 0.0}}
+        },
+
+        ComponentInterface { name '/diagnostic_aggregator'
+            RosPublishers {
+                RosPublisher '/diagnostics_toplevel_state' {RefPublisher 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostics_toplevel_state'},
+                RosPublisher '/diagnostics_agg' {RefPublisher 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostics_agg'}}
+            RosSubscribers {
+                RosSubscriber '/diagnostics' {RefSubscriber 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostics'}}
+            RosSrvServers {
+                RosServiceServer '/diagnostics_agg/add_diagnostics' {RefServer 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostics_agg/add_diagnostics'}}
+            RosParameters {
+                /**RosParameter '/diagnostic_aggregator/analyzers/jackal/analyzers/general/expected' {RefParameter 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostic_aggregator/analyzers/jackal/analyzers/general/expected' value {
+                	{'jackal_node' { value General}},
+                	{'jackal_node' { value Battery}},
+                	{'jackal_node' { value 'User voltage supplies'}},
+                	{'jackal_node' { value 'Current consumption'}},
+                	{'jackal_node' { value 'Power consumption'}}}},*/
+                RosParameter '/diagnostic_aggregator/analyzers/jackal/analyzers/sensors/path' {RefParameter 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostic_aggregator/analyzers/jackal/analyzers/sensors/path' value 'Sensor Topics'},
+                RosParameter '/diagnostic_aggregator/analyzers/jackal/analyzers/sensors/type' {RefParameter 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostic_aggregator/analyzers/jackal/analyzers/sensors/type' value 'diagnostic_aggregator/GenericAnalyzer'},
+                RosParameter '/diagnostic_aggregator/analyzers/jackal/analyzers/general/path' {RefParameter 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostic_aggregator/analyzers/jackal/analyzers/general/path' value General},
+                RosParameter '/diagnostic_aggregator/analyzers/jackal/analyzers/general/type' {RefParameter 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostic_aggregator/analyzers/jackal/analyzers/general/type' value 'diagnostic_aggregator/GenericAnalyzer'},
+                RosParameter '/diagnostic_aggregator/analyzers/jackal/analyzers/sensors/timeout' {RefParameter 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostic_aggregator/analyzers/jackal/analyzers/sensors/timeout' value 5.0},
+                RosParameter '/diagnostic_aggregator/analyzers/jackal/analyzers/sensors/remove_prefix' {RefParameter 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostic_aggregator/analyzers/jackal/analyzers/sensors/remove_prefix' value jackal_node},
+                RosParameter '/diagnostic_aggregator/analyzers/jackal/analyzers/general/remove_prefix' {RefParameter 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostic_aggregator/analyzers/jackal/analyzers/general/remove_prefix' value jackal_node},
+                RosParameter '/diagnostic_aggregator/analyzers/jackal/analyzers/general/timeout' {RefParameter 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostic_aggregator/analyzers/jackal/analyzers/general/timeout' value 5.0},
+                //RosParameter '/diagnostic_aggregator/analyzers/jackal/analyzers/teleop/expected' {RefParameter 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostic_aggregator/analyzers/jackal/analyzers/teleop/expected' value {{ 'bluetooth_teleop/joy_node' {value 'Joystick Driver Status'}}}},
+                RosParameter '/diagnostic_aggregator/analyzers/jackal/analyzers/teleop/path' {RefParameter 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostic_aggregator/analyzers/jackal/analyzers/teleop/path' value 'Bluetooth Joystick'},
+                RosParameter '/diagnostic_aggregator/analyzers/jackal/analyzers/teleop/timeout' {RefParameter 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostic_aggregator/analyzers/jackal/analyzers/teleop/timeout' value 5.0},
+                RosParameter '/diagnostic_aggregator/analyzers/jackal/path' {RefParameter 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostic_aggregator/analyzers/jackal/path' value 'Jackal Base'},
+                RosParameter '/diagnostic_aggregator/analyzers/jackal/type' {RefParameter 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostic_aggregator/analyzers/jackal/type' value 'diagnostic_aggregator/AnalyzerGroup'},
+                RosParameter '/diagnostic_aggregator/analyzers/jackal/analyzers/teleop/type' {RefParameter 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostic_aggregator/analyzers/jackal/analyzers/teleop/type' value 'diagnostic_aggregator/GenericAnalyzer'},
+                RosParameter '/diagnostic_aggregator/analyzers/jackal/analyzers/teleop/remove_prefix' {RefParameter 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostic_aggregator/analyzers/jackal/analyzers/teleop/remove_prefix' value 'bluetooth_teleop/joy_node'}//,
+                /**RosParameter '/diagnostic_aggregator/analyzers/jackal/analyzers/sensors/expected' {RefParameter 'jackinator_pkg./diagnostic_aggregator./diagnostic_aggregator./diagnostic_aggregator/analyzers/jackal/analyzers/sensors/expected' value { 
+                	{'jackal_node' { value '/imu/data_raw topic status'}}, 
+                	{'jackal_node' { value '/navsat/nmea_sentence topic status'}}}}*/}
+        },
+
+        ComponentInterface { name '/velodyne_puck_link_nodelet_manager_driver'
+            RosPublishers {
+                RosPublisher '/velodyne_puck_link_nodelet_manager/bond' {RefPublisher 'jackinator_pkg./velodyne_puck_link_nodelet_manager_driver./velodyne_puck_link_nodelet_manager_driver./velodyne_puck_link_nodelet_manager/bond'}}
+            RosSubscribers {
+                RosSubscriber '/velodyne_puck_link_nodelet_manager/bond' {RefSubscriber 'jackinator_pkg./velodyne_puck_link_nodelet_manager_driver./velodyne_puck_link_nodelet_manager_driver./velodyne_puck_link_nodelet_manager/bond'}}
+        }
+)
+        Parameters {
+          Parameter { name '/robot_description' type String  value '<?xml version="1.0" ?>
+<!-- =================================================================================== -->
+<!-- |    This document was autogenerated by xacro from /home/administrator/catkin_ws/src/jackal/jackal_description/urdf/jackal.urdf.xacro | -->
+<!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
+<!-- =================================================================================== -->
+<robot name="jackal" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <material name="dark_grey">
+    <color rgba="0.2 0.2 0.2 1.0"/>
+  </material>
+  <material name="light_grey">
+    <color rgba="0.4 0.4 0.4 1.0"/>
+  </material>
+  <material name="yellow">
+    <color rgba="0.8 0.8 0.0 1.0"/>
+  </material>
+  <material name="black">
+    <color rgba="0.15 0.15 0.15 1.0"/>
+  </material>
+  <link name="front_left_wheel_link">
+    <visual>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://jackal_description/meshes/jackal-wheel.stl"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.098"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.477"/>
+      <inertia ixx="0.0013" ixy="0" ixz="0" iyy="0.0024" iyz="0" izz="0.0013"/>
+    </inertial>
+  </link>
+  <gazebo reference="front_left_wheel_link">
+    <material>Gazebo/DarkGrey</material>
+    <selfCollide>false</selfCollide>
+    <mu1 value="0.5"/>
+    <mu2 value="0.5"/>
+    <kp value="10000000.0"/>
+    <kd value="1"/>
+    <fdir1 value="1 0 0"/>
+  </gazebo>
+  <joint name="front_left_wheel" type="continuous">
+    <parent link="chassis_link"/>
+    <child link="front_left_wheel_link"/>
+    <origin rpy="0 0 0" xyz="0.131 0.187795 0.0345"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  <!-- In reality, Jackal has only two motors, one per side. However, its more
+         straightforward for Gazebo to simulate as if theres an actuator per wheel. -->
+  <transmission name="front_left_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="front_left_wheel">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="front_left_actuator">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link name="front_right_wheel_link">
+    <visual>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://jackal_description/meshes/jackal-wheel.stl"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.098"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.477"/>
+      <inertia ixx="0.0013" ixy="0" ixz="0" iyy="0.0024" iyz="0" izz="0.0013"/>
+    </inertial>
+  </link>
+  <gazebo reference="front_right_wheel_link">
+    <material>Gazebo/DarkGrey</material>
+    <selfCollide>false</selfCollide>
+    <mu1 value="0.5"/>
+    <mu2 value="0.5"/>
+    <kp value="10000000.0"/>
+    <kd value="1"/>
+    <fdir1 value="1 0 0"/>
+  </gazebo>
+  <joint name="front_right_wheel" type="continuous">
+    <parent link="chassis_link"/>
+    <child link="front_right_wheel_link"/>
+    <origin rpy="0 0 0" xyz="0.131 -0.187795 0.0345"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  <!-- In reality, Jackal has only two motors, one per side. However, its more
+         straightforward for Gazebo to simulate as if theres an actuator per wheel. -->
+  <transmission name="front_right_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="front_right_wheel">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="front_right_actuator">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link name="rear_left_wheel_link">
+    <visual>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://jackal_description/meshes/jackal-wheel.stl"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.098"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.477"/>
+      <inertia ixx="0.0013" ixy="0" ixz="0" iyy="0.0024" iyz="0" izz="0.0013"/>
+    </inertial>
+  </link>
+  <gazebo reference="rear_left_wheel_link">
+    <material>Gazebo/DarkGrey</material>
+    <selfCollide>false</selfCollide>
+    <mu1 value="0.5"/>
+    <mu2 value="0.5"/>
+    <kp value="10000000.0"/>
+    <kd value="1"/>
+    <fdir1 value="1 0 0"/>
+  </gazebo>
+  <joint name="rear_left_wheel" type="continuous">
+    <parent link="chassis_link"/>
+    <child link="rear_left_wheel_link"/>
+    <origin rpy="0 0 0" xyz="-0.131 0.187795 0.0345"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  <!-- In reality, Jackal has only two motors, one per side. However, its more
+         straightforward for Gazebo to simulate as if theres an actuator per wheel. -->
+  <transmission name="rear_left_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="rear_left_wheel">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="rear_left_actuator">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link name="rear_right_wheel_link">
+    <visual>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://jackal_description/meshes/jackal-wheel.stl"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.098"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.477"/>
+      <inertia ixx="0.0013" ixy="0" ixz="0" iyy="0.0024" iyz="0" izz="0.0013"/>
+    </inertial>
+  </link>
+  <gazebo reference="rear_right_wheel_link">
+    <material>Gazebo/DarkGrey</material>
+    <selfCollide>false</selfCollide>
+    <mu1 value="0.5"/>
+    <mu2 value="0.5"/>
+    <kp value="10000000.0"/>
+    <kd value="1"/>
+    <fdir1 value="1 0 0"/>
+  </gazebo>
+  <joint name="rear_right_wheel" type="continuous">
+    <parent link="chassis_link"/>
+    <child link="rear_right_wheel_link"/>
+    <origin rpy="0 0 0" xyz="-0.131 -0.187795 0.0345"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  <!-- In reality, Jackal has only two motors, one per side. However, its more
+         straightforward for Gazebo to simulate as if theres an actuator per wheel. -->
+  <transmission name="rear_right_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="rear_right_wheel">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="rear_right_actuator">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link name="base_link"/>
+  <joint name="base_link_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="chassis_link"/>
+  </joint>
+  <link name="chassis_link">
+    <visual>
+      <origin rpy="1.57079632679 0 1.57079632679" xyz="0 0 -0.0655"/>
+      <geometry>
+        <mesh filename="package://jackal_description/meshes/jackal-base.stl"/>
+      </geometry>
+      <material name="dark_grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.092"/>
+      <geometry>
+        <box size="0.42 0.31 0.184"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <!-- Center of mass -->
+      <origin rpy="0 0 0" xyz="0.012  0.002 0.067"/>
+      <mass value="16.523"/>
+      <!-- Moments of inertia: ( chassis without wheels ) -->
+      <inertia ixx="0.3136" ixy="-0.0008" ixz="0.0164" iyy="0.3922" iyz="-0.0009" izz="0.4485"/>
+    </inertial>
+  </link>
+  <link name="front_fender_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://jackal_description/meshes/jackal-fender.stl"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+  </link>
+  <joint name="front_fender_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="chassis_link"/>
+    <child link="front_fender_link"/>
+  </joint>
+  <link name="rear_fender_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://jackal_description/meshes/jackal-fender.stl"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+  </link>
+  <joint name="rear_fender_joint" type="fixed">
+    <origin rpy="0 0 3.14159265359" xyz="0 0 0"/>
+    <parent link="chassis_link"/>
+    <child link="rear_fender_link"/>
+  </joint>
+  <!-- TODO: Make this internal_imu_link or something, and use a mixed-in xacro
+       to supply the joint between it and imu_link. This is important so that imu_link
+       always points to the "active" IMU. When an upgrade IMU is connected, the
+       internal_imu_link should remain, but imu_link should point to the upgrade one. -->
+  <link name="imu_link">
+    <inertial>
+      <mass value="0.001"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="1e-09" ixy="0.0" ixz="0.0" iyy="1e-09" iyz="0.0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <joint name="imu_joint" type="fixed">
+    <parent link="chassis_link"/>
+    <child link="imu_link"/>
+  </joint>
+  <!-- TODO: Same note as applies to imu_link -->
+  <link name="navsat_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.016" radius="0.026"/>
+      </geometry>
+      <origin xyz="0 0 0.008"/>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="navsat_joint" type="fixed">
+    <parent link="chassis_link"/>
+    <child link="navsat_link"/>
+    <origin xyz="-0.180 0.126 0.1815"/>
+  </joint>
+  <link name="mid_mount"/>
+  <joint name="mid_mount_joint" type="fixed">
+    <parent link="chassis_link"/>
+    <child link="mid_mount"/>
+    <origin xyz="0 0 0.184"/>
+  </joint>
+  <link name="rear_mount"/>
+  <joint name="rear_mount_joint" type="fixed">
+    <parent link="mid_mount"/>
+    <child link="rear_mount"/>
+    <origin xyz="-0.12 0 0"/>
+  </joint>
+  <link name="front_mount"/>
+  <joint name="front_mount_joint" type="fixed">
+    <parent link="mid_mount"/>
+    <child link="front_mount"/>
+    <origin xyz="0.12 0 0"/>
+  </joint>
+  <gazebo>
+    <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
+      <robotNamespace>/</robotNamespace>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libhector_gazebo_ros_imu.so" name="imu_controller">
+      <robotNamespace>/</robotNamespace>
+      <updateRate>50.0</updateRate>
+      <bodyName>imu_link</bodyName>
+      <topicName>imu/data</topicName>
+      <accelDrift>0.005 0.005 0.005</accelDrift>
+      <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
+      <rateDrift>0.005 0.005 0.005 </rateDrift>
+      <rateGaussianNoise>0.005 0.005 0.005 </rateGaussianNoise>
+      <headingDrift>0.005</headingDrift>
+      <headingGaussianNoise>0.005</headingGaussianNoise>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libhector_gazebo_ros_gps.so" name="gps_controller">
+      <updateRate>40</updateRate>
+      <robotNamespace>/</robotNamespace>
+      <bodyName>navsat_link</bodyName>
+      <frameId>base_link</frameId>
+      <topicName>/navsat/fix</topicName>
+      <velocityTopicName>/navsat/vel</velocityTopicName>
+      <referenceLatitude>49.9</referenceLatitude>
+      <referenceLongitude>8.9</referenceLongitude>
+      <referenceHeading>0</referenceHeading>
+      <referenceAltitude>0</referenceAltitude>
+      <drift>0.0001 0.0001 0.0001</drift>
+    </plugin>
+  </gazebo>
+  <gazebo reference="base_link">
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+  <gazebo reference="chassis_link">
+    <material>Gazebo/DarkGrey</material>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+  <gazebo reference="imu_link">
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+  <gazebo reference="navsat_link">
+    <material>Gazebo/DarkGrey</material>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+  <gazebo reference="front_fender_link">
+    <material>Gazebo/Yellow</material>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+  <gazebo reference="rear_fender_link">
+    <material>Gazebo/Yellow</material>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+  <!--
+    As you add to this URDF, please be aware that both the robot and
+    simulation include it. You must retain compatibility with all of
+    the following launch files:
+
+    jackal_viz/launch/view_model.launch
+    jackal_gazebo/launch/jackal_world.launch
+    jackal_base/launch/base.launch
+  -->
+  <!-- Common camera mounts and accessory URDFs. -->
+  <!-- <xacro:include filename="$(find jackal_description)/urdf/accessories/camera_mount.urdf.xacro" /> -->
+  <!-- <xacro:include filename="$(find pointgrey_camera_description)/urdf/pointgrey_flea3.urdf.xacro" /> -->
+  <!-- If enabled, generate the flea3 camera payload with a tilt of 30 degrees. -->
+  <!-- <xacro:if value="$(optenv JACKAL_FLEA3 0)">
+    <camera_mount prefix="$(optenv JACKAL_FLEA3_MOUNT front)"
+                       tilt="$(optenv JACKAL_FLEA3_TILT 0.5236)"/>
+    <joint name="$(optenv JACKAL_FLEA3_MOUNT front)_camera_mount_joint" type="fixed">
+      <origin xyz="$(optenv JACKAL_FLEA3_OFFSET 0 0 0)"
+              rpy="$(optenv JACKAL_FLEA3_RPY 0 0 0)" />
+      <parent link="$(optenv JACKAL_FLEA3_MOUNT front)_mount" />
+      <child link="$(optenv JACKAL_FLEA3_MOUNT front)_camera_mount" />
+    </joint>
+
+    <pointgrey_flea3 frame="$(optenv JACKAL_FLEA3_MOUNT front)_camera" name="$(optenv JACKAL_FLEA3_NAME front)"
+      camera_x="0.0754" camera_y="0.029" camera_z="0.029"
+      camera_mass="0.085" hfov="1.0471975512" fps="60" width="640" height="512"/>
+    <joint name="$(optenv JACKAL_FLEA3_MOUNT front)_camera_bracket_joint" type="fixed">
+      <origin xyz="0.020 0 0.0245" rpy="0 0 0" />
+      <parent link="$(optenv JACKAL_FLEA3_MOUNT front)_camera_beam" />
+      <child link="$(optenv JACKAL_FLEA3_MOUNT front)_camera" />
+    </joint>
+  </xacro:if> -->
+  <!-- <xacro:include filename="$(find jackal_description)/urdf/accessories/stereo_camera_mount.urdf.xacro" /> -->
+  <!-- If enabled, generates a pair of flea3 cameras for stereo vision with a tilt of 30 degrees. -->
+  <!-- Disabled temporarily due to metapackage issue. -->
+  <!-- <xacro:if value="$(optenv JACKAL_STEREO_FLEA3 0)">
+    <stereo_camera_mount prefix="$(optenv JACKAL_FLEA3_MOUNT front)"
+                       tilt="$(optenv JACKAL_FLEA3_TILT 0.5236)"/>
+    <joint name="$(optenv JACKAL_FLEA3_MOUNT front)_stereo_camera_mount_joint" type="fixed">
+      <origin xyz="$(optenv JACKAL_FLEA3_OFFSET 0 0 0)"
+              rpy="$(optenv JACKAL_FLEA3_RPY 0 0 0)" />
+      <parent link="$(optenv JACKAL_FLEA3_MOUNT front)_mount" />
+      <child link="$(optenv JACKAL_FLEA3_MOUNT front)_stereo_camera_mount" />
+    </joint>
+
+    <pointgrey_flea3 frame="$(optenv JACKAL_FLEA3_MOUNT front)_left_camera" name="$(optenv JACKAL_FLEA3_LEFT_NAME front/left)"
+      camera_x="0.0754" camera_y="0.029" camera_z="0.029"
+      camera_mass="0.085" hfov="1.0471975512" fps="60" width="640" height="512"/>
+    <joint name="$(optenv JACKAL_FLEA3_MOUNT front)_left_stereo_camera_bracket_joint" type="fixed">
+      <origin xyz="0.015 $(optenv JACKAL_STEREO_SEPERATION 0.16) 0.0599" rpy="0 0 0" />
+      <parent link="$(optenv JACKAL_FLEA3_MOUNT front)_stereo_camera_beam" />
+      <child link="$(optenv JACKAL_FLEA3_MOUNT front)_left_camera" />
+    </joint>
+
+    <pointgrey_flea3 frame="$(optenv JACKAL_FLEA3_MOUNT front)_right_camera" name="$(optenv JACKAL_FLEA3_RIGHT_NAME front/right)"
+      camera_x="0.0754" camera_y="0.029" camera_z="0.029"
+      camera_mass="0.085" hfov="1.0471975512" fps="60" width="640" height="512"/>
+    <joint name="$(optenv JACKAL_FLEA3_MOUNT front)_right_stereo_camera_bracket_joint" type="fixed">
+      <origin xyz="0.015 -$(optenv JACKAL_STEREO_SEPERATION 0.16) 0.0599" rpy="0 0 0" />
+      <parent link="$(optenv JACKAL_FLEA3_MOUNT front)_stereo_camera_beam" />
+      <child link="$(optenv JACKAL_FLEA3_MOUNT front)_right_camera" />
+    </joint>
+  </xacro:if> -->
+  <!-- If enabled, generate the bumblebee2 camera payload with a tilt of 0 degrees. -->
+  <!-- <xacro:include filename="$(find pointgrey_camera_description)/urdf/pointgrey_bumblebee2.urdf.xacro" /> -->
+  <!-- If enabled, generate the bumblebee2 camera payload with a tilt of 0 degrees. -->
+  <!-- Disabled temporarily due to metapackage issue. -->
+  <!-- <xacro:if value="$(optenv JACKAL_BB2 0)">
+    <camera_mount prefix="$(optenv JACKAL_BB2_MOUNT front)"
+                        tilt="$(optenv JACKAL_BB2_TILT 0)"/>
+
+    <joint name="$(optenv JACKAL_BB2_MOUNT front)_camera_mount_joint" type="fixed">
+      <origin xyz="$(optenv JACKAL_BB2_OFFSET 0 0 0)"
+              rpy="$(optenv JACKAL_BB2_RPY 0 0 0)" />
+      <parent link="$(optenv JACKAL_BB2_MOUNT front)_mount" />
+      <child link="$(optenv JACKAL_BB2_MOUNT front)_camera_mount" />
+    </joint>
+
+    <BB2-08S2C-38 frame="$(optenv JACKAL_BB2_MOUNT front)_camera" name="$(optenv JACKAL_BB2_NAME front)" />
+    <joint name="$(optenv JACKAL_BB2_MOUNT front)_camera_bracket_joint" type="fixed">
+      <origin xyz="0.007 0 0.02450" rpy="0 0 0" />
+      <parent link="$(optenv JACKAL_BB2_MOUNT front)_camera_beam" />
+      <child link="$(optenv JACKAL_BB2_MOUNT front)_camera" />
+    </joint>
+  </xacro:if> -->
+  <!-- Trimble position Link-->
+  <link name="gps_trimble_position_link"/>
+  <joint name="gps_trimble_position_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.075 -0.157 0.962"/>
+    <parent link="base_link"/>
+    <child link="gps_trimble_position_link"/>
+  </joint>
+  <link name="gps_trimble_vector_link"/>
+  <joint name="gps_trimble_vector_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.075 0.157 0.962"/>
+    <parent link="base_link"/>
+    <child link="gps_trimble_vector_link"/>
+  </joint>
+  <link name="zed_camera_link"/>
+  <joint name="zed_camera_joint" type="fixed">
+    <origin rpy="0 0.523598776 0" xyz="0.06 0 0.1"/>
+    <parent link="front_mount"/>
+    <child link="zed_camera_link"/>
+  </joint>
+  <link name="velodyne_puck_link"/>
+  <joint name="velodyne_puck_joint" type="fixed">
+    <origin rpy="0 0.79 -0.017" xyz="0.05 0.0 0.670"/>
+    <parent link="mid_mount"/>
+    <child link="velodyne_puck_link"/>
+  </joint>
+  <link name="robosense_lidar_link"/>
+  <joint name="robosense_lidar_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.026 0.0 0.287"/>
+    <parent link="mid_mount"/>
+    <child link="robosense_lidar_link"/>
+  </joint>
+</robot>
+
+'},
+          Parameter { name '/jackal_joint_publisher/type' type String  value 'joint_state_controller/JointStateController'},
+          Parameter { name '/jackal_joint_publisher/publish_rate' type Integer  value 50},
+          Parameter { name '/jackal_velocity_controller/pose_covariance_diagonal' type List {Double,Double,Double,Double,Double,Double} value {0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 0.03}},
+          Parameter { name '/jackal_velocity_controller/right_wheel' type List {String,String} value {'front_right_wheel', 'rear_right_wheel'}},
+          Parameter { name '/jackal_velocity_controller/twist_covariance_diagonal' type List {Double,Double,Double,Double,Double,Double} value {0.001, 0.001, 0.001, 1000000.0, 1000000.0, 0.03}},
+          Parameter { name '/jackal_velocity_controller/linear/x/max_velocity' type Double  value 2.0},
+          Parameter { name '/jackal_velocity_controller/linear/x/has_acceleration_limits' type Boolean  value true},
+          Parameter { name '/jackal_velocity_controller/linear/x/has_velocity_limits' type Boolean  value true},
+          Parameter { name '/jackal_velocity_controller/linear/x/max_acceleration' type Double  value 20.0},
+          Parameter { name '/jackal_velocity_controller/publish_rate' type Double  value 50.0},
+          Parameter { name '/jackal_velocity_controller/wheel_radius_multiplier' type Double  value 1.0},
+          Parameter { name '/jackal_velocity_controller/left_wheel' type List {String,String} value {'front_left_wheel', 'rear_left_wheel'}},
+          Parameter { name '/jackal_velocity_controller/k_r' type Double  value 0.1},
+          Parameter { name '/jackal_velocity_controller/wheel_separation_multiplier' type Double  value 1.5},
+          Parameter { name '/jackal_velocity_controller/right_wheel_radius_multiplier' type Double  value 1.0},
+          Parameter { name '/jackal_velocity_controller/enable_odom_tf' type Boolean value true},
+          Parameter { name '/jackal_velocity_controller/k_l' type Double  value 0.1},
+          Parameter { name '/jackal_velocity_controller/cmd_vel_timeout' type Double  value 0.25},
+          Parameter { name '/jackal_velocity_controller/type' type String  value 'diff_drive_controller/DiffDriveController'},
+          Parameter { name '/jackal_velocity_controller/angular/z/max_velocity' type Double  value 4.0},
+          Parameter { name '/jackal_velocity_controller/angular/z/has_acceleration_limits' type Boolean  value true},
+          Parameter { name '/jackal_velocity_controller/angular/z/has_velocity_limits' type Boolean  value true},
+          Parameter { name '/jackal_velocity_controller/angular/z/max_acceleration' type Double  value 25.0},
+          Parameter { name '/jackal_velocity_controller/left_wheel_radius_multiplier' type Double  value 1.0}}
+}
