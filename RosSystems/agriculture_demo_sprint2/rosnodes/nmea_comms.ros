@@ -1,6 +1,6 @@
 PackageSet {
   CatkinPackage nmea_comms {
-    //FromGitRepo "https://github.com/ros-drivers/nmea_comms" 
+    FromGitRepo "https://github.com/ros-drivers/nmea_comms" 
     Artifact serial_node {
       Node { name serial_node
         Parameters {

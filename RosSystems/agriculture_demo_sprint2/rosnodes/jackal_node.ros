@@ -1,6 +1,6 @@
 PackageSet {
   CatkinPackage jackal_base {
-    //FromGitRepo "https://github.com/jackal/jackal_robot" 
+    FromGitRepo "https://github.com/jackal/jackal_robot" 
     Artifact jackal_node {
       Node { name jackal_node
         ServiceServers {

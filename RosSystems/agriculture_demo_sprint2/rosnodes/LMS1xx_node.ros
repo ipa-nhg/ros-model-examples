@@ -1,6 +1,6 @@
 PackageSet {
   CatkinPackage lms1xx {
-    //FromGitRepo "https://github.com/clearpathrobotics/lms1xx" 
+    FromGitRepo "https://github.com/clearpathrobotics/lms1xx" 
     Artifact LMS1xx_node {
       Node { name LMS1xx_node
         Publishers {

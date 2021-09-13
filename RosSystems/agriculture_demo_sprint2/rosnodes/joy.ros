@@ -1,6 +1,6 @@
 PackageSet {
 	CatkinPackage joy {
-	//FromGitRepo "https://github.com/ros-drivers/joystick_drivers" 
+	FromGitRepo "https://github.com/ros-drivers/joystick_drivers" 
 	Artifact joy_node { Node { name joy_node
 		Publishers {
 			Publisher { name "joy" message "sensor_msgs.Joy" },

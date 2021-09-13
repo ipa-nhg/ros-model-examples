@@ -1,6 +1,6 @@
 PackageSet {
   CatkinPackage robot_state_publisher {
-    //FromGitRepo "https://github.com/ros/robot_state_publisher" 
+    FromGitRepo "https://github.com/ros/robot_state_publisher" 
     Artifact robot_state_publisher {
      Node { name robot_state_publisher
         Subscribers {

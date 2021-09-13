@@ -1,6 +1,6 @@
 PackageSet {
   CatkinPackage robot_localization {
-    //FromGitRepo "https://github.com/cra-ros-pkg/robot_localization" 
+    FromGitRepo "https://github.com/cra-ros-pkg/robot_localization" 
     Artifact ekf_localization_node {
       Node { name ekf_localization_node
 		ServiceServers {

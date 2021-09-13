@@ -1,6 +1,6 @@
 PackageSet {
   CatkinPackage interactive_marker_twist_server {
-    //FromGitRepo "https://github.com/ros-visualization/interactive_marker_twist_server" 
+    FromGitRepo "https://github.com/ros-visualization/interactive_marker_twist_server" 
     Artifact marker_server {
       Node { name marker_server
         Publishers {
