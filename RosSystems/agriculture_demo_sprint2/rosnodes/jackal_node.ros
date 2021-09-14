@@ -33,7 +33,8 @@ PackageSet {
           Subscriber { name 'navsat/nmea_sentence' message 'nmea_msgs.Sentence'},
           Subscriber { name 'wifi_connected' message 'std_msgs.Bool'}}
         Parameters {
-          Parameter { name 'jackal_node/require/publishers' type List {String,String,String,String}},
-          Parameter { name 'jackal_node/require/subscribers' type List {String,String}},
-          Parameter { name 'jackal_node/wireless_interface' type String }}}
-}}}
+          Parameter { name 'require/publishers' type List {String,String,String,String}},
+          Parameter { name 'require/subscribers' type List {String,String}},
+          Parameter { name 'wireless_interface' type String },
+          Parameter { name 'port' type String}}
+}}}}
