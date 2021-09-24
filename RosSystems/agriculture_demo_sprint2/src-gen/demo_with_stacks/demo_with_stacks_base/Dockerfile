@@ -2,11 +2,11 @@
 ARG SUFFIX=
 ARG BUILDER_SUFFIX=:melodic
 ARG PREFIX=
-FROM ${PREFIX}extra_layer_demo${SUFFIX} as base
+FROM ${PREFIX}extra_layer_base${SUFFIX} as base
 FROM ${PREFIX}builder${BUILDER_SUFFIX} as builder
 
 FROM base as build
-COPY . /root/ws/src/demo/
+COPY . /root/ws/src/demo_with_stacks_base/
 RUN --mount=type=bind,from=builder,target=/builder \
     apt-get update -qq && \
     /builder/workspace.bash build_workspace /root/ws && \
@@ -38,4 +38,4 @@ RUN --mount=type=bind,from=builder,target=/builder --mount=type=bind,target=/roo
 COPY --from=install /opt/ros/$ROS_DISTRO /opt/ros/$ROS_DISTRO
 
 FROM deploy as launch
-CMD ["roslaunch", "demo", "demo.launch"]
+CMD ["roslaunch", "demo_with_stacks_base", "base.launch"]

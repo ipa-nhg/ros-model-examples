@@ -1,0 +1,2 @@
+- git: {local-name: nmea_navsat_driver, uri: 'https://github.com/ros-drivers/nmea_navsat_driver'}
+- git: {local-name: jackal_robot, uri: 'https://github.com/jackal/jackal_robot'}
