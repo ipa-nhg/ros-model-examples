@@ -1,0 +1,242 @@
+PackageSet {
+  CatkinPackage jackal_robot_pkg {
+    Artifact /bluetooth_teleop/joy_node {
+      Node { name /bluetooth_teleop/joy_node
+        Publishers {
+          Publisher { name '/diagnostics' message 'diagnostic_msgs.DiagnosticArray'},
+          Publisher { name '/bluetooth_teleop/joy' message 'sensor_msgs.Joy'}}
+        Subscribers {
+          Subscriber { name '/bluetooth_teleop/joy/set_feedback' message 'sensor_msgs.JoyFeedbackArray'}}
+        Parameters {
+          Parameter { name '/bluetooth_teleop/joy_node/dev' type String },
+          Parameter { name '/bluetooth_teleop/joy_node/deadzone' type Double },
+          Parameter { name '/bluetooth_teleop/joy_node/autorepeat_rate' type Integer }}}
+},
+    Artifact /jackal_node {
+      Node { name /jackal_node
+        Publishers {
+          Publisher { name '/jackal_velocity_controller/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/jackal_velocity_controller/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
+          Publisher { name '/cmd_drive' message 'jackal_msgs.Drive'},
+          Publisher { name '/joint_states' message 'sensor_msgs.JointState'},
+          Publisher { name '/diagnostics' message 'diagnostic_msgs.DiagnosticArray'},
+          Publisher { name '/feedback' message 'jackal_msgs.Feedback'},
+          Publisher { name '/navsat/nmea_sentence' message 'nmea_msgs.Sentence'},
+          Publisher { name '/jackal_velocity_controller/odom' message 'nav_msgs.Odometry'},
+          Publisher { name '/imu/mag' message 'geometry_msgs.Vector3Stamped'},
+          Publisher { name '/imu/data_raw' message 'sensor_msgs.Imu'},
+          Publisher { name '/wifi_connected' message 'std_msgs.Bool'},
+          Publisher { name '/status' message 'jackal_msgs.Status'}}
+        Subscribers {
+          Subscriber { name '/wifi_connected' message 'std_msgs.Bool'},
+          Subscriber { name '/status' message 'jackal_msgs.Status'},
+          Subscriber { name '/navsat/nmea_sentence' message 'nmea_msgs.Sentence'},
+          Subscriber { name '/jackal_velocity_controller/cmd_vel' message 'geometry_msgs.Twist'},
+          Subscriber { name '/imu/data_raw' message 'sensor_msgs.Imu'},
+          Subscriber { name '/cmd_drive' message 'jackal_msgs.Drive'},
+          Subscriber { name '/feedback' message 'jackal_msgs.Feedback'}}
+        Parameters {
+          Parameter { name '/jackal_node/require/publishers' type List {String,String,String,String}},
+          Parameter { name '/jackal_node/require/subscribers' type List {String,String}},
+          Parameter { name '/jackal_node/wireless_interface' type String },
+          Parameter { name '/jackal_node/port' type String }}}
+},
+    Artifact /gps/trimble_tcp_driver {
+      Node { name /gps/trimble_tcp_driver
+        Publishers {
+          Publisher { name '/gps/heading' message 'nmea_navsat_driver.NavSatHeading'},
+          Publisher { name '/gps/error_statistics' message 'nmea_navsat_driver.NavSatErrorStatistics'},
+          Publisher { name '/gps/orientation' message 'nmea_navsat_driver.NavSatOrientation'},
+          Publisher { name '/gps/time_reference' message 'sensor_msgs.TimeReference'},
+          Publisher { name '/gps/fix' message 'sensor_msgs.NavSatFix'},
+          Publisher { name '/gps/info' message 'nmea_navsat_driver.NavSatInfo'},
+          Publisher { name '/gps/heading_only' message 'nmea_navsat_driver.NavSatHeadingOnly'},
+          Publisher { name '/gps/vel' message 'geometry_msgs.TwistStamped'}}
+        Parameters {
+          Parameter { name '/gps/trimble_tcp_driver/frame_id' type String },
+          Parameter { name '/gps/trimble_tcp_driver/ip' type String },
+          Parameter { name '/gps/trimble_tcp_driver/port' type Integer },
+          Parameter { name '/gps/trimble_tcp_driver/message_length' type Integer }}}
+},
+    Artifact /gps/gnss_monitor {
+      Node { name /gps/gnss_monitor
+        Publishers {
+          Publisher { name '/diagnostics' message 'diagnostic_msgs.DiagnosticArray'}}
+        Subscribers {
+          Subscriber { name '/gps/fix' message 'sensor_msgs.NavSatFix'},
+          Subscriber { name '/gps/error_statistics' message 'nmea_navsat_driver.NavSatErrorStatistics'},
+          Subscriber { name '/gps/orientation' message 'nmea_navsat_driver.NavSatOrientation'},
+          Subscriber { name '/gps/heading' message 'nmea_navsat_driver.NavSatHeading'}}}
+},
+    Artifact /velodyne_puck_link_nodelet_manager_driver {
+      Node { name /velodyne_puck_link_nodelet_manager_driver
+        Publishers {
+          Publisher { name '/velodyne_puck_link_nodelet_manager/bond' message 'bond.Status'}}
+        Subscribers {
+          Subscriber { name '/velodyne_puck_link_nodelet_manager/bond' message 'bond.Status'}}}
+},
+    Artifact /rslidar_sdk_node {
+      Node { name /rslidar_sdk_node
+        Publishers {
+          Publisher { name '/rslidar_points' message 'sensor_msgs.PointCloud2'}}}
+},
+    Artifact /robot_state_publisher {
+      Node { name /robot_state_publisher
+        Subscribers {
+          Subscriber { name '/joint_states' message 'sensor_msgs.JointState'}}}
+},
+    Artifact /twist_mux {
+      Node { name /twist_mux
+        Publishers {
+          Publisher { name '/jackal_velocity_controller/cmd_vel' message 'geometry_msgs.Twist'},
+          Publisher { name '/diagnostics' message 'diagnostic_msgs.DiagnosticArray'}}
+        Subscribers {
+          Subscriber { name '/joy_teleop/cmd_vel' message 'geometry_msgs.Twist'},
+          Subscriber { name '/bluetooth_teleop/cmd_vel' message 'geometry_msgs.Twist'},
+          Subscriber { name '/twist_marker_server/cmd_vel' message 'geometry_msgs.Twist'},
+          Subscriber { name '/cmd_vel' message 'geometry_msgs.Twist'},
+          Subscriber { name '/e_stop' message 'std_msgs.Bool'}}
+        Parameters {
+          Parameter { name '/twist_mux/locks' type Struct {'topic' String, 'priority' Integer , 'name' String, 'timeout' Double}},
+          Parameter { name '/twist_mux/topics' type List { Struct {'topic' String, 'priority' Integer , 'name' String, 'timeout' Double}, Struct {'topic' String, 'priority' Integer , 'name' String, 'timeout' Double}, Struct {'topic' String, 'priority' Integer , 'name' String, 'timeout' Double}, Struct {'topic' String, 'priority' Integer , 'name' String, 'timeout' Double}}}}}
+},
+    Artifact /velodyne_puck_link_nodelet_manager {
+      Node { name /velodyne_puck_link_nodelet_manager
+        Publishers {
+          Publisher { name '/velodyne_puck_link_nodelet_manager/bond' message 'bond.Status'},
+          Publisher { name '/scan' message 'sensor_msgs.LaserScan'},
+          Publisher { name '/velodyne_puck_link_nodelet_manager_transform/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/velodyne_puck_link_nodelet_manager_driver/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/velodyne_puck_link_nodelet_manager_laserscan/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
+          Publisher { name '/velodyne_points' message 'sensor_msgs.PointCloud2'},
+          Publisher { name '/diagnostics' message 'diagnostic_msgs.DiagnosticArray'},
+          Publisher { name '/velodyne_packets' message 'velodyne_msgs.VelodyneScan'},
+          Publisher { name '/velodyne_puck_link_nodelet_manager_laserscan/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/velodyne_puck_link_nodelet_manager_transform/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
+          Publisher { name '/velodyne_puck_link_nodelet_manager_driver/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'}}
+        Subscribers {
+          Subscriber { name '/velodyne_puck_link_nodelet_manager/bond' message 'bond.Status'},
+          Subscriber { name '/velodyne_packets' message 'velodyne_msgs.VelodyneScan'}}
+        Parameters {
+          Parameter { name '/velodyne_puck_link_nodelet_manager_driver/pcap_time' type Boolean },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_driver/port' type Integer },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_driver/read_fast' type Boolean },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_driver/read_once' type Boolean },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_driver/repeat_delay' type Double },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_driver/rpm' type Double },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_driver/timestamp_first_packet' type Boolean },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_driver/time_offset' type Double },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_driver/enabled' type Boolean },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_transform/calibration' type String },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_transform/fixed_frame' type String },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_transform/max_range' type Double },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_transform/min_range' type Double },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_transform/model' type String },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_transform/organize_cloud' type Boolean },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_transform/target_frame' type String },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_transform/view_direction' type Double },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_transform/view_width' type Double },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_laserscan/resolution' type Double },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_laserscan/ring' type Integer },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_driver/cut_angle' type Double },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_driver/device_ip' type String },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_driver/frame_id' type String },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_driver/gps_time' type Boolean },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_driver/model' type String },
+          Parameter { name '/velodyne_puck_link_nodelet_manager_driver/pcap' type String }}}
+},
+    Artifact /bluetooth_teleop/teleop_twist_joy {
+      Node { name /bluetooth_teleop/teleop_twist_joy
+        Publishers {
+          Publisher { name '/bluetooth_teleop/cmd_vel' message 'geometry_msgs.Twist'}}
+        Subscribers {
+          Subscriber { name '/bluetooth_teleop/joy' message 'sensor_msgs.Joy'}}
+        Parameters {
+          Parameter { name '/bluetooth_teleop/teleop_twist_joy/enable_turbo_button' type Integer },
+          Parameter { name '/bluetooth_teleop/teleop_twist_joy/axis_linear' type Integer },
+          Parameter { name '/bluetooth_teleop/teleop_twist_joy/scale_linear' type Double },
+          Parameter { name '/bluetooth_teleop/teleop_twist_joy/scale_linear_turbo' type Double },
+          Parameter { name '/bluetooth_teleop/teleop_twist_joy/axis_angular' type Integer },
+          Parameter { name '/bluetooth_teleop/teleop_twist_joy/scale_angular' type Double },
+          Parameter { name '/bluetooth_teleop/teleop_twist_joy/enable_button' type Integer }}}
+},
+    Artifact /imu_filter {
+      Node { name /imu_filter
+        Publishers {
+          Publisher { name '/imu_filter/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/imu/data' message 'sensor_msgs.Imu'},
+          Publisher { name '/imu_filter/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'}}
+        Subscribers {
+          Subscriber { name '/imu/data_raw' message 'sensor_msgs.Imu'}}
+        Parameters {
+          Parameter { name '/imu_filter/publish_tf' type Boolean },
+          Parameter { name '/imu_filter/orientation_stddev' type Double },
+          Parameter { name '/imu_filter/use_mag' type Boolean },
+          Parameter { name '/imu_filter/mag_bias_x' type Double },
+          Parameter { name '/imu_filter/mag_bias_y' type Double },
+          Parameter { name '/imu_filter/mag_bias_z' type Double },
+          Parameter { name '/imu_filter/gain' type Double },
+          Parameter { name '/imu_filter/zeta' type Double }}}
+},
+    Artifact /velodyne_puck_link_nodelet_manager_laserscan {
+      Node { name /velodyne_puck_link_nodelet_manager_laserscan
+        Publishers {
+          Publisher { name '/velodyne_puck_link_nodelet_manager/bond' message 'bond.Status'}}
+        Subscribers {
+          Subscriber { name '/velodyne_puck_link_nodelet_manager/bond' message 'bond.Status'}}}
+},
+    Artifact /navsat/nmea_topic_driver {
+      Node { name /navsat/nmea_topic_driver
+        Publishers {
+          Publisher { name '/navsat/heading' message 'nmea_navsat_driver.NavSatHeading'},
+          Publisher { name '/navsat/heading_only' message 'nmea_navsat_driver.NavSatHeadingOnly'},
+          Publisher { name '/navsat/vel' message 'geometry_msgs.TwistStamped'},
+          Publisher { name '/navsat/error_statistics' message 'nmea_navsat_driver.NavSatErrorStatistics'},
+          Publisher { name '/navsat/time_reference' message 'sensor_msgs.TimeReference'},
+          Publisher { name '/navsat/orientation' message 'nmea_navsat_driver.NavSatOrientation'},
+          Publisher { name '/navsat/info' message 'nmea_navsat_driver.NavSatInfo'},
+          Publisher { name '/navsat/fix' message 'sensor_msgs.NavSatFix'}}
+        Subscribers {
+          Subscriber { name '/navsat/nmea_sentence' message 'nmea_msgs.Sentence'}}}
+},
+    Artifact /twist_marker_server {
+      Node { name /twist_marker_server
+        Publishers {
+          Publisher { name '/twist_marker_server/cmd_vel' message 'geometry_msgs.Twist'},
+          Publisher { name '/twist_marker_server/update_full' message 'visualization_msgs.InteractiveMarkerInit'},
+          Publisher { name '/twist_marker_server/update' message 'visualization_msgs.InteractiveMarkerUpdate'}}
+        Subscribers {
+          Subscriber { name '/twist_marker_server/feedback' message 'visualization_msgs.InteractiveMarkerFeedback'}}
+        Parameters {
+          Parameter { name '/twist_marker_server/link_name' type String }}}
+},
+    Artifact /velodyne_puck_link_nodelet_manager_transform {
+      Node { name /velodyne_puck_link_nodelet_manager_transform
+        Publishers {
+          Publisher { name '/velodyne_puck_link_nodelet_manager/bond' message 'bond.Status'}}
+        Subscribers {
+          Subscriber { name '/velodyne_puck_link_nodelet_manager/bond' message 'bond.Status'}}}
+},
+    Artifact /diagnostic_aggregator {
+      Node { name /diagnostic_aggregator
+        Publishers {
+          Publisher { name '/diagnostics_toplevel_state' message 'diagnostic_msgs.DiagnosticStatus'},
+          Publisher { name '/diagnostics_agg' message 'diagnostic_msgs.DiagnosticArray'}}
+        Subscribers {
+          Subscriber { name '/diagnostics' message 'diagnostic_msgs.DiagnosticArray'}}
+        Parameters {
+          Parameter { name '/diagnostic_aggregator/analyzers/jackal/analyzers/sensors/remove_prefix' type String },
+          Parameter { name '/diagnostic_aggregator/analyzers/jackal/analyzers/sensors/timeout' type Double },
+          Parameter { name '/diagnostic_aggregator/analyzers/jackal/analyzers/teleop/type' type String },
+          Parameter { name '/diagnostic_aggregator/analyzers/jackal/type' type String },
+          Parameter { name '/diagnostic_aggregator/analyzers/jackal/analyzers/teleop/path' type String },
+          Parameter { name '/diagnostic_aggregator/analyzers/jackal/path' type String },
+          Parameter { name '/diagnostic_aggregator/analyzers/jackal/analyzers/teleop/remove_prefix' type String },
+          Parameter { name '/diagnostic_aggregator/analyzers/jackal/analyzers/general/remove_prefix' type String },
+          Parameter { name '/diagnostic_aggregator/analyzers/jackal/analyzers/general/type' type String },
+          Parameter { name '/diagnostic_aggregator/analyzers/jackal/analyzers/general/timeout' type Double },
+          Parameter { name '/diagnostic_aggregator/analyzers/jackal/analyzers/teleop/timeout' type Double },
+          Parameter { name '/diagnostic_aggregator/analyzers/jackal/analyzers/sensors/type' type String },
+          Parameter { name '/diagnostic_aggregator/analyzers/jackal/analyzers/general/path' type String },
+          Parameter { name '/diagnostic_aggregator/analyzers/jackal/analyzers/sensors/path' type String }}}
+}}}

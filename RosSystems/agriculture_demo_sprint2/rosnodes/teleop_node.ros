@@ -8,11 +8,11 @@ PackageSet {
         Subscribers {
           Subscriber { name 'joy' message 'sensor_msgs.Joy'}}
         Parameters {
-          Parameter { name 'teleop_twist_joy/enable_button' type Integer },
-          Parameter { name 'teleop_twist_joy/scale_angular' type Double },
-          Parameter { name 'teleop_twist_joy/enable_turbo_button' type Integer },
-          Parameter { name 'teleop_twist_joy/scale_linear' type Double },
-          Parameter { name 'teleop_twist_joy/scale_linear_turbo' type Double },
-          Parameter { name 'teleop_twist_joy/axis_angular' type Integer },
-          Parameter { name 'teleop_twist_joy/axis_linear' type Integer }}}
+          Parameter { name 'enable_button' type Integer },
+          Parameter { name 'scale_angular' type Double },
+          Parameter { name 'enable_turbo_button' type Integer },
+          Parameter { name 'scale_linear' type Double },
+          Parameter { name 'scale_linear_turbo' type Double },
+          Parameter { name 'axis_angular' type Integer },
+          Parameter { name 'axis_linear' type Integer }}}
 }}}

@@ -1,4 +1,0 @@
-- git: {local-name: twist_mux, uri: 'https://github.com/ros-teleop/twist_mux'}
-- git: {local-name: joystick_drivers, uri: 'https://github.com/ros-drivers/joystick_drivers'}
-- git: {local-name: teleop_twist_joy, uri: 'https://github.com/ros-teleop/teleop_twist_joy'}
-- git: {local-name: interactive_marker_twist_server, uri: 'https://github.com/ros-visualization/interactive_marker_twist_server'}
