@@ -8,5 +8,7 @@ PackageSet {
           Publisher { name 'update_full' message 'visualization_msgs.InteractiveMarkerInit'},
           Publisher { name 'update' message 'visualization_msgs.InteractiveMarkerUpdate'}}
         Subscribers {
-          Subscriber { name 'feedback' message 'visualization_msgs.InteractiveMarkerFeedback'}}}
+          Subscriber { name 'feedback' message 'visualization_msgs.InteractiveMarkerFeedback'}}
+        Parameters {
+          Parameter { name 'link_name' type String }}}
 }}}

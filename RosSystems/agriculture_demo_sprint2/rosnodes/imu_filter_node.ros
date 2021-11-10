@@ -8,7 +8,8 @@ PackageSet {
         Publishers {
           Publisher { name 'data' message 'sensor_msgs.Imu'},
           Publisher { name 'parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
-          Publisher { name 'parameter_updates' message 'dynamic_reconfigure.Config'}}
+          Publisher { name 'parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name 'tf' message 'tf.tfMessage'}}
         Subscribers {
           Subscriber { name 'data_raw' message 'sensor_msgs.Imu'}}
         Parameters {

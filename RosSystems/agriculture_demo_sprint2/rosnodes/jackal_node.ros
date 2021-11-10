@@ -23,7 +23,8 @@ PackageSet {
           Publisher { name 'imu/mag' message 'geometry_msgs.Vector3Stamped'},
           Publisher { name 'imu/data_raw' message 'sensor_msgs.Imu'},
           Publisher { name 'jackal_velocity_controller/parameter_updates' message 'dynamic_reconfigure.Config'},
-          Publisher { name 'jackal_velocity_controller/odom' message 'nav_msgs.Odometry'}}
+          Publisher { name 'jackal_velocity_controller/odom' message 'nav_msgs.Odometry'},
+          Publisher { name 'tf' message "tf.tfMessage"}}
         Subscribers {
           Subscriber { name 'jackal_velocity_controller/cmd_vel' message 'geometry_msgs.Twist'},
           Subscriber { name 'feedback' message 'jackal_msgs.Feedback'},
