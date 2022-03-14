@@ -7,7 +7,7 @@ RosComponents (
       RosSubscribers { 
       	RosSubscriber "bluetooth_teleop/joy/set_feedback" { ns bluetooth_teleop RefSubscriber "joy.joy_node.joy_node.joy/set_feedback" }}
       RosParameters { 
-      	RosParameter "bluetooth_teleop/joy_node/dev" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.joy_node/dev" } , 
+      	RosParameter "bluetooth_teleop/joy_node/dev" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.joy_node/dev" value "/dev/joy0"} , 
       	RosParameter "bluetooth_teleop/joy_node/deadzone" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.joy_node/deadzone" } , 
       	RosParameter "bluetooth_teleop/joy_node/autorepeat_rate" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.joy_node/autorepeat_rate" }
       }},
