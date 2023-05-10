@@ -1,0 +1,300 @@
+moveit_simple_controller_manager:
+  fromGitRepo: "https://github.com/ros-planning/moveit2.git"
+  artifacts:
+    moveit_simple_controller_manager:
+      node: moveit_simple_controller_manager
+      parameters:
+        "allow_trajectory_execution":
+          type: Boolean
+        "capabilities":
+          type: String
+        "chomp.enable_failure_recovery":
+          type: Boolean
+        "chomp.jiggle_fraction":
+          type: Double
+        "chomp.planning_plugin":
+          type: String
+        "chomp.request_adapters":
+          type: String
+        "chomp.ridge_factor":
+          type: Double
+        "chomp.start_state_max_bounds_error":
+          type: Double
+        "default_planning_pipeline":
+          type: String
+        "disable_capabilities":
+          type: String
+        "monitor_dynamics":
+          type: Boolean
+        "moveit_controller_manager":
+          type: String
+        "moveit_manage_controllers":
+          type: Boolean
+        "moveit_simple_controller_manager.controller_names":
+          type:
+            Array: String
+        "moveit_simple_controller_manager.joint_trajectory_controller.action_ns":
+          type: String
+        "moveit_simple_controller_manager.joint_trajectory_controller.default":
+          type: Boolean
+        "moveit_simple_controller_manager.joint_trajectory_controller.joints":
+          type:
+            Array: String
+        "moveit_simple_controller_manager.joint_trajectory_controller.type":
+          type: String
+        "ompl.arm.longest_valid_segment_fraction":
+          type: Double
+        "ompl.arm.planner_configs":
+          type:
+            Array: String
+        "ompl.arm.projection_evaluator":
+          type: String
+        "ompl.planner_configs.BKPIECEkConfigDefault.border_fraction":
+          type: Double
+        "ompl.planner_configs.BKPIECEkConfigDefault.failed_expansion_score_factor":
+          type: Double
+        "ompl.planner_configs.BKPIECEkConfigDefault.min_valid_path_fraction":
+          type: Double
+        "ompl.planner_configs.BKPIECEkConfigDefault.range":
+          type: Double
+        "ompl.planner_configs.BKPIECEkConfigDefault.type":
+          type: String
+        "ompl.planner_configs.ESTkConfigDefault.goal_bias":
+          type: Double
+        "ompl.planner_configs.ESTkConfigDefault.range":
+          type: Double
+        "ompl.planner_configs.ESTkConfigDefault.type":
+          type: String
+        "ompl.planner_configs.KPIECEkConfigDefault.border_fraction":
+          type: Double
+        "ompl.planner_configs.KPIECEkConfigDefault.failed_expansion_score_factor":
+          type: Double
+        "ompl.planner_configs.KPIECEkConfigDefault.goal_bias":
+          type: Double
+        "ompl.planner_configs.KPIECEkConfigDefault.min_valid_path_fraction":
+          type: Double
+        "ompl.planner_configs.KPIECEkConfigDefault.range":
+          type: Double
+        "ompl.planner_configs.KPIECEkConfigDefault.type":
+          type: String
+        "ompl.planner_configs.LBKPIECEkConfigDefault.border_fraction":
+          type: Double
+        "ompl.planner_configs.LBKPIECEkConfigDefault.min_valid_path_fraction":
+          type: Double
+        "ompl.planner_configs.LBKPIECEkConfigDefault.range":
+          type: Double
+        "ompl.planner_configs.LBKPIECEkConfigDefault.type":
+          type: String
+        "ompl.planner_configs.PRMkConfigDefault.max_nearest_neighbors":
+          type: Integer
+        "ompl.planner_configs.PRMkConfigDefault.type":
+          type: String
+        "ompl.planner_configs.PRMstarkConfigDefault.type":
+          type: String
+        "ompl.planner_configs.RRTConnectkConfigDefault.range":
+          type: Double
+        "ompl.planner_configs.RRTConnectkConfigDefault.type":
+          type: String
+        "ompl.planner_configs.RRTkConfigDefault.goal_bias":
+          type: Double
+        "ompl.planner_configs.RRTkConfigDefault.range":
+          type: Double
+        "ompl.planner_configs.RRTkConfigDefault.type":
+          type: String
+        "ompl.planner_configs.RRTstarkConfigDefault.delay_collision_checking":
+          type: Integer
+        "ompl.planner_configs.RRTstarkConfigDefault.goal_bias":
+          type: Double
+        "ompl.planner_configs.RRTstarkConfigDefault.range":
+          type: Double
+        "ompl.planner_configs.RRTstarkConfigDefault.type":
+          type: String
+        "ompl.planner_configs.SBLkConfigDefault.range":
+          type: Double
+        "ompl.planner_configs.SBLkConfigDefault.type":
+          type: String
+        "ompl.planner_configs.TRRTkConfigDefault.frountierNodeRatio":
+          type: Double
+        "ompl.planner_configs.TRRTkConfigDefault.frountier_threshold":
+          type: Double
+        "ompl.planner_configs.TRRTkConfigDefault.goal_bias":
+          type: Double
+        "ompl.planner_configs.TRRTkConfigDefault.init_temperature":
+          type: Double
+        "ompl.planner_configs.TRRTkConfigDefault.k_constant":
+          type: Double
+        "ompl.planner_configs.TRRTkConfigDefault.max_states_failed":
+          type: Integer
+        "ompl.planner_configs.TRRTkConfigDefault.min_temperature":
+          type: Double
+        "ompl.planner_configs.TRRTkConfigDefault.range":
+          type: Double
+        "ompl.planner_configs.TRRTkConfigDefault.temp_change_factor":
+          type: Double
+        "ompl.planner_configs.TRRTkConfigDefault.type":
+          type: String
+        "ompl.planning_plugin":
+          type: String
+        "ompl.request_adapters":
+          type: String
+        "ompl.start_state_max_bounds_error":
+          type: Double
+        "pilz_industrial_motion_planner.capabilities":
+          type: String
+        "pilz_industrial_motion_planner.default_planner_config":
+          type: String
+        "pilz_industrial_motion_planner.planning_plugin":
+          type: String
+        "pilz_industrial_motion_planner.request_adapters":
+          type: String
+        "planning_pipelines":
+          type:
+            Array: String
+        "publish_geometry_updates":
+          type: Boolean
+        "publish_planning_scene":
+          type: Boolean
+        "publish_robot_description":
+          type: Boolean
+        "publish_robot_description_semantic":
+          type: Boolean
+        "publish_state_updates":
+          type: Boolean
+        "publish_transforms_updates":
+          type: Boolean
+        "qos_overrides./parameter_events.publisher.depth":
+          type: Integer
+        "qos_overrides./parameter_events.publisher.durability":
+          type: String
+        "qos_overrides./parameter_events.publisher.history":
+          type: String
+        "qos_overrides./parameter_events.publisher.reliability":
+          type: String
+        "robot_description":
+          type: String
+        "robot_description_kinematics.arm.kinematics_solver":
+          type: String
+        "robot_description_kinematics.arm.kinematics_solver_search_resolution":
+          type: Double
+        "robot_description_kinematics.arm.kinematics_solver_timeout":
+          type: Double
+        "robot_description_planning.cartesian_limits.max_rot_vel":
+          type: Double
+        "robot_description_planning.cartesian_limits.max_trans_acc":
+          type: Double
+        "robot_description_planning.cartesian_limits.max_trans_dec":
+          type: Double
+        "robot_description_planning.cartesian_limits.max_trans_vel":
+          type: Double
+        "robot_description_planning.joint_limits.elbow_joint.has_acceleration_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.elbow_joint.has_effort_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.elbow_joint.has_position_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.elbow_joint.has_velocity_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.elbow_joint.max_acceleration":
+          type: Double
+        "robot_description_planning.joint_limits.elbow_joint.max_effort":
+          type: Double
+        "robot_description_planning.joint_limits.elbow_joint.max_position":
+          type: Double
+        "robot_description_planning.joint_limits.elbow_joint.max_velocity":
+          type: Double
+        "robot_description_planning.joint_limits.elbow_joint.min_position":
+          type: Double
+        "robot_description_planning.joint_limits.shoulder_lift_joint.has_acceleration_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.shoulder_lift_joint.has_effort_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.shoulder_lift_joint.has_position_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.shoulder_lift_joint.has_velocity_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.shoulder_lift_joint.max_acceleration":
+          type: Double
+        "robot_description_planning.joint_limits.shoulder_lift_joint.max_effort":
+          type: Double
+        "robot_description_planning.joint_limits.shoulder_lift_joint.max_position":
+          type: Double
+        "robot_description_planning.joint_limits.shoulder_lift_joint.max_velocity":
+          type: Double
+        "robot_description_planning.joint_limits.shoulder_lift_joint.min_position":
+          type: Double
+        "robot_description_planning.joint_limits.shoulder_pan_joint.has_acceleration_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.shoulder_pan_joint.has_effort_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.shoulder_pan_joint.has_position_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.shoulder_pan_joint.has_velocity_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.shoulder_pan_joint.max_acceleration":
+          type: Double
+        "robot_description_planning.joint_limits.shoulder_pan_joint.max_effort":
+          type: Double
+        "robot_description_planning.joint_limits.shoulder_pan_joint.max_position":
+          type: Double
+        "robot_description_planning.joint_limits.shoulder_pan_joint.max_velocity":
+          type: Double
+        "robot_description_planning.joint_limits.shoulder_pan_joint.min_position":
+          type: Double
+        "robot_description_planning.joint_limits.wrist_1_joint.has_acceleration_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.wrist_1_joint.has_effort_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.wrist_1_joint.has_position_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.wrist_1_joint.has_velocity_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.wrist_1_joint.max_acceleration":
+          type: Double
+        "robot_description_planning.joint_limits.wrist_1_joint.max_effort":
+          type: Double
+        "robot_description_planning.joint_limits.wrist_1_joint.max_position":
+          type: Double
+        "robot_description_planning.joint_limits.wrist_1_joint.max_velocity":
+          type: Double
+        "robot_description_planning.joint_limits.wrist_1_joint.min_position":
+          type: Double
+        "robot_description_planning.joint_limits.wrist_2_joint.has_acceleration_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.wrist_2_joint.has_effort_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.wrist_2_joint.has_position_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.wrist_2_joint.has_velocity_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.wrist_2_joint.max_acceleration":
+          type: Double
+        "robot_description_planning.joint_limits.wrist_2_joint.max_effort":
+          type: Double
+        "robot_description_planning.joint_limits.wrist_2_joint.max_position":
+          type: Double
+        "robot_description_planning.joint_limits.wrist_2_joint.max_velocity":
+          type: Double
+        "robot_description_planning.joint_limits.wrist_2_joint.min_position":
+          type: Double
+        "robot_description_planning.joint_limits.wrist_3_joint.has_acceleration_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.wrist_3_joint.has_effort_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.wrist_3_joint.has_position_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.wrist_3_joint.has_velocity_limits":
+          type: Boolean
+        "robot_description_planning.joint_limits.wrist_3_joint.max_acceleration":
+          type: Double
+        "robot_description_planning.joint_limits.wrist_3_joint.max_effort":
+          type: Double
+        "robot_description_planning.joint_limits.wrist_3_joint.max_position":
+          type: Double
+        "robot_description_planning.joint_limits.wrist_3_joint.max_velocity":
+          type: Double
+        "robot_description_planning.joint_limits.wrist_3_joint.min_position":
+          type: Double
+        "robot_description_semantic":
+          type: String
+        "use_sim_time":
+          type: Boolean

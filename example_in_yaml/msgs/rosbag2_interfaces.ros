@@ -1,0 +1,50 @@
+rosbag2_interfaces:
+  specs:
+    - msg: WriteSplitEvent
+      message:
+        "closed_file": string
+        "opened_file": string
+    - msg: ReadSplitEvent
+      message:
+        "closed_file": string
+        "opened_file": string
+    - srv: TogglePaused
+      request:
+      response:
+    - srv: Burst
+      request:
+        "num_messages": uint64
+      response:
+        "actually_burst": uint64
+    - srv: IsPaused
+      request:
+      response:
+        "paused": bool
+    - srv: GetRate
+      request:
+      response:
+        "rate": float64
+    - srv: Resume
+      request:
+      response:
+    - srv: PlayNext
+      request:
+      response:
+        "success": bool
+    - srv: Pause
+      request:
+      response:
+    - srv: Seek
+      request:
+        "time": ["builtin_interfaces.Time"]
+      response:
+        "success": bool
+    - srv: Snapshot
+      request:
+      response:
+        "success": bool
+    - srv: SetRate
+      request:
+        "rate": float64
+      response:
+        "success": bool

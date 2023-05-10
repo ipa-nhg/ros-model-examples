@@ -1,0 +1,66 @@
+moveit_task_constructor_msgs:
+  specs:
+    - msg: TaskStatistics
+      message:
+        "task_id": string
+        "stages": ["StageStatistics"]
+    - msg: Solution
+      message:
+        "task_id": string
+        "start_scene": ["moveit_msgs.PlanningScene"]
+        "sub_solution": ["SubSolution"]
+        "sub_trajectory": ["SubTrajectory"]
+    - msg: Property
+      message:
+        "name": string
+        "description": string
+        "type": string
+        "value": string
+    - msg: SubTrajectory
+      message:
+        "info": ["SolutionInfo"]
+        "trajectory": ["moveit_msgs.RobotTrajectory"]
+        "scene_diff": ["moveit_msgs.PlanningScene"]
+    - msg: TaskDescription
+      message:
+        "task_id": string
+        "stages": ["StageDescription"]
+    - msg: StageStatistics
+      message:
+        "id": uint32
+        "solved": [uint32]
+        "failed": [uint32]
+        "num_failed": uint32
+        "total_compute_time": float64
+    - msg: SolutionInfo
+      message:
+        "id": uint32
+        "cost": float32
+        "comment": string
+        "stage_id": uint32
+        "markers": ["visualization_msgs.Marker"]
+    - msg: SubSolution
+      message:
+        "info": ["SolutionInfo"]
+        "sub_solution_id": [uint32]
+    - msg: StageDescription
+      message:
+        "id": uint32
+        "parent_id": uint32
+        "name": string
+        "flags": uint32
+        "properties": ["Property"]
+    - srv: GetSolution
+      request:
+        "solution_id": uint32
+      response:
+        "solution": ["Solution"]
+
+    - action: ExecuteTaskSolution
+      goal:
+        "solution": ["Solution"]
+      result:
+        "error_code": ["moveit_msgs.MoveItErrorCodes"]
+      feedback:
+        "sub_id": uint32
+        "sub_no": uint32

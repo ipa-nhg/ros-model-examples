@@ -1,0 +1,60 @@
+map_msgs:
+  specs:
+    - msg: ProjectedMapInfo
+      message:
+        "frame_id": string
+        "x": float64
+        "y": float64
+        "width": float64
+        "height": float64
+        "min_z": float64
+        "max_z": float64
+    - msg: PointCloud2Update
+      message:
+        "header": "std_msgs.Header"
+        "type": uint32
+        "points": ["sensor_msgs.PointCloud2"]
+    - msg: OccupancyGridUpdate
+      message:
+        "header": "std_msgs.Header"
+        "x": int32
+        "y": int32
+        "width": uint32
+        "height": uint32
+        "data": [int8]
+    - msg: ProjectedMap
+      message:
+        "map": ["nav_msgs.OccupancyGrid"]
+        "min_z": float64
+        "max_z": float64
+    - srv: SaveMap
+      request:
+        "filename": ["std_msgs.String"]
+      response:
+    - srv: ProjectedMapsInfo
+      request:
+        "projected_maps_info": ["map_msgs.ProjectedMapInfo"]
+      response:
+    - srv: GetPointMapROI
+      request:
+        "x": float64
+        "y": float64
+        "z": float64
+      response:
+        "sub_map": ["sensor_msgs.PointCloud2"]
+    - srv: GetPointMap
+      request:
+      response:
+        "map": ["sensor_msgs.PointCloud2"]
+    - srv: GetMapROI
+      request:
+        "x": float64
+        "y": float64
+        "l_x": float64
+        "l_y": float64
+      response:
+        "sub_map": ["nav_msgs.OccupancyGrid"]
+    - srv: SetMapProjections
+      request:
+      response:
+        "projected_maps_info": ["map_msgs.ProjectedMapInfo"]

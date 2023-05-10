@@ -1,0 +1,46 @@
+usb_cam:
+  fromGitRepo: "https://github.com/ipa-rwu/usb_cam.git:ros2"
+  artifacts:
+    usb_cam:
+      node: usb_cam
+      publishers:
+        image_raw:
+          type: "sensor_msgs.Image"
+          qos:
+            depth: 100
+      serviceServers:
+        set_capture:
+          type: "std_srvs.SetBool"
+      parameters:
+        camera_name:
+          type: String
+          default: ""
+        camera_info_url:
+          type: String
+          default: ""
+        frame_id:
+          type: String
+          default: ""
+        framerate:
+          type: Double
+        image_height:
+          type: Integer
+        image_width:
+          type: Integer
+        io_method:
+          type: String
+          default: ""
+        pixel_format:
+          type: String
+          default: ""
+        color_format:
+          type: String
+          default: ""
+        video_device:
+          type: String
+          default: ""
+    show_image:
+      node: examine_image
+      subscribers:
+        image_raw:
+          type: "sensor_msgs.Image"

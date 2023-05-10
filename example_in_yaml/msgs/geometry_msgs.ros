@@ -1,0 +1,130 @@
+geometry_msgs:
+  specs:
+    - msg: QuaternionStamped
+      message:
+        "header": "std_msgs.Header"
+        "quaternion": ["Quaternion"]
+    - msg: Inertia
+      message:
+        "m": float64
+        "com": ["geometry_msgs.Vector3"]
+        "ixx": float64
+        "ixy": float64
+        "ixz": float64
+        "iyy": float64
+        "iyz": float64
+        "izz": float64
+    - msg: PointStamped
+      message:
+        "header": "std_msgs.Header"
+        "point": ["Point"]
+    - msg: Point
+      message:
+        "x": float64
+        "y": float64
+        "z": float64
+    - msg: Polygon
+      message:
+        "points": ["Point32"]
+    - msg: TwistStamped
+      message:
+        "header": "std_msgs.Header"
+        "twist": ["Twist"]
+    - msg: AccelStamped
+      message:
+        "header": "std_msgs.Header"
+        "accel": ["Accel"]
+    - msg: Vector3Stamped
+      message:
+        "header": "std_msgs.Header"
+        "vector": ["Vector3"]
+    - msg: Pose2D
+      message:
+        "x": float64
+        "y": float64
+        "theta": float64
+    - msg: Quaternion
+      message:
+        "x 0": float64
+        "y 0": float64
+        "z 0": float64
+        "w 1": float64
+    - msg: AccelWithCovariance
+      message:
+        "accel": ["Accel"]
+        "covariance": [float64]
+    - msg: Wrench
+      message:
+        "force": ["Vector3"]
+        "torque": ["Vector3"]
+    - msg: PolygonStamped
+      message:
+        "header": "std_msgs.Header"
+        "polygon": ["Polygon"]
+    - msg: Vector3
+      message:
+        "x": float64
+        "y": float64
+        "z": float64
+    - msg: TwistWithCovariance
+      message:
+        "twist": ["Twist"]
+        "covariance": [float64]
+    - msg: PoseStamped
+      message:
+        "header": "std_msgs.Header"
+        "pose": ["Pose"]
+    - msg: TwistWithCovarianceStamped
+      message:
+        "header": "std_msgs.Header"
+        "twist": ["TwistWithCovariance"]
+    - msg: PoseWithCovariance
+      message:
+        "pose": ["Pose"]
+        "covariance": [float64]
+    - msg: WrenchStamped
+      message:
+        "header": "std_msgs.Header"
+        "wrench": ["Wrench"]
+    - msg: Accel
+      message:
+        "linear": ["Vector3"]
+        "angular": ["Vector3"]
+    - msg: Transform
+      message:
+        "translation": ["Vector3"]
+        "rotation": ["Quaternion"]
+    - msg: Twist
+      message:
+        "linear": ["Vector3"]
+        "angular": ["Vector3"]
+    - msg: Pose
+      message:
+        "position": ["Point"]
+        "orientation": ["Quaternion"]
+    - msg: PoseArray
+      message:
+        "header": "std_msgs.Header"
+        "poses": ["Pose"]
+    - msg: Point32
+      message:
+        "x": float32
+        "y": float32
+        "z": float32
+    - msg: TransformStamped
+      message:
+        "header": "std_msgs.Header"
+        "child_frame_id": string
+        "transform": ["Transform"]
+    - msg: InertiaStamped
+      message:
+        "header": "std_msgs.Header"
+        "inertia": ["Inertia"]
+    - msg: PoseWithCovarianceStamped
+      message:
+        "header": "std_msgs.Header"
+        "pose": ["PoseWithCovariance"]
+    - msg: AccelWithCovarianceStamped
+      message:
+        "header": "std_msgs.Header"
+        "accel": ["AccelWithCovariance"]

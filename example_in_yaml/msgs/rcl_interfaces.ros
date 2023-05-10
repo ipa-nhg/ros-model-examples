@@ -1,0 +1,98 @@
+rcl_interfaces:
+  specs:
+    - msg: ListParametersResult
+      message:
+        "names": [string]
+        "prefixes": [string]
+    - msg: Parameter
+      message:
+        "name": string
+        "value": ["ParameterValue"]
+    - msg: ParameterEventDescriptors
+      message:
+        "new_parameters": ["ParameterDescriptor"]
+        "changed_parameters": ["ParameterDescriptor"]
+        "deleted_parameters": ["ParameterDescriptor"]
+    - msg: ParameterValue
+      message:
+        "type": uint8
+        "bool_value": bool
+        "integer_value": int64
+        "double_value": float64
+        "string_value": string
+        "byte_array_value": [byte]
+        "bool_array_value": [bool]
+        "integer_array_value": [int64]
+        "double_array_value": [float64]
+        "string_array_value": [string]
+    - msg: Log
+      message:
+        "stamp": ["builtin_interfaces.Time"]
+        "level": uint8
+        "name": string
+        "msg": string
+        "file": string
+        "function": string
+        "line": uint32
+    - msg: SetParametersResult
+      message:
+        "successful": bool
+        "reason": string
+    - msg: FloatingPointRange
+      message:
+        "from_value": float64
+        "to_value": float64
+        "step": float64
+    - msg: ParameterType
+      message:
+    - msg: IntegerRange
+      message:
+        "from_value": int64
+        "to_value": int64
+        "step": uint64
+    - msg: ParameterEvent
+      message:
+        "stamp": ["builtin_interfaces.Time"]
+        "node": string
+        "new_parameters": ["Parameter"]
+        "changed_parameters": ["Parameter"]
+        "deleted_parameters": ["Parameter"]
+    - msg: ParameterDescriptor
+      message:
+        "name": string
+        "type": uint8
+        "description": string
+        "additional_constraints": string
+        "read_only false": bool
+        "dynamic_typing false": bool
+    - srv: GetParameters
+      request:
+        "names": [string]
+      response:
+        "values": ["ParameterValue"]
+    - srv: GetParameterTypes
+      request:
+        "names": [string]
+      response:
+        "types": [uint8]
+    - srv: SetParametersAtomically
+      request:
+        "parameters": ["Parameter"]
+      response:
+        "result": ["SetParametersResult"]
+    - srv: DescribeParameters
+      request:
+        "names": [string]
+      response:
+        "descriptors": ["ParameterDescriptor"]
+    - srv: SetParameters
+      request:
+        "parameters": ["Parameter"]
+      response:
+        "results": ["SetParametersResult"]
+    - srv: ListParameters
+      request:
+        "prefixes": [string]
+        "depth": uint64
+      response:
+        "result": ["ListParametersResult"]

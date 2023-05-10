@@ -1,0 +1,12 @@
+stereo_msgs:
+  specs:
+    - msg: DisparityImage
+      message:
+        "header": "std_msgs.Header"
+        "image": ["sensor_msgs.Image"]
+        "f": float32
+        "t": float32
+        "valid_window": ["sensor_msgs.RegionOfInterest"]
+        "min_disparity": float32
+        "max_disparity": float32
+        "delta_d": float32

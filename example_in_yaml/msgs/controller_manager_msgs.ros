@@ -1,0 +1,88 @@
+controller_manager_msgs:
+  specs:
+    - msg: HardwareInterface
+      message:
+        "name": string
+        "is_available": bool
+        "is_claimed": bool
+    - msg: ChainConnection
+      message:
+        "name": string
+        "reference_interfaces": [string]
+    - msg: HardwareComponentState
+      message:
+        "name": string
+        "type": string
+        "class_type": string
+        "state": ["lifecycle_msgs.State"]
+        "command_interfaces": ["HardwareInterface"]
+        "state_interfaces": ["HardwareInterface"]
+    - msg: ControllerState
+      message:
+        "name": string
+        "state": string
+        "type": string
+        "claimed_interfaces": [string]
+        "required_command_interfaces": [string]
+        "required_state_interfaces": [string]
+        "is_chainable": bool
+        "is_chained": bool
+        "reference_interfaces": [string]
+        "chain_connections": ["ChainConnection"]
+    - srv: UnloadController
+      request:
+        "name": string
+      response:
+        "ok": bool
+    - srv: ListHardwareInterfaces
+      request:
+      response:
+        "command_interfaces": ["HardwareInterface"]
+        "state_interfaces": ["HardwareInterface"]
+    - srv: SwitchController
+      request:
+        "activate_controllers": [string]
+        "deactivate_controllers": [string]
+        "start_controllers": [string]
+        "stop_controllers": [string]
+        "strictness": int32
+        "start_asap": bool
+        "activate_asap": bool
+        "timeout": ["builtin_interfaces.Duration"]
+      response:
+        "ok": bool
+    - srv: ListHardwareComponents
+      request:
+      response:
+        "component": ["HardwareComponentState"]
+    - srv: ListControllers
+      request:
+      response:
+        "controller": ["controller_manager_msgs.ControllerState"]
+    - srv: ReloadControllerLibraries
+      request:
+        "force_kill": bool
+      response:
+        "ok": bool
+    - srv: LoadController
+      request:
+        "name": string
+      response:
+        "ok": bool
+    - srv: ListControllerTypes
+      request:
+      response:
+        "types": [string]
+        "base_classes": [string]
+    - srv: SetHardwareComponentState
+      request:
+        "name": string
+        "target_state": ["lifecycle_msgs.State"]
+      response:
+        "ok": bool
+        "state": ["lifecycle_msgs.State"]
+    - srv: ConfigureController
+      request:
+        "name": string
+      response:
+        "ok": bool

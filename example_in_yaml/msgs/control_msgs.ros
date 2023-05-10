@@ -1,0 +1,165 @@
+control_msgs:
+  specs:
+    - msg: JointTolerance
+      message:
+        "name": string
+        "position": float64
+        "velocity": float64
+        "acceleration": float64
+    - msg: GripperCommand
+      message:
+        "position": float64
+        "max_effort": float64
+    - msg: JointTrajectoryControllerState
+      message:
+        "header": "std_msgs.Header"
+        "joint_names": [string]
+        "desired": ["trajectory_msgs.JointTrajectoryPoint"]
+        "actual": ["trajectory_msgs.JointTrajectoryPoint"]
+        "error": ["trajectory_msgs.JointTrajectoryPoint"]
+        "multi_dof_joint_names": [string]
+        "multi_dof_desired": ["trajectory_msgs.MultiDOFJointTrajectoryPoint"]
+        "multi_dof_actual": ["trajectory_msgs.MultiDOFJointTrajectoryPoint"]
+        "multi_dof_error": ["trajectory_msgs.MultiDOFJointTrajectoryPoint"]
+    - msg: JointComponentTolerance
+      message:
+        "joint_name": string
+        "component": uint16
+        "position": float64
+        "velocity": float64
+        "acceleration": float64
+    - msg: JointJog
+      message:
+        "header": "std_msgs.Header"
+        "joint_names": [string]
+        "displacements": [float64]
+        "velocities": [float64]
+        "duration": float64
+    - msg: AdmittanceControllerState
+      message:
+        "mass": ["std_msgs.Float64MultiArray"]
+        "damping": ["std_msgs.Float64MultiArray"]
+        "stiffness": ["std_msgs.Float64MultiArray"]
+        "rot_base_control": ["geometry_msgs.Quaternion"]
+        "ref_trans_base_ft": ["geometry_msgs.TransformStamped"]
+        "selected_axes": ["std_msgs.Int8MultiArray"]
+        "ft_sensor_frame": ["std_msgs.String"]
+        "admittance_position": ["geometry_msgs.TransformStamped"]
+        "admittance_acceleration": ["geometry_msgs.TwistStamped"]
+        "admittance_velocity": ["geometry_msgs.TwistStamped"]
+        "wrench_base": ["geometry_msgs.WrenchStamped"]
+        "joint_state": ["sensor_msgs.JointState"]
+    - msg: PidState
+      message:
+        "header": "std_msgs.Header"
+        "timestep": ["builtin_interfaces.Duration"]
+        "error": float64
+        "error_dot": float64
+        "p_error": float64
+        "i_error": float64
+        "d_error": float64
+        "p_term": float64
+        "i_term": float64
+        "d_term": float64
+        "i_max": float64
+        "i_min": float64
+        "output": float64
+    - msg: DynamicJointState
+      message:
+        "header": "std_msgs.Header"
+        "joint_names": [string]
+        "interface_values": ["InterfaceValue"]
+    - msg: InterfaceValue
+      message:
+        "interface_names": [string]
+        "values": [float64]
+    - msg: JointControllerState
+      message:
+        "header": "std_msgs.Header"
+        "set_point": float64
+        "process_value": float64
+        "process_value_dot": float64
+        "error": float64
+        "time_step": float64
+        "command": float64
+        "p": float64
+        "i": float64
+        "d": float64
+        "i_clamp": float64
+        "antiwindup": bool
+    - srv: QueryTrajectoryState
+      request:
+        "time": ["builtin_interfaces.Time"]
+      response:
+        "success": bool
+        "message": string
+        "name": [string]
+        "position": [float64]
+        "velocity": [float64]
+        "acceleration": [float64]
+    - srv: QueryCalibrationState
+      request:
+      response:
+        "is_calibrated": bool
+
+    - action: GripperCommand_action
+      goal:
+        "command": ["GripperCommand"]
+      result:
+        "position": float64
+        "effort": float64
+        "stalled": bool
+        "reached_goal": bool
+      feedback:
+        "position": float64
+        "effort": float64
+        "stalled": bool
+        "reached_goal": bool
+    - action: SingleJointPosition
+      goal:
+        "position": float64
+        "min_duration": ["builtin_interfaces.Duration"]
+        "max_velocity": float64
+      result:
+      feedback:
+        "header": "std_msgs.Header"
+        "position": float64
+        "velocity": float64
+        "error": float64
+    - action: FollowJointTrajectory
+      goal:
+        "trajectory": ["trajectory_msgs.JointTrajectory"]
+        "multi_dof_trajectory": ["trajectory_msgs.MultiDOFJointTrajectory"]
+        "path_tolerance": ["JointTolerance"]
+        "component_path_tolerance": ["JointComponentTolerance"]
+        "goal_tolerance": ["JointTolerance"]
+        "component_goal_tolerance": ["JointComponentTolerance"]
+        "goal_time_tolerance": ["builtin_interfaces.Duration"]
+      result:
+        "error_code": int32
+        "error_string": string
+      feedback:
+        "header": "std_msgs.Header"
+        "joint_names": [string]
+        "desired": ["trajectory_msgs.JointTrajectoryPoint"]
+        "actual": ["trajectory_msgs.JointTrajectoryPoint"]
+        "error": ["trajectory_msgs.JointTrajectoryPoint"]
+        "multi_dof_joint_names": [string]
+        "multi_dof_desired": ["trajectory_msgs.MultiDOFJointTrajectoryPoint"]
+        "multi_dof_actual": ["trajectory_msgs.MultiDOFJointTrajectoryPoint"]
+        "multi_dof_error": ["trajectory_msgs.MultiDOFJointTrajectoryPoint"]
+    - action: JointTrajectory
+      goal:
+        "trajectory": ["trajectory_msgs.JointTrajectory"]
+      result:
+      feedback:
+    - action: PointHead
+      goal:
+        "target": ["geometry_msgs.PointStamped"]
+        "pointing_axis": ["geometry_msgs.Vector3"]
+        "pointing_frame": string
+        "min_duration": ["builtin_interfaces.Duration"]
+        "max_velocity": float64
+      result:
+      feedback:
+        "pointing_angle_error": float64

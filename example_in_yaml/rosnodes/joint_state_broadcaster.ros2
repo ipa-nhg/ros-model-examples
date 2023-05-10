@@ -1,0 +1,35 @@
+joint_state_broadcaster:
+  artifacts:
+    plugin:
+      node: JointStateBroadcaster
+      publishers:
+        "dynamic_joint_states":
+          type: "control_msgs.DynamicJointState"
+        "transition_event":
+          type: "lifecycle_msgs.TransitionEvent"
+        "joint_states":
+          type: "sensor_msgs.JointState"
+      parameters:
+        "extra_joints":
+          type:
+            Array: String
+        "interfaces":
+          type:
+            Array: String
+        "joints":
+          type:
+            Array: String
+        "map_interface_to_joint_state.effort":
+          type: String
+        "map_interface_to_joint_state.position":
+          type: String
+        "map_interface_to_joint_state.velocity":
+          type: String
+        "robot_description":
+          type: String
+        "update_rate":
+          type: Integer
+        "use_local_topics":
+          type: Boolean
+        "use_sim_time":
+          type: Boolean

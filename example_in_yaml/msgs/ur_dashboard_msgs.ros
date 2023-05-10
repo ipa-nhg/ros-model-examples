@@ -1,0 +1,84 @@
+ur_dashboard_msgs:
+  specs:
+    - msg: RobotMode
+      message:
+        "mode": int8
+    - msg: ProgramState
+      message:
+        "state": string
+    - msg: SafetyMode
+      message:
+        "mode": uint8
+    - srv: RawRequest
+      request:
+        "query": string
+      response:
+        "answer": string
+    - srv: GetRobotMode
+      request:
+      response:
+        "robot_mode": ["RobotMode"]
+        "answer": string
+        "success": bool
+    - srv: IsProgramRunning
+      request:
+      response:
+        "answer": string
+        "program_running": bool
+        "success": bool
+    - srv: GetProgramState
+      request:
+      response:
+        "state": ["ProgramState"]
+        "program_name": string
+        "answer": string
+        "success": bool
+    - srv: Popup
+      request:
+        "message": string
+      response:
+        "answer": string
+        "success": bool
+    - srv: Load
+      request:
+        "filename": string
+      response:
+        "answer": string
+        "success": bool
+    - srv: GetLoadedProgram
+      request:
+      response:
+        "answer": string
+        "program_name": string
+        "success": bool
+    - srv: AddToLog
+      request:
+        "message": string
+      response:
+        "answer": string
+        "success": bool
+    - srv: GetSafetyMode
+      request:
+      response:
+        "safety_mode": ["SafetyMode"]
+        "answer": string
+        "success": bool
+    - srv: IsProgramSaved
+      request:
+      response:
+        "answer": string
+        "program_name": string
+        "program_saved": bool
+        "success": bool
+
+    - action: SetMode
+      goal:
+        "target_robot_mode": int8
+        "stop_program": bool
+        "play_program": bool
+      result:
+        "success": bool
+        "message": string
+      feedback:
+        "current_robot_mode": int8
+        "current_safety_mode": int8

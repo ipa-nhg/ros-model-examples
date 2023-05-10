@@ -1,0 +1,15 @@
+actionlib_msgs:
+  specs:
+    - msg: GoalID
+      message:
+        "stamp": ["builtin_interfaces.Time"]
+        "id": string
+    - msg: GoalStatus
+      message:
+        "goal_id": ["GoalID"]
+        "status": uint8
+        "text": string
+    - msg: GoalStatusArray
+      message:
+        "header": "std_msgs.Header"
+        "status_list": ["GoalStatus"]

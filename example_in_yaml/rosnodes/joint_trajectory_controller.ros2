@@ -1,0 +1,132 @@
+joint_trajectory_controller:
+  fromGitRepo: "https://github.com/ros-controls/ros2_controllers"
+  artifacts:
+    plugin:
+      node: JointTrajectoryController
+      subscribers:
+        "joint_trajectory":
+          type: "trajectory_msgs.JointTrajectory"
+      publishers:
+        "state":
+          type: "control_msgs.JointTrajectoryControllerState"
+        "transition_event":
+          type: "lifecycle_msgs.TransitionEvent"
+      parameters:
+        "action_monitor_rate":
+          type: Double
+        "allow_integration_in_goal_trajectories":
+          type: Boolean
+        "allow_partial_joints_goal":
+          type: Boolean
+        "command_interfaces":
+          type:
+            Array: String
+        "command_joints":
+          type:
+            Array: String
+        "constraints.elbow_joint.goal":
+          type: Double
+        "constraints.elbow_joint.trajectory":
+          type: Double
+        "constraints.goal_time":
+          type: Double
+        "constraints.shoulder_lift_joint.goal":
+          type: Double
+        "constraints.shoulder_lift_joint.trajectory":
+          type: Double
+        "constraints.shoulder_pan_joint.goal":
+          type: Double
+        "constraints.shoulder_pan_joint.trajectory":
+          type: Double
+        "constraints.stopped_velocity_tolerance":
+          type: Double
+        "constraints.wrist_1_joint.goal":
+          type: Double
+        "constraints.wrist_1_joint.trajectory":
+          type: Double
+        "constraints.wrist_2_joint.goal":
+          type: Double
+        "constraints.wrist_2_joint.trajectory":
+          type: Double
+        "constraints.wrist_3_joint.goal":
+          type: Double
+        "constraints.wrist_3_joint.trajectory":
+          type: Double
+        "gains.elbow_joint.d":
+          type: Double
+        "gains.elbow_joint.ff_velocity_scale":
+          type: Double
+        "gains.elbow_joint.i":
+          type: Double
+        "gains.elbow_joint.i_clamp":
+          type: Double
+        "gains.elbow_joint.p":
+          type: Double
+        "gains.shoulder_lift_joint.d":
+          type: Double
+        "gains.shoulder_lift_joint.ff_velocity_scale":
+          type: Double
+        "gains.shoulder_lift_joint.i":
+          type: Double
+        "gains.shoulder_lift_joint.i_clamp":
+          type: Double
+        "gains.shoulder_lift_joint.p":
+          type: Double
+        "gains.shoulder_pan_joint.d":
+          type: Double
+        "gains.shoulder_pan_joint.ff_velocity_scale":
+          type: Double
+        "gains.shoulder_pan_joint.i":
+          type: Double
+        "gains.shoulder_pan_joint.i_clamp":
+          type: Double
+        "gains.shoulder_pan_joint.p":
+          type: Double
+        "gains.wrist_1_joint.d":
+          type: Double
+        "gains.wrist_1_joint.ff_velocity_scale":
+          type: Double
+        "gains.wrist_1_joint.i":
+          type: Double
+        "gains.wrist_1_joint.i_clamp":
+          type: Double
+        "gains.wrist_1_joint.p":
+          type: Double
+        "gains.wrist_2_joint.d":
+          type: Double
+        "gains.wrist_2_joint.ff_velocity_scale":
+          type: Double
+        "gains.wrist_2_joint.i":
+          type: Double
+        "gains.wrist_2_joint.i_clamp":
+          type: Double
+        "gains.wrist_2_joint.p":
+          type: Double
+        "gains.wrist_3_joint.d":
+          type: Double
+        "gains.wrist_3_joint.ff_velocity_scale":
+          type: Double
+        "gains.wrist_3_joint.i":
+          type: Double
+        "gains.wrist_3_joint.i_clamp":
+          type: Double
+        "gains.wrist_3_joint.p":
+          type: Double
+        "interpolation_method":
+          type: String
+        "joints":
+          type:
+            Array: String
+        "open_loop_control":
+          type: Boolean
+        "robot_description":
+          type: String
+        "state_interfaces":
+          type:
+            Array: String
+        "state_publish_rate":
+          type: Double
+        "update_rate":
+          type: Integer
+        "use_sim_time":
+          type: Boolean

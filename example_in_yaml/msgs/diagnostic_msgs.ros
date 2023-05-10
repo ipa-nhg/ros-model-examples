@@ -1,0 +1,29 @@
+diagnostic_msgs:
+  specs:
+    - msg: KeyValue
+      message:
+        "key": string
+        "value": string
+    - msg: DiagnosticArray
+      message:
+        "header": "std_msgs.Header"
+        "status": ["DiagnosticStatus"]
+    - msg: DiagnosticStatus
+      message:
+        "level": byte
+        "name": string
+        "message": string
+        "hardware_id": string
+        "values": ["KeyValue"]
+    - srv: AddDiagnostics
+      request:
+        "load_namespace": string
+      response:
+        "success": bool
+        "message": string
+    - srv: SelfTest
+      request:
+      response:
+        "id": string
+        "passed": byte
+        "status": ["DiagnosticStatus"]

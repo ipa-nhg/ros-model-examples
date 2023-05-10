@@ -1,0 +1,25 @@
+realsense2_camera_msgs:
+  specs:
+    - msg: IMUInfo
+      message:
+        "header": "std_msgs.Header"
+        "data": [float64]
+        "noise_variances": [float64]
+        "bias_variances": [float64]
+    - msg: Extrinsics
+      message:
+        "rotation": [float64]
+        "translation": [float64]
+    - msg: Metadata
+      message:
+        "header": "std_msgs.Header"
+        "json_data": string
+    - srv: DeviceInfo
+      request:
+      response:
+        "device_name": string
+        "serial_number": string
+        "firmware_version": string
+        "usb_type_descriptor": string
+        "firmware_update_id": string
+        "sensors": string

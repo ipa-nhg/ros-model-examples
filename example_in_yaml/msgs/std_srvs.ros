@@ -1,0 +1,16 @@
+std_srvs:
+  specs:
+    - srv: Trigger
+      request:
+      response:
+        "success": bool
+        "message": string
+    - srv: SetBool
+      request:
+        "data": bool
+      response:
+        "success": bool
+        "message": string
+    - srv: Empty
+      request:
+      response:

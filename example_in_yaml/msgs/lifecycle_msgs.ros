@@ -1,0 +1,38 @@
+lifecycle_msgs:
+  specs:
+    - msg: TransitionEvent
+      message:
+        "timestamp": uint64
+        "transition": ["Transition"]
+        "start_state": ["State"]
+        "goal_state": ["State"]
+    - msg: Transition
+      message:
+        "id": uint8
+        "label": string
+    - msg: TransitionDescription
+      message:
+        "transition": ["Transition"]
+        "start_state": ["State"]
+        "goal_state": ["State"]
+    - msg: State
+      message:
+        "id": uint8
+        "label": string
+    - srv: GetAvailableStates
+      request:
+      response:
+        "available_states": ["State"]
+    - srv: GetState
+      request:
+      response:
+        "current_state": ["State"]
+    - srv: GetAvailableTransitions
+      request:
+      response:
+        "available_transitions": ["TransitionDescription"]
+    - srv: ChangeState
+      request:
+        "transition": ["Transition"]
+      response:
+        "success": bool

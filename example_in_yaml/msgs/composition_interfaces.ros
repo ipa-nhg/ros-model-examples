@@ -1,0 +1,28 @@
+composition_interfaces:
+  specs:
+    - srv: ListNodes
+      request:
+      response:
+        "full_node_names": [string]
+        "unique_ids": [uint64]
+    - srv: UnloadNode
+      request:
+        "unique_id": uint64
+      response:
+        "success": bool
+        "error_message": string
+    - srv: LoadNode
+      request:
+        "package_name": string
+        "plugin_name": string
+        "node_name": string
+        "node_namespace": string
+        "log_level": uint8
+        "remap_rules": [string]
+        "parameters": ["rcl_interfaces.Parameter"]
+        "extra_arguments": ["rcl_interfaces.Parameter"]
+      response:
+        "success": bool
+        "error_message": string
+        "full_node_name": string
+        "unique_id": uint64

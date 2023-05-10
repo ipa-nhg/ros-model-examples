@@ -1,0 +1,23 @@
+pcl_msgs:
+  specs:
+    - msg: PointIndices
+      message:
+        "header": "std_msgs.Header"
+        "indices": [int32]
+    - msg: PolygonMesh
+      message:
+        "header": "std_msgs.Header"
+        "cloud": ["sensor_msgs.PointCloud2"]
+        "polygons": ["Vertices"]
+    - msg: ModelCoefficients
+      message:
+        "header": "std_msgs.Header"
+        "values": [float32]
+    - msg: Vertices
+      message:
+        "vertices": [uint32]
+    - srv: UpdateFilename
+      request:
+        "filename": string
+      response:
+        "success": bool

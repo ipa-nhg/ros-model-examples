@@ -1,0 +1,109 @@
+visualization_msgs:
+  specs:
+    - msg: InteractiveMarkerPose
+      message:
+        "header": "std_msgs.Header"
+        "pose": ["geometry_msgs.Pose"]
+        "name": string
+    - msg: MenuEntry
+      message:
+        "id": uint32
+        "parent_id": uint32
+        "title": string
+        "command": string
+        "command_type": uint8
+    - msg: ImageMarker
+      message:
+        "header": "std_msgs.Header"
+        "ns": string
+        "id": int32
+        "type": int32
+        "action": int32
+        "position": ["geometry_msgs.Point"]
+        "scale": float32
+        "outline_color": ["std_msgs.ColorRGBA"]
+        "filled": uint8
+        "fill_color": ["std_msgs.ColorRGBA"]
+        "lifetime": ["builtin_interfaces.Duration"]
+        "points": ["geometry_msgs.Point"]
+        "outline_colors": ["std_msgs.ColorRGBA"]
+    - msg: InteractiveMarkerInit
+      message:
+        "server_id": string
+        "seq_num": uint64
+        "markers": ["InteractiveMarker"]
+    - msg: InteractiveMarkerFeedback
+      message:
+        "header": "std_msgs.Header"
+        "client_id": string
+        "marker_name": string
+        "control_name": string
+        "event_type": uint8
+        "pose": ["geometry_msgs.Pose"]
+        "menu_entry_id": uint32
+        "mouse_point": ["geometry_msgs.Point"]
+        "mouse_point_valid": bool
+    - msg: Marker
+      message:
+        "header": "std_msgs.Header"
+        "ns": string
+        "id": int32
+        "type": int32
+        "action": int32
+        "pose": ["geometry_msgs.Pose"]
+        "scale": ["geometry_msgs.Vector3"]
+        "color": ["std_msgs.ColorRGBA"]
+        "lifetime": ["builtin_interfaces.Duration"]
+        "frame_locked": bool
+        "points": ["geometry_msgs.Point"]
+        "colors": ["std_msgs.ColorRGBA"]
+        "texture_resource": string
+        "texture": ["sensor_msgs.CompressedImage"]
+        "uv_coordinates": ["UVCoordinate"]
+        "text": string
+        "mesh_resource": string
+        "mesh_file": ["MeshFile"]
+        "mesh_use_embedded_materials": bool
+    - msg: MeshFile
+      message:
+        "filename": string
+        "data": [uint8]
+    - msg: InteractiveMarker
+      message:
+        "header": "std_msgs.Header"
+        "pose": ["geometry_msgs.Pose"]
+        "name": string
+        "description": string
+        "scale": float32
+        "menu_entries": ["MenuEntry"]
+        "controls": ["InteractiveMarkerControl"]
+    - msg: InteractiveMarkerControl
+      message:
+        "name": string
+        "orientation": ["geometry_msgs.Quaternion"]
+        "orientation_mode": uint8
+        "interaction_mode": uint8
+        "always_visible": bool
+        "markers": ["Marker"]
+        "independent_marker_orientation": bool
+        "description": string
+    - msg: MarkerArray
+      message:
+        "markers": ["Marker"]
+    - msg: InteractiveMarkerUpdate
+      message:
+        "server_id": string
+        "seq_num": uint64
+        "type": uint8
+        "markers": ["InteractiveMarker"]
+        "poses": ["InteractiveMarkerPose"]
+        "erases": [string]
+    - msg: UVCoordinate
+      message:
+        "u": float32
+        "v": float32
+    - srv: GetInteractiveMarkers
+      request:
+      response:
+        "sequence_number": uint64
+        "markers": ["InteractiveMarker"]

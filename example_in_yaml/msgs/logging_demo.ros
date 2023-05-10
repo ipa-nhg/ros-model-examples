@@ -1,0 +1,8 @@
+logging_demo:
+  specs:
+    - srv: ConfigLogger
+      request:
+        "logger_name": string
+        "level": string
+      response:
+        "success": bool

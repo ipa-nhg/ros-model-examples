@@ -1,0 +1,53 @@
+nav_msgs:
+  specs:
+    - msg: MapMetaData
+      message:
+        "map_load_time": ["builtin_interfaces.Time"]
+        "resolution": float32
+        "width": uint32
+        "height": uint32
+        "origin": ["geometry_msgs.Pose"]
+    - msg: Path
+      message:
+        "header": "std_msgs.Header"
+        "poses": ["geometry_msgs.PoseStamped"]
+    - msg: Odometry
+      message:
+        "header": "std_msgs.Header"
+        "child_frame_id": string
+        "pose": ["geometry_msgs.PoseWithCovariance"]
+        "twist": ["geometry_msgs.TwistWithCovariance"]
+    - msg: GridCells
+      message:
+        "header": "std_msgs.Header"
+        "cell_width": float32
+        "cell_height": float32
+        "cells": ["geometry_msgs.Point"]
+    - msg: OccupancyGrid
+      message:
+        "header": "std_msgs.Header"
+        "info": ["MapMetaData"]
+        "data": [int8]
+    - srv: LoadMap
+      request:
+        "map_url": string
+      response:
+        "map": ["nav_msgs.OccupancyGrid"]
+        "result": uint8
+    - srv: SetMap
+      request:
+        "map": ["nav_msgs.OccupancyGrid"]
+        "initial_pose": ["geometry_msgs.PoseWithCovarianceStamped"]
+      response:
+        "success": bool
+    - srv: GetMap
+      request:
+      response:
+        "map": ["OccupancyGrid"]
+    - srv: GetPlan
+      request:
+        "start": ["geometry_msgs.PoseStamped"]
+        "goal": ["geometry_msgs.PoseStamped"]
+        "tolerance": float32
+      response:
+        "plan": ["Path"]

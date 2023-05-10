@@ -1,0 +1,29 @@
+pick_place_msgs:
+  specs:
+    - msg: MarkerPoses
+      message:
+        "frame_id": ["std_msgs.String"]
+        "id": uint32
+        "pose": ["geometry_msgs.Pose"]
+    - srv: PickPlace
+      request:
+        "object_marker_num": int32
+        "place_marker_num": int32
+      response:
+        "object_pose": ["geometry_msgs.PoseStamped"]
+        "place_pose": ["geometry_msgs.PoseStamped"]
+        "result": bool
+    - srv: GetArucoPoseStamp
+      request:
+        "object_marker_num": int32
+        "place_marker_num": int32
+      response:
+        "object_pose": ["geometry_msgs.PoseStamped"]
+        "place_pose": ["geometry_msgs.PoseStamped"]
+        "result": bool
+    - srv: GetArucoPosestamp
+      request:
+        "marker_ids": [int32]
+      response:
+        "markers": ["aruco_msgs.Marker"]
+        "result": bool

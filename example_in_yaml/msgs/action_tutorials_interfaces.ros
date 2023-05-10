@@ -1,0 +1,9 @@
+action_tutorials_interfaces:
+  specs:
+    - action: Fibonacci
+      goal:
+        "order": int32
+      result:
+        "sequence": [int32]
+      feedback:
+        "partial_sequence": [int32]

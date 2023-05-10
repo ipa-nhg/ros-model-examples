@@ -1,0 +1,12 @@
+aruco_msgs:
+  specs:
+    - msg: Marker
+      message:
+        "header": "std_msgs.Header"
+        "id": uint32
+        "pose": ["geometry_msgs.PoseWithCovariance"]
+        "confidence": float64
+    - msg: MarkerArray
+      message:
+        "header": "std_msgs.Header"
+        "markers": ["aruco_msgs.Marker"]

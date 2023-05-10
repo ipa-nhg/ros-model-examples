@@ -1,0 +1,106 @@
+std_msgs:
+  specs:
+    - msg: UInt64MultiArray
+      message:
+        "layout": ["MultiArrayLayout"]
+        "data": [uint64]
+    - msg: MultiArrayLayout
+      message:
+        "dim": ["MultiArrayDimension"]
+        "data_offset": uint32
+    - msg: MultiArrayDimension
+      message:
+        "label": string
+        "size": uint32
+        "stride": uint32
+    - msg: Int64MultiArray
+      message:
+        "layout": ["MultiArrayLayout"]
+        "data": [int64]
+    - msg: UInt16
+      message:
+        "data": uint16
+    - msg: Bool
+      message:
+        "data": bool
+    - msg: Int8MultiArray
+      message:
+        "layout": ["MultiArrayLayout"]
+        "data": [int8]
+    - msg: ByteMultiArray
+      message:
+        "layout": ["MultiArrayLayout"]
+        "data": [byte]
+    - msg: Header
+      message:
+        "stamp": ["builtin_interfaces.Time"]
+        "frame_id": string
+    - msg: UInt8MultiArray
+      message:
+        "layout": ["MultiArrayLayout"]
+        "data": [uint8]
+    - msg: UInt32
+      message:
+        "data": uint32
+    - msg: Int32
+      message:
+        "data": int32
+    - msg: Byte
+      message:
+        "data": byte
+    - msg: Float64
+      message:
+        "data": float64
+    - msg: Float32
+      message:
+        "data": float32
+    - msg: Int8
+      message:
+        "data": int8
+    - msg: UInt8
+      message:
+        "data": uint8
+    - msg: Int16
+      message:
+        "data": int16
+    - msg: Int64
+      message:
+        "data": int64
+    - msg: Float64MultiArray
+      message:
+        "layout": ["MultiArrayLayout"]
+        "data": [float64]
+    - msg: Int32MultiArray
+      message:
+        "layout": ["MultiArrayLayout"]
+        "data": [int32]
+    - msg: String
+      message:
+        "data": string
+    - msg: Int16MultiArray
+      message:
+        "layout": ["MultiArrayLayout"]
+        "data": [int16]
+    - msg: Empty
+      message:
+    - msg: UInt32MultiArray
+      message:
+        "layout": ["MultiArrayLayout"]
+        "data": [uint32]
+    - msg: UInt64
+      message:
+        "data": uint64
+    - msg: ColorRGBA
+      message:
+        "r": float32
+        "g": float32
+        "b": float32
+        "a": float32
+    - msg: Float32MultiArray
+      message:
+        "layout": ["MultiArrayLayout"]
+        "data": [float32]
+    - msg: UInt16MultiArray
+      message:
+        "layout": ["MultiArrayLayout"]
+        "data": [uint16]

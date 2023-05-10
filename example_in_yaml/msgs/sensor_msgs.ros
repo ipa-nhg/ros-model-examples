@@ -1,0 +1,200 @@
+sensor_msgs:
+  specs:
+    - msg: Imu
+      message:
+        "header": "std_msgs.Header"
+        "orientation": "geometry_msgs.Quaternion"
+        "orientation_covariance": [float64]
+        "angular_velocity": "geometry_msgs.Vector3"
+        "angular_velocity_covariance": [float64]
+        "linear_acceleration": "geometry_msgs.Vector3"
+        "linear_acceleration_covariance": [float64]
+    - msg: CompressedImage
+      message:
+        "header": ["std_msgs.Header"]
+        "format": string
+        "data": [uint8]
+    - msg: Illuminance
+      message:
+        "header": ["std_msgs.Header"]
+        "illuminance": float64
+        "variance": float64
+    - msg: FluidPressure
+      message:
+        "header": ["std_msgs.Header"]
+        "fluid_pressure": float64
+        "variance": float64
+    - msg: PointField
+      message:
+        "name": string
+        "offset": uint32
+        "datatype": uint8
+        "count": uint32
+    - msg: PointCloud
+      message:
+        "header": ["std_msgs.Header"]
+        "points": ["geometry_msgs.Point32"]
+        "channels": ["ChannelFloat32"]
+    - msg: Temperature
+      message:
+        "header": ["std_msgs.Header"]
+        "temperature": float64
+        "variance": float64
+    - msg: Joy
+      message:
+        "header": ["std_msgs.Header"]
+        "axes": [float32]
+        "buttons": [int32]
+    - msg: BatteryState
+      message:
+        "header": ["std_msgs.Header"]
+        "voltage": float32
+        "temperature": float32
+        "current": float32
+        "charge": float32
+        "capacity": float32
+        "design_capacity": float32
+        "percentage": float32
+        "power_supply_status": uint8
+        "power_supply_health": uint8
+        "power_supply_technology": uint8
+        "present": bool
+        "cell_voltage": [float32]
+        "cell_temperature": [float32]
+        "location": string
+        "serial_number": string
+    - msg: MultiEchoLaserScan
+      message:
+        "header": ["std_msgs.Header"]
+        "angle_min": float32
+        "angle_max": float32
+        "angle_increment": float32
+        "time_increment": float32
+        "scan_time": float32
+        "range_min": float32
+        "range_max": float32
+        "ranges": ["LaserEcho"]
+        "intensities": ["LaserEcho"]
+    - msg: MagneticField
+      message:
+        "header": ["std_msgs.Header"]
+        "magnetic_field": ["geometry_msgs.Vector3"]
+        "magnetic_field_covariance": [float64]
+    - msg: PointCloud2
+      message:
+        "header": ["std_msgs.Header"]
+        "height": uint32
+        "width": uint32
+        "fields": ["PointField"]
+        "is_bigendian": bool
+        "point_step": uint32
+        "row_step": uint32
+        "data": [uint8]
+        "is_dense": bool
+    - msg: JointState
+      message:
+        "header": ["std_msgs.Header"]
+        "name": [string]
+        "position": [float64]
+        "velocity": [float64]
+        "effort": [float64]
+    - msg: Range
+      message:
+        "header": ["std_msgs.Header"]
+        "radiation_type": uint8
+        "field_of_view": float32
+        "min_range": float32
+        "max_range": float32
+        "range": float32
+    - msg: Image
+      message:
+        "header": ["std_msgs.Header"]
+        "height": uint32
+        "width": uint32
+        "encoding": string
+        "is_bigendian": uint8
+        "step": uint32
+        "data": [uint8]
+    - msg: NavSatStatus
+      message:
+        "status": int8
+        "service": uint16
+    - msg: NavSatFix
+      message:
+        "header": ["std_msgs.Header"]
+        "status": ["NavSatStatus"]
+        "latitude": float64
+        "longitude": float64
+        "altitude": float64
+        "position_covariance": [float64]
+        "position_covariance_type": uint8
+    - msg: CameraInfo
+      message:
+        "header": ["std_msgs.Header"]
+        "height": uint32
+        "width": uint32
+        "distortion_model": string
+        "d": [float64]
+        "k": [float64]
+        "r": [float64]
+        "p": [float64]
+        "binning_x": uint32
+        "binning_y": uint32
+        "roi": ["RegionOfInterest"]
+    - msg: JoyFeedback
+      message:
+        "type": uint8
+        "id": uint8
+        "intensity": float32
+    - msg: LaserScan
+      message:
+        "header": ["std_msgs.Header"]
+        "angle_min": float32
+        "angle_max": float32
+        "angle_increment": float32
+        "time_increment": float32
+        "scan_time": float32
+        "range_min": float32
+        "range_max": float32
+        "ranges": [float32]
+        "intensities": [float32]
+    - msg: TimeReference
+      message:
+        "header": ["std_msgs.Header"]
+        "time_ref": ["builtin_interfaces.Time"]
+        "source": string
+    - msg: ChannelFloat32
+      message:
+        "name": string
+        "values": [float32]
+    - msg: RelativeHumidity
+      message:
+        "header": ["std_msgs.Header"]
+        "relative_humidity": float64
+        "variance": float64
+    - msg: RegionOfInterest
+      message:
+        "x_offset": uint32
+        "y_offset": uint32
+        "height": uint32
+        "width": uint32
+        "do_rectify": bool
+    - msg: MultiDOFJointState
+      message:
+        "header": ["std_msgs.Header"]
+        "joint_names": [string]
+        "transforms": ["geometry_msgs.Transform"]
+        "twist": ["geometry_msgs.Twist"]
+        "wrench": ["geometry_msgs.Wrench"]
+    - msg: JoyFeedbackArray
+      message:
+        "array": ["JoyFeedback"]
+    - msg: LaserEcho
+      message:
+        "echoes": [float32]
+    - srv: SetCameraInfo
+      request:
+        "camera_info": ["sensor_msgs.CameraInfo"]
+      response:
+        "success": bool
+        "status_message": string

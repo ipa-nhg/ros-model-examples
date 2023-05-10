@@ -1,0 +1,16 @@
+shape_msgs:
+  specs:
+    - msg: SolidPrimitive
+      message:
+        "type": uint8
+        "polygon": ["geometry_msgs.Polygon"]
+    - msg: Plane
+      message:
+        "coef": [float64]
+    - msg: Mesh
+      message:
+        "triangles": ["MeshTriangle"]
+        "vertices": ["geometry_msgs.Point"]
+    - msg: MeshTriangle
+      message:
+        "vertex_indices": [uint32]

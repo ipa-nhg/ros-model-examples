@@ -1,0 +1,21 @@
+pendulum_msgs:
+  specs:
+    - msg: JointState
+      message:
+        "position": float64
+        "velocity": float64
+        "effort": float64
+    - msg: JointCommand
+      message:
+        "position": float64
+    - msg: RttestResults
+      message:
+        "stamp": ["builtin_interfaces.Time"]
+        "command": ["JointCommand"]
+        "state": ["JointState"]
+        "cur_latency": uint64
+        "mean_latency": float64
+        "min_latency": uint64
+        "max_latency": uint64
+        "minor_pagefaults": uint64
+        "major_pagefaults": uint64

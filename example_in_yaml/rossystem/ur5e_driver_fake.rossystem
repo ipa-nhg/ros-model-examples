@@ -1,0 +1,49 @@
+ur5e_driver_fake:
+  nodes:
+    controller_manager:
+      from: "controller_manager.ros2_control_node.controller_manager"
+      parameters:
+        - use_sim_time: "controller_manager.ros2_control_node.controller_manager.use_sim_time"
+          value: true
+        - update_rate: "controller_manager.ros2_control_node.controller_manager.update_rate"
+          value: 500
+        - scaled_joint_trajectory_controller_type: "controller_manager.ros2_control_node.controller_manager.scaled_joint_trajectory_controller.type"
+          value: "ur_controllers/ScaledJointTrajectoryController"
+        - force_torque_sensor_broadcaster_type: "controller_manager.ros2_control_node.controller_manager.force_torque_sensor_broadcaster.type"
+          value: "force_torque_sensor_broadcaster/ForceTorqueSensorBroadcaster"
+        - forward_position_controller_type: "controller_manager.ros2_control_node.controller_manager.forward_position_controller.type"
+          value: "position_controllers/JointGroupPositionController"
+        - forward_velocity_controller_type: "controller_manager.ros2_control_node.controller_manager.forward_velocity_controller.type"
+          value: "velocity_controllers/JointGroupVelocityController"
+        - joint_trajectory_controlle_type: "controller_manager.ros2_control_node.controller_manager.joint_trajectory_controller.type"
+          value: "joint_trajectory_controller/JointTrajectoryController"
+        - speed_scaling_state_broadcaster_type: "controller_manager.ros2_control_node.controller_manager.speed_scaling_state_broadcaster.type"
+          value: "ur_controllers/SpeedScalingStateBroadcaster"
+    io_and_status_controller:
+      from: "ur_controllers.plugin.GPIOController"
+    joint_state_broadcaster:
+      from: "joint_state_broadcaster.plugin.JointStateBroadcaster"
+    robot_state_publisher:
+      from: "robot_state_publisher.robot_state_publisher.robot_state_publisher"
+      interfaces:
+        joint_states:
+          fromPub: "joint_state_broadcaster.plugin.JointStateBroadcaster.joint_states"
+    force_torque_sensor_broadcaster:
+      from: "force_torque_sensor_broadcaster.plugin.ForceTorqueSensorBroadcaster"
+      parameters:
+        - sensor_name: "force_torque_sensor_broadcaster.plugin.ForceTorqueSensorBroadcaster.sensor_name"
+          value: tcp_fts_sensor
+        - frame_id: "force_torque_sensor_broadcaster.plugin.ForceTorqueSensorBroadcaster.frame_id"
+          value: tool0
+        - topic_name: "force_torque_sensor_broadcaster.plugin.ForceTorqueSensorBroadcaster.topic_name"
+          value: ft_data
+    forward_position_controller:
+      from: "position_controllers.plugin.JointGroupPositionController"
+      parameters:
+        - joints: "position_controllers.plugin.JointGroupPositionController.joints"
+          value: ["shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint", "wrist_1_joint", "wrist_2_joint", "wrist_3_joint"]
+    joint_trajectory_controller:
+      from: "joint_trajectory_controller.plugin.JointTrajectoryController"
+      parameters:
+        - joints: "joint_trajectory_controller.plugin.JointTrajectoryController.joints"
+          value: ["shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint", "wrist_1_joint", "wrist_2_joint", "wrist_3_joint"]

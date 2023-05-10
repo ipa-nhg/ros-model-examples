@@ -1,0 +1,572 @@
+moveit_msgs:
+  specs:
+    - msg: RobotState
+      message:
+        "joint_state": ["sensor_msgs.JointState"]
+        "multi_dof_joint_state": ["sensor_msgs.MultiDOFJointState"]
+        "attached_collision_objects": ["AttachedCollisionObject"]
+        "is_diff": bool
+    - msg: RobotTrajectory
+      message:
+        "joint_trajectory": ["trajectory_msgs.JointTrajectory"]
+        "multi_dof_joint_trajectory": ["trajectory_msgs.MultiDOFJointTrajectory"]
+    - msg: KinematicSolverInfo
+      message:
+        "joint_names": [string]
+        "limits": ["moveit_msgs.JointLimits"]
+        "link_names": [string]
+    - msg: MotionPlanRequest
+      message:
+        "workspace_parameters": ["WorkspaceParameters"]
+        "start_state": ["RobotState"]
+        "goal_constraints": ["Constraints"]
+        "path_constraints": ["Constraints"]
+        "trajectory_constraints": ["TrajectoryConstraints"]
+        "reference_trajectories": ["GenericTrajectory"]
+        "pipeline_id": string
+        "planner_id": string
+        "group_name": string
+        "num_planning_attempts": int32
+        "allowed_planning_time": float64
+        "max_velocity_scaling_factor": float64
+        "max_acceleration_scaling_factor": float64
+        "cartesian_speed_end_effector_link": string
+        "max_cartesian_speed": float64
+    - msg: PlannerParams
+      message:
+        "keys": [string]
+        "values": [string]
+        "descriptions": [string]
+    - msg: PositionIKRequest
+      message:
+        "group_name": string
+        "robot_state": ["moveit_msgs.RobotState"]
+        "constraints": ["Constraints"]
+        "avoid_collisions": bool
+        "ik_link_name": string
+        "pose_stamped": ["geometry_msgs.PoseStamped"]
+        "ik_link_names": [string]
+        "pose_stamped_vector": ["geometry_msgs.PoseStamped"]
+        "timeout": ["builtin_interfaces.Duration"]
+    - msg: JointLimits
+      message:
+        "joint_name": string
+        "has_position_limits": bool
+        "min_position": float64
+        "max_position": float64
+        "has_velocity_limits": bool
+        "max_velocity": float64
+        "has_acceleration_limits": bool
+        "max_acceleration": float64
+        "has_jerk_limits": bool
+        "max_jerk": float64
+    - msg: AllowedCollisionMatrix
+      message:
+        "entry_names": [string]
+        "entry_values": ["AllowedCollisionEntry"]
+        "default_entry_names": [string]
+        "default_entry_values": [bool]
+    - msg: Constraints
+      message:
+        "name": string
+        "joint_constraints": ["JointConstraint"]
+        "position_constraints": ["PositionConstraint"]
+        "orientation_constraints": ["OrientationConstraint"]
+        "visibility_constraints": ["VisibilityConstraint"]
+    - msg: PositionConstraint
+      message:
+        "header": "std_msgs.Header"
+        "link_name": string
+        "target_point_offset": ["geometry_msgs.Vector3"]
+        "constraint_region": ["BoundingVolume"]
+        "weight": float64
+    - msg: LinkPadding
+      message:
+        "link_name": string
+        "padding": float64
+    - msg: MotionPlanDetailedResponse
+      message:
+        "trajectory_start": ["RobotState"]
+        "group_name": string
+        "trajectory": ["RobotTrajectory"]
+        "description": [string]
+        "processing_time": [float64]
+        "error_code": ["MoveItErrorCodes"]
+    - msg: ContactInformation
+      message:
+        "header": "std_msgs.Header"
+        "position": ["geometry_msgs.Point"]
+        "normal": ["geometry_msgs.Vector3"]
+        "depth": float64
+        "contact_body_1": string
+        "body_type_1": uint32
+        "contact_body_2": string
+        "body_type_2": uint32
+    - msg: PlaceLocation
+      message:
+        "id": string
+        "post_place_posture": ["trajectory_msgs.JointTrajectory"]
+        "place_pose": ["geometry_msgs.PoseStamped"]
+        "quality": float64
+        "pre_place_approach": ["GripperTranslation"]
+        "post_place_retreat": ["GripperTranslation"]
+        "allowed_touch_objects": [string]
+    - msg: TrajectoryConstraints
+      message:
+        "constraints": ["Constraints"]
+    - msg: PlanningOptions
+      message:
+        "planning_scene_diff": ["PlanningScene"]
+        "plan_only": bool
+        "look_around": bool
+        "look_around_attempts": int32
+        "max_safe_execution_cost": float64
+        "replan": bool
+        "replan_attempts": int32
+        "replan_delay": float64
+    - msg: ObjectColor
+      message:
+        "id": string
+        "color": ["std_msgs.ColorRGBA"]
+    - msg: CartesianPoint
+      message:
+        "pose": ["geometry_msgs.Pose"]
+        "velocity": ["geometry_msgs.Twist"]
+        "acceleration": ["geometry_msgs.Accel"]
+    - msg: DisplayRobotState
+      message:
+        "state": ["RobotState"]
+        "highlight_links": ["ObjectColor"]
+        "hide": bool
+    - msg: PlanningScene
+      message:
+        "name": string
+        "robot_state": ["RobotState"]
+        "robot_model_name": string
+        "fixed_frame_transforms": ["geometry_msgs.TransformStamped"]
+        "allowed_collision_matrix": ["AllowedCollisionMatrix"]
+        "link_padding": ["LinkPadding"]
+        "link_scale": ["LinkScale"]
+        "object_colors": ["ObjectColor"]
+        "world": ["PlanningSceneWorld"]
+        "is_diff": bool
+    - msg: ConstraintEvalResult
+      message:
+        "result": bool
+        "distance": float64
+    - msg: JointConstraint
+      message:
+        "joint_name": string
+        "position": float64
+        "tolerance_above": float64
+        "tolerance_below": float64
+        "weight": float64
+    - msg: BoundingVolume
+      message:
+        "primitives": ["shape_msgs.SolidPrimitive"]
+        "primitive_poses": ["geometry_msgs.Pose"]
+        "meshes": ["shape_msgs.Mesh"]
+        "mesh_poses": ["geometry_msgs.Pose"]
+    - msg: LinkScale
+      message:
+        "link_name": string
+        "scale": float64
+    - msg: CartesianTrajectory
+      message:
+        "header": "std_msgs.Header"
+        "tracked_frame": string
+        "points": ["CartesianTrajectoryPoint"]
+    - msg: MotionSequenceRequest
+      message:
+        "items": ["MotionSequenceItem"]
+    - msg: VisibilityConstraint
+      message:
+        "target_radius": float64
+        "target_pose": ["geometry_msgs.PoseStamped"]
+        "cone_sides": int32
+        "sensor_pose": ["geometry_msgs.PoseStamped"]
+        "max_view_angle": float64
+        "max_range_angle": float64
+        "sensor_view_direction": uint8
+        "weight": float64
+    - msg: WorkspaceParameters
+      message:
+        "header": "std_msgs.Header"
+        "min_corner": ["geometry_msgs.Vector3"]
+        "max_corner": ["geometry_msgs.Vector3"]
+    - msg: MotionSequenceResponse
+      message:
+        "error_code": ["MoveItErrorCodes"]
+        "sequence_start": ["RobotState"]
+        "planned_trajectories": ["RobotTrajectory"]
+        "planning_time": float64
+    - msg: CostSource
+      message:
+        "cost_density": float64
+        "aabb_min": ["geometry_msgs.Vector3"]
+        "aabb_max": ["geometry_msgs.Vector3"]
+    - msg: PlannerInterfaceDescription
+      message:
+        "name": string
+        "pipeline_id": string
+        "planner_ids": [string]
+    - msg: AttachedCollisionObject
+      message:
+        "link_name": string
+        "object": ["CollisionObject"]
+        "touch_links": [string]
+        "detach_posture": ["trajectory_msgs.JointTrajectory"]
+        "weight": float64
+    - msg: OrientedBoundingBox
+      message:
+        "pose": ["geometry_msgs.Pose"]
+        "extents": ["geometry_msgs.Point32"]
+    - msg: Grasp
+      message:
+        "id": string
+        "pre_grasp_posture": ["trajectory_msgs.JointTrajectory"]
+        "grasp_posture": ["trajectory_msgs.JointTrajectory"]
+        "grasp_pose": ["geometry_msgs.PoseStamped"]
+        "grasp_quality": float64
+        "pre_grasp_approach": ["GripperTranslation"]
+        "post_grasp_retreat": ["GripperTranslation"]
+        "post_place_retreat": ["GripperTranslation"]
+        "max_contact_force": float32
+        "allowed_touch_objects": [string]
+    - msg: PlanningSceneWorld
+      message:
+        "collision_objects": ["CollisionObject"]
+        "octomap": ["octomap_msgs.OctomapWithPose"]
+    - msg: MoveItErrorCodes
+      message:
+        "val": int32
+    - msg: AllowedCollisionEntry
+      message:
+        "enabled": [bool]
+    - msg: OrientationConstraint
+      message:
+        "header": "std_msgs.Header"
+        "orientation": ["geometry_msgs.Quaternion"]
+        "link_name": string
+        "absolute_x_axis_tolerance": float64
+        "absolute_y_axis_tolerance": float64
+        "absolute_z_axis_tolerance": float64
+        "parameterization": uint8
+        "weight": float64
+    - msg: CollisionObject
+      message:
+        "header": "std_msgs.Header"
+        "pose": ["geometry_msgs.Pose"]
+        "id": string
+        "type": ["object_recognition_msgs.ObjectType"]
+        "primitives": ["shape_msgs.SolidPrimitive"]
+        "primitive_poses": ["geometry_msgs.Pose"]
+        "meshes": ["shape_msgs.Mesh"]
+        "mesh_poses": ["geometry_msgs.Pose"]
+        "planes": ["shape_msgs.Plane"]
+        "plane_poses": ["geometry_msgs.Pose"]
+        "subframe_names": [string]
+        "subframe_poses": ["geometry_msgs.Pose"]
+        "operation": byte
+    - msg: GripperTranslation
+      message:
+        "direction": ["geometry_msgs.Vector3Stamped"]
+        "desired_distance": float32
+        "min_distance": float32
+    - msg: MotionPlanResponse
+      message:
+        "trajectory_start": ["RobotState"]
+        "group_name": string
+        "trajectory": ["RobotTrajectory"]
+        "planning_time": float64
+        "error_code": ["MoveItErrorCodes"]
+    - msg: CartesianTrajectoryPoint
+      message:
+        "point": ["CartesianPoint"]
+        "time_from_start": ["builtin_interfaces.Duration"]
+    - msg: DisplayTrajectory
+      message:
+        "model_id": string
+        "trajectory": ["RobotTrajectory"]
+        "trajectory_start": ["RobotState"]
+    - msg: GenericTrajectory
+      message:
+        "header": "std_msgs.Header"
+        "joint_trajectory": ["trajectory_msgs.JointTrajectory"]
+        "cartesian_trajectory": ["moveit_msgs.CartesianTrajectory"]
+    - msg: PlanningSceneComponents
+      message:
+        "components": uint32
+    - msg: MotionSequenceItem
+      message:
+        "req": ["MotionPlanRequest"]
+        "blend_radius": float64
+    - srv: SaveMap
+      request:
+        "filename": string
+      response:
+        "success": bool
+    - srv: GraspPlanning
+      request:
+        "group_name": string
+        "target": ["CollisionObject"]
+        "support_surfaces": [string]
+        "candidate_grasps": ["moveit_msgs.Grasp"]
+        "movable_obstacles": ["CollisionObject"]
+      response:
+        "grasps": ["moveit_msgs.Grasp"]
+        "error_code": ["MoveItErrorCodes"]
+    - srv: GetStateValidity
+      request:
+        "robot_state": ["RobotState"]
+        "group_name": string
+        "constraints": ["Constraints"]
+      response:
+        "valid": bool
+        "contacts": ["ContactInformation"]
+        "cost_sources": ["CostSource"]
+        "constraint_result": ["ConstraintEvalResult"]
+    - srv: GetRobotStateFromWarehouse
+      request:
+        "name": string
+        "robot": string
+      response:
+        "state": ["moveit_msgs.RobotState"]
+    - srv: UpdatePointcloudOctomap
+      request:
+        "cloud": ["sensor_msgs.PointCloud2"]
+      response:
+        "success": bool
+    - srv: GetMotionSequence
+      request:
+        "request": ["MotionSequenceRequest"]
+      response:
+        "response": ["MotionSequenceResponse"]
+    - srv: ExecuteKnownTrajectory
+      request:
+        "trajectory": ["RobotTrajectory"]
+        "wait_for_execution": bool
+      response:
+        "error_code": ["MoveItErrorCodes"]
+    - srv: ApplyPlanningScene
+      request:
+        "scene": ["PlanningScene"]
+      response:
+        "success": bool
+    - srv: GetPositionIK
+      request:
+        "ik_request": ["PositionIKRequest"]
+      response:
+        "solution": ["RobotState"]
+        "error_code": ["MoveItErrorCodes"]
+    - srv: GetPlanningScene
+      request:
+        "components": ["PlanningSceneComponents"]
+      response:
+        "scene": ["PlanningScene"]
+    - srv: ListRobotStatesInWarehouse
+      request:
+        "regex": string
+        "robot": string
+      response:
+        "states": [string]
+    - srv: LoadMap
+      request:
+        "filename": string
+      response:
+        "success": bool
+    - srv: ChangeControlDimensions
+      request:
+        "control_x_translation": bool
+        "control_y_translation": bool
+        "control_z_translation": bool
+        "control_x_rotation": bool
+        "control_y_rotation": bool
+        "control_z_rotation": bool
+      response:
+        "success": bool
+    - srv: GetPlannerParams
+      request:
+        "pipeline_id": string
+        "planner_config": string
+        "group": string
+      response:
+        "params": ["PlannerParams"]
+    - srv: RenameRobotStateInWarehouse
+      request:
+        "old_name": string
+        "new_name": string
+        "robot": string
+      response:
+    - srv: QueryPlannerInterfaces
+      request:
+      response:
+        "planner_interfaces": ["PlannerInterfaceDescription"]
+    - srv: GetPositionFK
+      request:
+        "header": "std_msgs.Header"
+        "fk_link_names": [string]
+        "robot_state": ["RobotState"]
+      response:
+        "pose_stamped": ["geometry_msgs.PoseStamped"]
+        "fk_link_names": [string]
+        "error_code": ["MoveItErrorCodes"]
+    - srv: DeleteRobotStateFromWarehouse
+      request:
+        "name": string
+        "robot": string
+      response:
+    - srv: SetPlannerParams
+      request:
+        "pipeline_id": string
+        "planner_config": string
+        "group": string
+        "params": ["PlannerParams"]
+        "replace": bool
+      response:
+    - srv: GetMotionPlan
+      request:
+        "motion_plan_request": ["MotionPlanRequest"]
+      response:
+        "motion_plan_response": ["MotionPlanResponse"]
+    - srv: CheckIfRobotStateExistsInWarehouse
+      request:
+        "name": string
+        "robot": string
+      response:
+        "exists": bool
+    - srv: GetCartesianPath
+      request:
+        "header": "std_msgs.Header"
+        "start_state": ["RobotState"]
+        "group_name": string
+        "link_name": string
+        "waypoints": ["geometry_msgs.Pose"]
+        "max_step": float64
+        "jump_threshold": float64
+        "prismatic_jump_threshold": float64
+        "revolute_jump_threshold": float64
+        "avoid_collisions": bool
+        "path_constraints": ["Constraints"]
+      response:
+        "start_state": ["RobotState"]
+        "solution": ["RobotTrajectory"]
+        "fraction": float64
+        "error_code": ["MoveItErrorCodes"]
+    - srv: ChangeDriftDimensions
+      request:
+        "drift_x_translation": bool
+        "drift_y_translation": bool
+        "drift_z_translation": bool
+        "drift_x_rotation": bool
+        "drift_y_rotation": bool
+        "drift_z_rotation": bool
+        "transform_jog_frame_to_drift_frame": ["geometry_msgs.Transform"]
+      response:
+        "success": bool
+    - srv: SaveRobotStateToWarehouse
+      request:
+        "name": string
+        "robot": string
+        "state": ["moveit_msgs.RobotState"]
+      response:
+        "success": bool
+
+    - action: Place
+      goal:
+        "group_name": string
+        "attached_object_name": string
+        "place_locations": ["PlaceLocation"]
+        "place_eef": bool
+        "support_surface_name": string
+        "allow_gripper_support_collision": bool
+        "path_constraints": ["Constraints"]
+        "planner_id": string
+        "allowed_touch_objects": [string]
+        "allowed_planning_time": float64
+        "planning_options": ["PlanningOptions"]
+      result:
+        "error_code": ["MoveItErrorCodes"]
+        "trajectory_start": ["RobotState"]
+        "trajectory_stages": ["RobotTrajectory"]
+        "trajectory_descriptions": [string]
+        "place_location": ["PlaceLocation"]
+        "planning_time": float64
+      feedback:
+        "state": string
+    - action: MoveGroupSequence
+      goal:
+        "request": ["MotionSequenceRequest"]
+        "planning_options": ["PlanningOptions"]
+      result:
+        "response": ["MotionSequenceResponse"]
+      feedback:
+        "state": string
+    - action: HybridPlanner
+      goal:
+        "planning_group": string
+        "motion_sequence": ["moveit_msgs.MotionSequenceRequest"]
+      result:
+        "error_code": ["moveit_msgs.MoveItErrorCodes"]
+        "error_message": string
+      feedback:
+        "feedback": string
+    - action: ExecuteTrajectory
+      goal:
+        "trajectory": ["RobotTrajectory"]
+      result:
+        "error_code": ["MoveItErrorCodes"]
+      feedback:
+        "state": string
+    - action: MoveGroup
+      goal:
+        "request": ["MotionPlanRequest"]
+        "planning_options": ["PlanningOptions"]
+      result:
+        "error_code": ["MoveItErrorCodes"]
+        "trajectory_start": ["moveit_msgs.RobotState"]
+        "planned_trajectory": ["moveit_msgs.RobotTrajectory"]
+        "executed_trajectory": ["moveit_msgs.RobotTrajectory"]
+        "planning_time": float64
+      feedback:
+        "state": string
+    - action: Pickup
+      goal:
+        "target_name": string
+        "group_name": string
+        "end_effector": string
+        "possible_grasps": ["moveit_msgs.Grasp"]
+        "support_surface_name": string
+        "allow_gripper_support_collision": bool
+        "attached_object_touch_links": [string]
+        "minimize_object_distance": bool
+        "path_constraints": ["Constraints"]
+        "planner_id": string
+        "allowed_touch_objects": [string]
+        "allowed_planning_time": float64
+        "planning_options": ["PlanningOptions"]
+      result:
+        "error_code": ["MoveItErrorCodes"]
+        "trajectory_start": ["RobotState"]
+        "trajectory_stages": ["RobotTrajectory"]
+        "trajectory_descriptions": [string]
+        "grasp": ["Grasp"]
+        "planning_time": float64
+      feedback:
+        "state": string
+    - action: GlobalPlanner
+      goal:
+        "planning_group": string
+        "motion_sequence": ["moveit_msgs.MotionSequenceRequest"]
+      result:
+        "response": ["moveit_msgs.MotionPlanResponse"]
+      feedback:
+        "feedback": string
+    - action: LocalPlanner
+      goal:
+        "local_constraints": ["Constraints"]
+      result:
+        "error_code": ["moveit_msgs.MoveItErrorCodes"]
+        "error_message": string
+      feedback:
+        "feedback": string

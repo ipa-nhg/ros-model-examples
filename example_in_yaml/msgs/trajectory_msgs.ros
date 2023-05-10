@@ -1,0 +1,25 @@
+trajectory_msgs:
+  specs:
+    - msg: JointTrajectoryPoint
+      message:
+        "positions": [float64]
+        "velocities": [float64]
+        "accelerations": [float64]
+        "effort": [float64]
+        "time_from_start": ["builtin_interfaces.Duration"]
+    - msg: JointTrajectory
+      message:
+        "header": "std_msgs.Header"
+        "joint_names": [string]
+        "points": ["JointTrajectoryPoint"]
+    - msg: MultiDOFJointTrajectory
+      message:
+        "header": "std_msgs.Header"
+        "joint_names": [string]
+        "points": ["MultiDOFJointTrajectoryPoint"]
+    - msg: MultiDOFJointTrajectoryPoint
+      message:
+        "transforms": ["geometry_msgs.Transform"]
+        "velocities": ["geometry_msgs.Twist"]
+        "accelerations": ["geometry_msgs.Twist"]
+        "time_from_start": ["builtin_interfaces.Duration"]

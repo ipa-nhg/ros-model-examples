@@ -1,0 +1,19 @@
+action_msgs:
+  specs:
+    - msg: GoalStatus
+      message:
+        "goal_info": ["GoalInfo"]
+        "status": int8
+    - msg: GoalStatusArray
+      message:
+        "status_list": ["GoalStatus"]
+    - msg: GoalInfo
+      message:
+        "goal_id": ["unique_identifier_msgs.UUID"]
+        "stamp": ["builtin_interfaces.Time"]
+    - srv: CancelGoal
+      request:
+        "goal_info": ["GoalInfo"]
+      response:
+        "return_code": int8
+        "goals_canceling": ["GoalInfo"]

@@ -1,0 +1,47 @@
+object_recognition_msgs:
+  specs:
+    - msg: ObjectType
+      message:
+        "key": string
+        "db": string
+    - msg: TableArray
+      message:
+        "header": "std_msgs.Header"
+        "tables": ["object_recognition_msgs.Table"]
+    - msg: Table
+      message:
+        "header": "std_msgs.Header"
+        "pose": ["geometry_msgs.Pose"]
+        "convex_hull": ["geometry_msgs.Point"]
+    - msg: RecognizedObjectArray
+      message:
+        "header": "std_msgs.Header"
+        "objects": ["object_recognition_msgs.RecognizedObject"]
+        "cooccurrence": [float32]
+    - msg: ObjectInformation
+      message:
+        "name": string
+        "ground_truth_mesh": ["shape_msgs.Mesh"]
+        "ground_truth_point_cloud": ["sensor_msgs.PointCloud2"]
+    - msg: RecognizedObject
+      message:
+        "header": "std_msgs.Header"
+        "type": ["object_recognition_msgs.ObjectType"]
+        "confidence": float32
+        "point_clouds": ["sensor_msgs.PointCloud2"]
+        "bounding_mesh": ["shape_msgs.Mesh"]
+        "bounding_contours": ["geometry_msgs.Point"]
+        "pose": ["geometry_msgs.PoseWithCovarianceStamped"]
+    - srv: GetObjectInformation
+      request:
+        "type": ["object_recognition_msgs.ObjectType"]
+      response:
+        "information": ["object_recognition_msgs.ObjectInformation"]
+
+    - action: ObjectRecognition
+      goal:
+        "use_roi": bool
+        "filter_limits": [float32]
+      result:
+        "recognized_objects": ["object_recognition_msgs.RecognizedObjectArray"]
+      feedback:
