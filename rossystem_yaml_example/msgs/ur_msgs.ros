@@ -1,0 +1,41 @@
+ur_msgs:
+  specs:
+     msg: RobotModeDataMsg
+       message:
+         # This data structure contains the RobotModeData structure # used by the Universal Robots controller # # This data structure is send at 10 Hz on TCP port 30002 # # Note: this message does not carry all fields from the RobotModeData structure as broadcast by the robot controller, but a subset. uint64 timestamp bool is_robot_connected bool is_real_robot_enabled bool is_power_on_robot bool is_emergency_stopped bool is_protective_stopped bool is_program_running bool is_program_paused
+     srv: SetIO
+       request:
+         # Service allows setting digital (DIO) and analog (AIO) IO, as well as flags # and configuring tool voltage. # # This service has three request fields (see below). # # When setting DIO or AIO pins to new values: # # fun The function to perform # pin Numeric ID of the pin to set, see constants definition below # state Desired pin state (signal level for analog or STATE_(ON|OFF) for DIO and flags) # # When configuring tool voltage: # # fun Set to FUN_SET_TOOL_VOLTAGE # pin Ignored # state Desired tool voltage (use STATE_TOOL_VOLTAGE constants) # constants # pin mapping # analog out int8 PIN_AOUT0=0 int8 PIN_AOUT1=1 # digital out int8 PIN_DOUT0=0 int8 PIN_DOUT1=1 int8 PIN_DOUT2=2 int8 PIN_DOUT3=3 int8 PIN_DOUT4=4 int8 PIN_DOUT5=5 int8 PIN_DOUT6=6 int8 PIN_DOUT7=7 # configurable out int8 PIN_CONF_OUT0=8 int8 PIN_CONF_OUT1=9 int8 PIN_CONF_OUT2=10 int8 PIN_CONF_OUT3=11 int8 PIN_CONF_OUT4=12 int8 PIN_CONF_OUT5=13 int8 PIN_CONF_OUT6=14 int8 PIN_CONF_OUT7=15 # digital tool output int8 PIN_TOOL_DOUT0=16 int8 PIN_TOOL_DOUT1=17 # valid function values # # Note: 'fun' is short for 'function' (ie: the function the service should perform). int8 FUN_SET_DIGITAL_OUT=1 int8 FUN_SET_FLAG=2 int8 FUN_SET_ANALOG_OUT=3 int8 FUN_SET_TOOL_VOLTAGE=4 # valid values for 'state' when setting digital IO or flags int8 STATE_OFF=0 int8 STATE_ON=1 # valid 'state' values when setting tool voltage int8 STATE_TOOL_VOLTAGE_0V=0 int8 STATE_TOOL_VOLTAGE_12V=12 int8 STATE_TOOL_VOLTAGE_24V=24 # request fields int8 fun int8 pin float32 state
+
+       response:
+         bool success
+     msg: MasterboardDataMsg
+       message:
+         # This data structure contains the MasterboardData structure # used by the Universal Robots controller # # MasterboardData is part of the data structure being send on the # secondary client communications interface # # This data structure is send at 10 Hz on TCP port 30002 # # Documentation can be found on the Universal Robots Support site, article # number 16496. uint32 digital_input_bits uint32 digital_output_bits int8 analog_input_range0 int8 analog_input_range1 float64 analog_input0 float64 analog_input1 int8 analog_output_domain0 int8 analog_output_domain1 float64 analog_output0 float64 analog_output1 float32 masterboard_temperature float32 robot_voltage_48v float32 robot_current float32 master_io_current uint8 master_safety_state uint8 master_onoff_state
+     msg: IOStates
+       message:
+         Digital[] digital_in_states Digital[] digital_out_states Digital[] flag_states Analog[] analog_in_states Analog[] analog_out_states
+     srv: SetPayload
+       request:
+         float32 mass "geometry_msgs.Vector3" center_of_gravity
+
+       response:
+         bool success
+     msg: ToolDataMsg
+       message:
+         # This data structure contains the ToolData structure # used by the Universal Robots controller int8 ANALOG_INPUT_RANGE_CURRENT=0 int8 ANALOG_INPUT_RANGE_VOLTAGE=1 int8 analog_input_range2 # one of ANALOG_INPUT_RANGE_* int8 analog_input_range3 # one of ANALOG_INPUT_RANGE_* float64 analog_input2 float64 analog_input3 float32 tool_voltage_48v uint8 tool_output_voltage float32 tool_current float32 tool_temperature uint8 TOOL_BOOTLOADER_MODE=249 uint8 TOOL_RUNNING_MODE=253 uint8 TOOL_IDLE_MODE=255 uint8 tool_mode # one of TOOL_*
+     msg: Analog
+       message:
+         uint8 CURRENT=0 uint8 VOLTAGE=1 uint8 pin uint8 domain # can be VOLTAGE or CURRENT float32 state
+     msg: Digital
+       message:
+         uint8 pin bool state
+     msg: RobotStateRTMsg
+       message:
+         # Data structure for the realtime communications interface (aka Matlab interface) # used by the Universal Robots controller # # This data structure is send at 125 Hz on TCP port 30003 # # Dokumentation can be found on the Universal Robots Support Wiki # "(http:..wiki03.lynero.net.Technical.RealTimeClientInterface?rev=9)" float64 time float64[] q_target float64[] qd_target float64[] qdd_target float64[] i_target float64[] m_target float64[] q_actual float64[] qd_actual float64[] i_actual float64[] tool_acc_values float64[] tcp_force float64[] tool_vector float64[] tcp_speed float64 digital_input_bits float64[] motor_temperatures float64 controller_timer float64 test_value float64 robot_mode float64[] joint_modes
+     srv: SetSpeedSliderFraction
+       request:
+         # Set the speed slider on the teach pendant to the specified value. # # Values for 'speed_slider_fraction' must be from [0; 1.0]; values outside this # valid range will result in an error being returned to the caller. float64 speed_slider_fraction
+
+       response:
+         bool success

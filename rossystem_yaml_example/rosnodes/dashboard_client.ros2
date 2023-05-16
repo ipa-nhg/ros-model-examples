@@ -1,0 +1,75 @@
+ur_robot_driver:
+  fromGitRepo: "https://github.com/UniversalRobots/Universal_Robots_ROS2_Driver"
+  artifacts:
+    dashboard_client:
+      node: dashboard_client
+        serviceservers:
+          "add_to_log":
+            type: "ur_dashboard_msgs.AddToLog"
+          "brake_release":
+            type: "std_srvs.Trigger"
+          "clear_operational_mode":
+            type: "std_srvs.Trigger"
+          "close_popup":
+            type: "std_srvs.Trigger"
+          "close_safety_popup":
+            type: "std_srvs.Trigger"
+          "connect":
+            type: "std_srvs.Trigger"
+          "describe_parameters":
+            type: "rcl_interfaces.DescribeParameters"
+          "get_loaded_program":
+            type: "ur_dashboard_msgs.GetLoadedProgram"
+          "get_parameter_types":
+            type: "rcl_interfaces.GetParameterTypes"
+          "get_parameters":
+            type: "rcl_interfaces.GetParameters"
+          "get_robot_mode":
+            type: "ur_dashboard_msgs.GetRobotMode"
+          "get_safety_mode":
+            type: "ur_dashboard_msgs.GetSafetyMode"
+          "list_parameters":
+            type: "rcl_interfaces.ListParameters"
+          "load_installation":
+            type: "ur_dashboard_msgs.Load"
+          "load_program":
+            type: "ur_dashboard_msgs.Load"
+          "pause":
+            type: "std_srvs.Trigger"
+          "play":
+            type: "std_srvs.Trigger"
+          "popup":
+            type: "ur_dashboard_msgs.Popup"
+          "power_off":
+            type: "std_srvs.Trigger"
+          "power_on":
+            type: "std_srvs.Trigger"
+          "program_running":
+            type: "ur_dashboard_msgs.IsProgramRunning"
+          "program_saved":
+            type: "ur_dashboard_msgs.IsProgramSaved"
+          "program_state":
+            type: "ur_dashboard_msgs.GetProgramState"
+          "quit":
+            type: "std_srvs.Trigger"
+          "raw_request":
+            type: "ur_dashboard_msgs.RawRequest"
+          "restart_safety":
+            type: "std_srvs.Trigger"
+          "set_parameters":
+            type: "rcl_interfaces.SetParameters"
+          "set_parameters_atomically":
+            type: "rcl_interfaces.SetParametersAtomically"
+          "shutdown":
+            type: "std_srvs.Trigger"
+          "stop":
+            type: "std_srvs.Trigger"
+          "unlock_protective_stop":
+            type: "std_srvs.Trigger"
+        parameters:
+          "receive_timeout":
+            type: Double
+          "robot_ip":
+            type: String
+          "use_sim_time":
+            type: Boolean

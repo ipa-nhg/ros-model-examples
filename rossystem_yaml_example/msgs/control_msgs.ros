@@ -1,0 +1,49 @@
+control_msgs:
+  specs:
+     msg: DynamicJointState
+       message:
+         "std_msgs.Header" header # List of resource names, e.g. ["arm_joint_1", "arm_joint_2", "gripper_joint"] string[] joint_names # Key-value pairs representing interfaces and their corresponding values for each joint listed in `joint_names` InterfaceValue[] interface_values
+     msg: PidState
+       message:
+         "std_msgs.Header" header "builtin_interfaces.Duration" timestep float64 error float64 error_dot float64 p_error float64 i_error float64 d_error float64 p_term float64 i_term float64 d_term float64 i_max float64 i_min float64 output
+     msg: JointTrajectoryControllerState
+       message:
+         "std_msgs.Header" header string[] joint_names "trajectory_msgs.JointTrajectoryPoint" desired "trajectory_msgs.JointTrajectoryPoint" actual "trajectory_msgs.JointTrajectoryPoint" error # Redundant, but useful string[] multi_dof_joint_names "trajectory_msgs.MultiDOFJointTrajectoryPoint" multi_dof_desired "trajectory_msgs.MultiDOFJointTrajectoryPoint" multi_dof_actual "trajectory_msgs.MultiDOFJointTrajectoryPoint" multi_dof_error # Redundant, but useful
+     srv: QueryTrajectoryState
+       request:
+         "builtin_interfaces.Time" time
+
+       response:
+         bool success # indicate successful run of triggered service string message # informational, e.g. for error messages string[] name float64[] position float64[] velocity float64[] acceleration
+     msg: JointJog
+       message:
+         # Used in time-stamping the message. "std_msgs.Header" header # Name list of the joints. You don't need to specify all joints of the # robot. Joint names are case-sensitive. string[] joint_names # A position command to the joints listed in joint_names. # The order must be identical. # Units are meters or radians. # If displacements and velocities are filled, a profiled motion is requested. float64[] displacements # or position_deltas # A velocity command to the joints listed in joint_names. # The order must be identical. # Units are "m.s" or "rad.s." # If displacements and velocities are filled, a profiled motion is requested. float64[] velocities float64 duration
+     msg: InterfaceValue
+       message:
+         # List of resource interface names string[] interface_names # Values corresponding to the list of interfaces in `interface_names`, [1.0, 0.0] for example float64[] values
+     srv: QueryCalibrationState
+       request:
+
+       response:
+         bool is_calibrated
+     msg: GripperCommand
+       message:
+         float64 position float64 max_effort
+     msg: JointControllerState
+       message:
+         # This message presents current controller state of one joint. # Header timestamp should be update time of controller state "std_msgs.Header" header # The set point, that is, desired state. float64 set_point # Current value of the process (ie: latest sensor measurement on the controlled value). float64 process_value # First time-derivative of the process value. float64 process_value_dot # The error of the controlled value, essentially process_value - set_point (for a regular PID implementation). float64 error # Time between two consecutive "updates.execution" of the control law. float64 time_step # Current output of the controller. float64 command # Current PID parameters of the controller. float64 p float64 i float64 d float64 i_clamp bool antiwindup
+     msg: JointComponentTolerance
+       message:
+         # Version of JointTolerance.msg with added component field for joints with multiple degrees of freedom # The difference between two MultiDOFJointTrajectoryPoint cannot be represented as a single number, # hence we use the component field to represent how to calculate the difference in a way that can # be represented as a single number. # Since each joint has multiple degrees of freedom, # there can be multiple tolerances for each joint, each looking # at different components. # If the component is X_AXIS, Y_AXIS, or Z_AXIS, then the tolerance # is only applied for the specific axis. # However, if the component is TRANSLATION, then the tolerance is for # the overall Euclidean distance. # For these components, the units are meters, "meters.sec" and "meters.sec^2." # Z_AXIS is only valid with a floating joint, not planar. # If the component is ROTATION the tolerance is measured in # radians, "radians.sec" and "radians.sec^2," computed # between the difference in quaternions. uint16 X_AXIS=1 uint16 Y_AXIS=2 uint16 Z_AXIS=3 uint16 TRANSLATION=4 uint16 ROTATION=5 string joint_name uint16 component float64 position float64 velocity float64 acceleration
+     msg: SteeringControllerStatus
+       message:
+         "std_msgs.Header" header float64[] traction_wheels_position # positions of traction wheels if the robot is controlled by position float64[] traction_wheels_velocity # velocities of traction wheels if the robot is controlled by velocity float64[] steer_positions # positions of steering joints float64[] linear_velocity_command # value commanded to tractions joint float64[] steering_angle_command # values commanded to steering joints
+     msg: MecanumDriveControllerState
+       message:
+         "std_msgs.Header" header float64 front_left_wheel_velocity float64 back_left_wheel_velocity float64 back_right_wheel_velocity float64 front_right_wheel_velocity "geometry_msgs.Twist" reference_velocity
+     msg: JointTolerance
+       message:
+         # The tolerances specify the amount the position, velocity, and # accelerations can vary from the setpoints. For example, in the case # of trajectory control, when the actual position varies beyond # (desired position + position tolerance), the trajectory goal may # abort. # # There are two special values for tolerances: # common_msgs.ros controller_manager_msgs.ros control_msgs.ros dynamic_reconfigure.ros generate_messages_model_helper_ros1.sh generate_messages_model_helper.sh map_msgs.ros move_base_msgs.ros nodelet.ros ros_core.ros theora_image_transport.ros 0 - The tolerance is unspecified and will remain at whatever the default is # common_msgs.ros controller_manager_msgs.ros control_msgs.ros dynamic_reconfigure.ros generate_messages_model_helper_ros1.sh generate_messages_model_helper.sh map_msgs.ros move_base_msgs.ros nodelet.ros ros_core.ros theora_image_transport.ros -1 - The tolerance is "erased". If there was a default, the joint will be # allowed to move without restriction. string name float64 position # in radians or meters (for a revolute or prismatic joint, respectively) float64 velocity # in "rad.sec" or "m.sec" float64 acceleration # in "rad.sec^2" or "m.sec^2"
+     msg: AdmittanceControllerState
+       message:
+         # Admittance parameters "std_msgs.Float64MultiArray" mass # 6-vector of mass terms used in the admittance calculation "std_msgs.Float64MultiArray" damping # 6-vector of damping terms used in the admittance calculation "std_msgs.Float64MultiArray" stiffness # 6-vector of stiffness terms used in the admittance calculation # Frame information "geometry_msgs.Quaternion" rot_base_control # quaternion describing the orientation of the control frame "geometry_msgs.TransformStamped" ref_trans_base_ft # force torque sensor transform at the reference joint configuration "std_msgs.Int8MultiArray" selected_axes # 6-vector of "0.1" describing if admittance is enable in the corresponding control frame axis "std_msgs.String" ft_sensor_frame # name of the force torque frame # State information "geometry_msgs.TransformStamped" admittance_position # calculated admittance position in cartesian space "geometry_msgs.TwistStamped" admittance_acceleration # calculated admittance acceleration in cartesian space "geometry_msgs.TwistStamped" admittance_velocity # calculated admittance velocity in cartesian space "geometry_msgs.WrenchStamped" wrench_base # wrench used in the admittance calculation "sensor_msgs.JointState" joint_state # calculated admittance offsets in joint space

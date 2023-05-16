@@ -1,0 +1,37 @@
+ur_controllers:
+  fromGitRepo: "https://github.com/UniversalRobots/Universal_Robots_ROS2_Driver"
+  artifacts:
+    plugin:
+      node: GPIOController
+        subscribers:
+          "parameter_events":
+            type: "rcl_interfaces.ParameterEvent"
+        publishers:
+          "io_states":
+            type: "ur_msgs.IOStates"
+          "robot_mode":
+            type: "ur_dashboard_msgs.RobotMode"
+          "robot_program_running":
+            type: "std_msgs.Bool"
+          "safety_mode":
+            type: "ur_dashboard_msgs.SafetyMode"
+          "tool_data":
+            type: "ur_msgs.ToolDataMsg"
+          "transition_event":
+            type: "lifecycle_msgs.TransitionEvent"
+        serviceservers:
+          "resend_robot_program":
+            type: "std_srvs.Trigger"
+          "set_io":
+            type: "ur_msgs.SetIO"
+          "set_payload":
+            type: "ur_msgs.SetPayload"
+          "set_speed_slider":
+            type: "ur_msgs.SetSpeedSliderFraction"
+        parameters:
+          "robot_description":
+            type: String
+          "update_rate":
+            type: Integer
+          "use_sim_time":
+            type: Boolean

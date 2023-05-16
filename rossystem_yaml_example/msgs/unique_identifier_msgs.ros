@@ -1,0 +1,5 @@
+unique_identifier_msgs:
+  specs:
+     msg: UUID
+       message:
+         uint8[] uuid
