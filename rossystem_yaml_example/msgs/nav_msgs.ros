@@ -1,0 +1,41 @@
+nav_msgs:
+  specs:
+     msg: Path
+       message:
+         # An array of poses that represents a Path for a robot to follow. # Indicates the frame_id of the path. "std_msgs.Header" header # Array of poses to follow. "geometry_msgs.PoseStamped"[] poses
+     msg: MapMetaData
+       message:
+         # This hold basic information about the characteristics of the OccupancyGrid # The time at which the map was loaded "builtin_interfaces.Time" map_load_time # The map resolution [] float32 resolution # Map width [] uint32 width # Map height [] uint32 height # The origin of the map [m, m, rad]. This is the real-world pose of the # bottom left corner of cell (0,0) in the map. "geometry_msgs.Pose" origin
+     msg: OccupancyGrid
+       message:
+         # This represents a 2-D grid map "std_msgs.Header" header # MetaData for the map MapMetaData info # The map data, in row-major order, starting with (0,0). # Cell (1, 0) will be listed second, representing the next cell in the x direction. # Cell (0, 1) will be at the index equal to info.width, followed by (1, 1). # The values inside are application dependent, but frequently, # 0 represents unoccupied, 1 represents definitely occupied, and # -1 represents unknown. int8[] data
+     srv: LoadMap
+       request:
+         # URL of map resource # Can be an absolute path to a file: "file:...path.to.maps.floor1.yaml" # Or, relative to a ROS package: "package:..my_ros_package.maps.floor2.yaml" string map_url
+
+       response:
+         # Result code defintions uint8 RESULT_SUCCESS=0 uint8 RESULT_MAP_DOES_NOT_EXIST=1 uint8 RESULT_INVALID_MAP_DATA=2 uint8 RESULT_INVALID_MAP_METADATA=3 uint8 RESULT_UNDEFINED_FAILURE=255 # Returned map is only valid if result equals RESULT_SUCCESS "nav_msgs.OccupancyGrid" map uint8 result
+     srv: SetMap
+       request:
+         # Set a new map together with an initial pose # Requested 2D map to be set. "nav_msgs.OccupancyGrid" map # Estimated initial pose when setting new map. "geometry_msgs.PoseWithCovarianceStamped" initial_pose
+
+       response:
+         # True if the map was successfully set, false otherwise. bool success
+     msg: Odometry
+       message:
+         # This represents an estimate of a position and velocity in free space. # The pose in this message should be specified in the coordinate frame given by header.frame_id # The twist in this message should be specified in the coordinate frame given by the child_frame_id # Includes the frame id of the pose parent. "std_msgs.Header" header # Frame id the pose points to. The twist is in this coordinate frame. string child_frame_id # Estimated pose that is typically relative to a fixed world frame. "geometry_msgs.PoseWithCovariance" pose # Estimated linear and angular velocity relative to child_frame_id. "geometry_msgs.TwistWithCovariance" twist
+     srv: GetMap
+       request:
+         # Get the map as a "nav_msgs.OccupancyGrid"
+
+       response:
+         # The current map hosted by this map service. OccupancyGrid map
+     srv: GetPlan
+       request:
+         # Get a plan from the current position to the goal Pose # The start pose for the plan "geometry_msgs.PoseStamped" start # The final pose of the goal position "geometry_msgs.PoseStamped" goal # If the goal is obstructed, how many meters the planner can # relax the constraint in x and y before failing. float32 tolerance
+
+       response:
+         # Array of poses from start to goal if one was successfully found. Path plan
+     msg: GridCells
+       message:
+         # An array of cells in a 2D grid "std_msgs.Header" header # Width of each cell float32 cell_width # Height of each cell float32 cell_height # Each cell is represented by the Point at the center of the cell "geometry_msgs.Point"[] cells

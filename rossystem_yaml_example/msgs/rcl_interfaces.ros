@@ -1,0 +1,71 @@
+rcl_interfaces:
+  specs:
+     msg: Parameter
+       message:
+         # This is the message to communicate a parameter. It is an open struct with an enum in # the descriptor to select which value is active. # The full name of the parameter. string name # The parameter's value which can be one of several types, see # `ParameterValue.msg` and `ParameterType.msg`. ParameterValue value
+     msg: ParameterValue
+       message:
+         # Used to determine which of the next *_value fields are set. # ParameterType.PARAMETER_NOT_SET indicates that the parameter was not set # (if gotten) or is uninitialized. # Values are enumerated in `ParameterType.msg`. # The type of this parameter, which corresponds to the appropriate field below. uint8 type # "Variant" style storage of the parameter value. Only the value corresponding # the type field will have valid information. # Boolean value, can be either true or false. bool bool_value # Integer value ranging from -9,223,372,036,854,775,808 to # 9,223,372,036,854,775,807. int64 integer_value # A double precision floating point value following IEEE 754. float64 double_value # A textual value with no practical length limit. string string_value # An array of bytes, used for non-textual information. byte[] byte_array_value # An array of boolean values. bool[] bool_array_value # An array of 64-bit integer values. int64[] integer_array_value # An array of 64-bit floating point values. float64[] double_array_value # An array of string values. string[] string_array_value
+     msg: ParameterType
+       message:
+         # These types correspond to the value that is set in the ParameterValue message. # Default value, which implies this is not a valid parameter. uint8 PARAMETER_NOT_SET=0 uint8 PARAMETER_BOOL=1 uint8 PARAMETER_INTEGER=2 uint8 PARAMETER_DOUBLE=3 uint8 PARAMETER_STRING=4 uint8 PARAMETER_BYTE_ARRAY=5 uint8 PARAMETER_BOOL_ARRAY=6 uint8 PARAMETER_INTEGER_ARRAY=7 uint8 PARAMETER_DOUBLE_ARRAY=8 uint8 PARAMETER_STRING_ARRAY=9
+     srv: SetParameters
+       request:
+         # A list of parameters to set. Parameter[] parameters
+
+       response:
+         # Indicates whether setting each parameter succeeded or not and why. SetParametersResult[] results
+     msg: ListParametersResult
+       message:
+         # The resulting parameters under the given prefixes. string[] names # The resulting prefixes under the given prefixes. # TODO(wjwwood): link to prefix definition and rules. string[] prefixes
+     msg: SetParametersResult
+       message:
+         # A true value of the same index indicates that the parameter was set # successfully. A false value indicates the change was rejected. bool successful # Reason why the setting was either successful or a failure. This should only be # used for logging and user interfaces. string reason
+     srv: ListParameters
+       request:
+         # Recursively get parameters with unlimited depth. uint64 DEPTH_RECURSIVE=0 # The list of parameter prefixes to query. string[] prefixes # Relative depth from given prefixes to return. # # Use DEPTH_RECURSIVE to get the recursive parameters and prefixes for each prefix. uint64 depth
+
+       response:
+         # The list of parameter names and their prefixes. ListParametersResult result
+     msg: ParameterEvent
+       message:
+         # This message contains a parameter event. # Because the parameter event was an atomic update, a specific parameter name # can only be in one of the three sets. # The time stamp when this parameter event occurred. "builtin_interfaces.Time" stamp # Fully qualified ROS path to node. string node # New parameters that have been set for this node. Parameter[] new_parameters # Parameters that have been changed during this event. Parameter[] changed_parameters # Parameters that have been deleted during this event. Parameter[] deleted_parameters
+     msg: Log
+       message:
+         ## ## Severity level constants ## ## These logging levels follow the Python Standard ## "https:..docs.python.org.3.library.logging.html#logging-levels" ## And are implemented in rcutils as well ## "https:..github.com.ros2.rcutils.blob.35f29850064e0c33a4063cbc947ebbfeada11dba.include.rcutils.logging.h#L164-L172" ## This leaves space for other standard logging levels to be inserted in the middle in the future, ## as well as custom user defined levels. ## Since there are several other logging enumeration standard for different implementations, ## other logging implementations may need to provide level mappings to match their internal implementations. ## # Debug is for pedantic information, which is useful when debugging issues. byte DEBUG=10 # Info is the standard informational level and is used to report expected # information. byte INFO=20 # Warning is for information that may potentially cause issues or possibly unexpected # behavior. byte WARN=30 # Error is for information that this node cannot resolve. byte ERROR=40 # Information about a impending node shutdown. byte FATAL=50 ## ## Fields ## # Timestamp when this message was generated by the node. "builtin_interfaces.Time" stamp # Corresponding log level, see above definitions. uint8 level # The name representing the logger this message came from. string name # The full log message. string msg # The file the message came from. string file # The function the message came from. string function # The line in the file the message came from. uint32 line
+     srv: GetParameterTypes
+       request:
+         # A list of parameter names. # TODO(wjwwood): link to parameter naming rules. string[] names
+
+       response:
+         # List of types which is the same length and order as the provided names. # # The type enum is defined in ParameterType.msg. ParameterType.PARAMETER_NOT_SET # indicates that the parameter is not currently set. uint8[] types
+     srv: GetParameters
+       request:
+         # TODO(wjwwood): Decide on the rules for grouping, nodes, and parameter "names" # in general, then link to that. # # For more information about parameters and naming rules, see: # "https:..design.ros2.org.articles.ros_parameters.html" # "https:..github.com.ros2.design.pull.241" # A list of parameter names to get. string[] names
+
+       response:
+         # List of values which is the same length and order as the provided names. If a # parameter was not yet set, the value will have PARAMETER_NOT_SET as the # type. ParameterValue[] values
+     msg: IntegerRange
+       message:
+         # Represents bounds and a step value for an integer typed parameter. # Start value for valid values, inclusive. int64 from_value # End value for valid values, inclusive. int64 to_value # Size of valid steps between the from and to bound. # # A step value of zero implies a continuous range of values. Ideally, the step # would be less than or equal to the distance between the bounds, as well as an # even multiple of the distance between the bounds, but neither are required. # # If the absolute value of the step is larger than or equal to the distance # between the two bounds, then the bounds will be the only valid values. e.g. if # the range is defined as {from_value: 1, to_value: 2, step: 5} then the valid # values will be 1 and 2. # # If the step is less than the distance between the bounds, but the distance is # not a multiple of the step, then the "to" bound will always be a valid value, # e.g. if the range is defined as {from_value: 2, to_value: 5, step: 2} then # the valid values will be 2, 4, and 5. uint64 step
+     msg: ParameterDescriptor
+       message:
+         # This is the message to communicate a parameter's descriptor. # The name of the parameter. string name # Enum values are defined in the `ParameterType.msg` message. uint8 type # Description of the parameter, visible from introspection tools. string description # Parameter constraints # Plain English description of additional constraints which cannot be expressed # with the available constraints, e.g. "only prime numbers". # # By convention, this should only be used to clarify constraints which cannot # be completely expressed with the parameter constraints below. string additional_constraints # If 'true' then the value cannot change after it has been initialized. bool read_only false # If true, the parameter is allowed to change type. bool dynamic_typing false # If any of the following sequences are not empty, then the constraint inside of # them apply to this parameter. # # FloatingPointRange and IntegerRange are mutually exclusive. # FloatingPointRange consists of a from_value, a to_value, and a step. FloatingPointRange[] floating_point_range # IntegerRange consists of a from_value, a to_value, and a step. IntegerRange[] integer_range
+     msg: FloatingPointRange
+       message:
+         # Represents bounds and a step value for a floating point typed parameter. # Start value for valid values, inclusive. float64 from_value # End value for valid values, inclusive. float64 to_value # Size of valid steps between the from and to bound. # # Step is considered to be a magnitude, therefore negative values are treated # the same as positive values, and a step value of zero implies a continuous # range of values. # # Ideally, the step would be less than or equal to the distance between the # bounds, as well as an even multiple of the distance between the bounds, but # neither are required. # # If the absolute value of the step is larger than or equal to the distance # between the two bounds, then the bounds will be the only valid values. e.g. if # the range is defined as {from_value: 1.0, to_value: 2.0, step: 5.0} then the # valid values will be 1.0 and 2.0. # # If the step is less than the distance between the bounds, but the distance is # not a multiple of the step, then the "to" bound will always be a valid value, # e.g. if the range is defined as {from_value: 2.0, to_value: 5.0, step: 2.0} # then the valid values will be 2.0, 4.0, and 5.0. float64 step
+     msg: ParameterEventDescriptors
+       message:
+         # This message contains descriptors of a parameter event. # It was an atomic update. # A specific parameter name can only be in one of the three sets. ParameterDescriptor[] new_parameters ParameterDescriptor[] changed_parameters ParameterDescriptor[] deleted_parameters
+     srv: SetParametersAtomically
+       request:
+         # A list of parameters to set atomically. # # This call will either set all values, or none of the values. Parameter[] parameters
+
+       response:
+         # Indicates whether setting all of the parameters succeeded or not and why. SetParametersResult result
+     srv: DescribeParameters
+       request:
+         # A list of parameters of which to get the descriptor. string[] names
+
+       response:
+         # A list of the descriptors of all parameters requested in the same order # as they were requested. This list has the same length as the list of # parameters requested. ParameterDescriptor[] descriptors

@@ -1,0 +1,73 @@
+controller_manager_msgs:
+  specs:
+     srv: ReloadControllerLibraries
+       request:
+         # The ReloadControllerLibraries service will reload all controllers that are available in # the system as plugins # Reloading libraries only works if there are no controllers loaded. If there # are still some controllers loaded, the reloading will fail. # If this bool is set to true, all loaded controllers will get # killed automatically, and the reloading can succeed. bool force_kill
+
+       response:
+         bool ok
+     srv: SetHardwareComponentState
+       request:
+         # The SetHardwareComponentState service allows to control life-cycle of a single hardware component. # Supported states are defined in the design document of LifecycleNodes available at: # "https:..design.ros2.org.articles.node_lifecycle.html" # To control life-cycle of a hardware component, specify its "name" and "target_state". # Target state may be defined by "id" using a constant from "`lifecycle_msgs.msg.State`" or a label # using definitions from "`hardware_interface.types.lifecycle_state_names.hpp`" file. # The return value "ok" indicates if the component has successfully changed its state to "target_state". # The return value "state" returns current state of the hardware component. string name "lifecycle_msgs.State" target_state
+
+       response:
+         bool ok "lifecycle_msgs.State" state
+     srv: ListHardwareComponents
+       request:
+         # The ListHardwareComponents service returns a list of hardware HardwareComponentsState. # This will convey name, component_type, state and type of the components # that are loaded inside the resource_manager.
+
+       response:
+         HardwareComponentState[] component
+     msg: HardwareInterface
+       message:
+         string name bool is_available bool is_claimed
+     srv: ListControllerTypes
+       request:
+         # The ListControllers service returns a list of controller types that are known # to the controller manager plugin mechanism.
+
+       response:
+         string[] types string[] base_classes
+     srv: ListHardwareInterfaces
+       request:
+
+       response:
+         HardwareInterface[] command_interfaces HardwareInterface[] state_interfaces
+     msg: ControllerState
+       message:
+         string name # controller name string state # controller state: unconfigured, inactive, active, or finalized string type # the controller class name, e.g. "joint_trajectory_controller.JointTrajectoryController" string[] claimed_interfaces # command interfaces currently owned by controller string[] required_command_interfaces # command interfaces required by controller string[] required_state_interfaces # state interfaces required by controller bool is_chainable # specifies whether or not controller can export references for a controller chain bool is_chained # specifies whether or not controller's exported references are claimed by another controller string[] reference_interfaces # references to be exported (only applicable if is_chainable is true) ChainConnection[] chain_connections # specifies list of controllers and their exported references that the controller is chained to
+     srv: UnloadController
+       request:
+         # The UnloadController service allows you to unload a single controller # from controller_manager # To unload a controller, specify the "name" of the controller. # The return value "ok" indicates if the controller was successfully # unloaded or not string name
+
+       response:
+         bool ok
+     msg: ChainConnection
+       message:
+         string name # name of controller exporting reference_interfaces string[] reference_interfaces # list of reference exported by controller
+     msg: HardwareComponentState
+       message:
+         string name string type string class_type "lifecycle_msgs.State" state HardwareInterface[] command_interfaces HardwareInterface[] state_interfaces
+     srv: ListControllers
+       request:
+         # The ListControllers service returns a list of controller "names.states.types" of the # controllers that are loaded inside the controller_manager.
+
+       response:
+         "controller_manager_msgs.ControllerState"[] controller
+     srv: SwitchController
+       request:
+         # The SwitchController service allows you deactivate a number of controllers # and activate a number of controllers, all in one single timestep of the # controller manager's control loop. # To switch controllers, specify # common_msgs.ros controller_manager_msgs.ros control_msgs.ros dynamic_reconfigure.ros generate_messages_model_helper_ros1.sh generate_messages_model_helper.sh map_msgs.ros move_base_msgs.ros nodelet.ros ros_core.ros theora_image_transport.ros the list of controller names to activate, # common_msgs.ros controller_manager_msgs.ros control_msgs.ros dynamic_reconfigure.ros generate_messages_model_helper_ros1.sh generate_messages_model_helper.sh map_msgs.ros move_base_msgs.ros nodelet.ros ros_core.ros theora_image_transport.ros the list of controller names to deactivate, and # common_msgs.ros controller_manager_msgs.ros control_msgs.ros dynamic_reconfigure.ros generate_messages_model_helper_ros1.sh generate_messages_model_helper.sh map_msgs.ros move_base_msgs.ros nodelet.ros ros_core.ros theora_image_transport.ros the strictness (BEST_EFFORT or STRICT) # common_msgs.ros controller_manager_msgs.ros control_msgs.ros dynamic_reconfigure.ros generate_messages_model_helper_ros1.sh generate_messages_model_helper.sh map_msgs.ros move_base_msgs.ros nodelet.ros ros_core.ros theora_image_transport.ros STRICT means that switching will fail if anything goes wrong (an invalid # controller name, a controller that failed to activate, etc. ) # common_msgs.ros controller_manager_msgs.ros control_msgs.ros dynamic_reconfigure.ros generate_messages_model_helper_ros1.sh generate_messages_model_helper.sh map_msgs.ros move_base_msgs.ros nodelet.ros ros_core.ros theora_image_transport.ros BEST_EFFORT means that even when something goes wrong with on controller, # the service will still try to "activate.stop" the remaining controllers # common_msgs.ros controller_manager_msgs.ros control_msgs.ros dynamic_reconfigure.ros generate_messages_model_helper_ros1.sh generate_messages_model_helper.sh map_msgs.ros move_base_msgs.ros nodelet.ros ros_core.ros theora_image_transport.ros activate the controllers as soon as their hardware dependencies are ready, will # wait for all interfaces to be ready otherwise # common_msgs.ros controller_manager_msgs.ros control_msgs.ros dynamic_reconfigure.ros generate_messages_model_helper_ros1.sh generate_messages_model_helper.sh map_msgs.ros move_base_msgs.ros nodelet.ros ros_core.ros theora_image_transport.ros the timeout before aborting pending controllers. Zero for infinite # The return value "ok" indicates if the controllers were switched # successfully or not. The meaning of success depends on the # specified strictness. string[] activate_controllers string[] deactivate_controllers string[] start_controllers # DEPRECATED: Use activate_controllers filed instead string[] stop_controllers # DEPRECATED: Use deactivate_controllers filed instead int32 strictness int32 BEST_EFFORT=1 int32 STRICT=2 bool start_asap # DEPRECATED: Use activate_asap filed instead bool activate_asap "builtin_interfaces.Duration" timeout
+
+       response:
+         bool ok
+     srv: ConfigureController
+       request:
+         # The ConfigureController service allows you to configure a single controller # inside controller_manager # To configure a controller, specify the "name" of the controller. # The return value "ok" indicates if the controller was successfully # configured or not. string name
+
+       response:
+         bool ok
+     srv: LoadController
+       request:
+         # The LoadController service allows you to load a single controller # inside controller_manager # To load a controller, specify the "name" of the controller. # The return value "ok" indicates if the controller was successfully # constructed and initialized or not. string name
+
+       response:
+         bool ok
