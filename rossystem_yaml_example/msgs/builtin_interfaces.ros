@@ -1,8 +1,0 @@
-builtin_interfaces:
-  specs:
-     msg: Duration
-       message:
-         int32 sec uint32 nanosec
-     msg: Time
-       message:
-         int32 sec uint32 nanosec

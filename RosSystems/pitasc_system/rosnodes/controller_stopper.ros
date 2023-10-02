@@ -1,9 +1,0 @@
-PackageSet {
-  CatkinPackage controller_stopper {
-    Artifact controller_stopper_node {
-      Node { name controller_stopper_node
-        Subscribers {
-          Subscriber { name 'robot_running' message 'std_msgs.Bool'}}
-        Parameters {
-        	Parameter { name 'consistent_controllers' type List {String,String,String,String}}
-}}}}}

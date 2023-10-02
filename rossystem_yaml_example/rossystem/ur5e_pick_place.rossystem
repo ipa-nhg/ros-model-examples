@@ -1,9 +1,0 @@
-robot_skill:
-  nodes:
-    pick_place:
-      from: "pick_n_place_task.pick_place_app.pick_place_task_demo"
-      interfaces:
-        marker_pose:
-          fromPub: "aruco_ros.marker_publisher.marker_publisher.markers"
-        control_gripper:
-          fromSS: "ur_controllers.plugin.GPIOController.set_io"

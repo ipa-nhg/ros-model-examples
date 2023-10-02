@@ -1,7 +1,0 @@
-ComponentInterface { name minimal_publisher
-	FromRosNode "examples_rclpy_minimal_subscriber.subscriber_lambda.minimal_publisher"
-	RosPublishers{
-		RosPublisher "minimal_publisher" { RefPublisher "examples_rclpy_minimal_subscriber.subscriber_lambda.minimal_publisher.minimal_publisher"}
-	}
-	
-}

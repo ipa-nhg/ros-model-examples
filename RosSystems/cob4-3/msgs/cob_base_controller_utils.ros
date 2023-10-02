@@ -1,5 +1,0 @@
-PackageSet {
-    Package cob_base_controller_utils{ Specs {
-      TopicSpec WheelCommands{}
-    }}
-}
