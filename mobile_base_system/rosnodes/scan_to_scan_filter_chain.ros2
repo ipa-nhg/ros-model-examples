@@ -1,0 +1,21 @@
+laser_filters:
+    artifacts:
+      scan_to_scan_filter_chain:
+        node: laser_filter
+        publishers:
+          '/scan_filtered':
+            type: 'sensor_msgs/msg/LaserScan'
+        subscribers:
+          'scan':
+            type: 'sensor_msgs/msg/LaserScan'
+        parameters:
+          'shadows/min_angle':
+            type: Double
+          'shadows/remove_shadow_start_point':
+            type: Boolean
+          'shadows/neighbors':
+            type: Integer
+          'shadows/max_angle':
+            type: Double
+          'shadows/window':
+            type: Integer

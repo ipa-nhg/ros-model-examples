@@ -1,0 +1,12 @@
+map_server:
+  artifacts:
+    map_server:
+      node: map_server
+      serviceservers:
+        static_map:
+          type: "nav_msgs/srv/GetMap"
+      publishers:
+        map_metadata:
+          type: 'nav_msgs/msg/MapMetaData'
+        map:
+          type: 'nav_msgs/msg/OccupancyGrid'

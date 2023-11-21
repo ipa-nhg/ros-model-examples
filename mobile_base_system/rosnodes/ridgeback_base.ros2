@@ -1,0 +1,24 @@
+ridgeback_base:
+  artifacts:
+    ridgeback_node:
+      node: ridgeback_node
+      publishers:
+        'joint_states':
+          type: 'sensor_msgs/msg/JointState'
+        'mcu/cmd_fans':
+           type: 'ridgeback_msgs/msg/Fans'
+        'mcu/cmd_lights':
+          type: 'ridgeback_msgs/msg/Lights'
+        'wifi_connected':
+          type: 'std_msgs/msg/Bool'
+      subscribers:
+        'status':
+          type: 'puma_motor_msgs/msg/MultiStatus'
+        'cmd_vel':
+          type: 'geometry_msgs/msg/Twist'
+        'mcu/status':
+          type: 'ridgeback_msgs/msg/Status'
+        '/imu/data_raw':
+          type: 'sensor_msgs/msg/Imu'
+        'cmd_lights':
+          type: 'ridgeback_msgs/msg/Lights'

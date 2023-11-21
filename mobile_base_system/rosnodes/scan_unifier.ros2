@@ -1,0 +1,14 @@
+cob_scan_unifier:
+    artifacts:
+      scan_unifier_node:
+        node: scan_unifier_node 
+        publishers:
+          scan_unified:
+            type: "sensor_msgs/msg/LaserScan"
+        subscribers:
+          scan3:
+            type: "sensor_msgs/msg/LaserScan"
+          scan1:
+            type: "sensor_msgs/msg/LaserScan"
+          scan2:
+            type: "sensor_msgs/msg/LaserScan"

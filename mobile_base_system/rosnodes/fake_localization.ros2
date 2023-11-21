@@ -1,0 +1,25 @@
+fake_localization:
+  artifacts:
+    fake_localization:
+        node: fake_localization
+        publishers:
+          '/amcl_pose':
+            type:'geometry_msgs/msg/PoseWithCovarianceStamped'
+          '/particlecloud':
+            type:'geometry_msgs/msg/PoseArray'
+        subscribers:
+          '/ground_truth/state':
+            type: "nav_msgs/msg/Odometry"
+          '/initialpose':
+            type:'geometry_msgs/msg/PoseWithCovarianceStamped'
+        parameters:
+          'delta_yaw':
+            type: Double
+          'global_frame_id':
+            type: String 
+          'base_frame_id':
+            type: String
+          'delta_x':
+            type: Double
+          'delta_y':
+            type: Double

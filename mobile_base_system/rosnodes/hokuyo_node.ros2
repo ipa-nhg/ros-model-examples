@@ -1,0 +1,7 @@
+hokuyo_node:
+  artifacts:
+    hokuyo_node:
+      node:hokuyo_node
+      publishers:
+        'scan':
+          type: 'sensor_msgs/msg/LaserScan'
