@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>cob_teleop_robot</name>
+	<name>MOBI01</name>
 	<comment></comment>
 	<projects>
 		<project>de.fraunhofer.ipa.ros.communication.objects</project>

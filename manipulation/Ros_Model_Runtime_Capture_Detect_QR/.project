@@ -4,6 +4,8 @@
 	<comment></comment>
 	<projects>
 		<project>de.fraunhofer.ipa.ros.communication.objects</project>
+		<project>MANI02_PILZ</project>
+		<project>MANI02_UR</project>
 		<project>RosModelsCatalog</project>
 		<project>UserStory02_#1</project>
 	</projects>

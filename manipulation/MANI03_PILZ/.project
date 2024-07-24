@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>UserStory03_#14_PILZ</name>
+	<name>MANI03_PILZ</name>
 	<comment></comment>
 	<projects>
 		<project>de.fraunhofer.ipa.ros.communication.objects</project>
